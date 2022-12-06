@@ -10,7 +10,7 @@ class Shop(models.Model):
     name = models.CharField(verbose_name='Shop Name', max_length=100)
     location = models.PointField()
     address = models.CharField(max_length=100)
-    Open = models.BooleanField()
+    Open = models.BooleanField(verbose_name='Is the shop is open?')
     capacity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
