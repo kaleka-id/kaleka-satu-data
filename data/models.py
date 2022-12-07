@@ -7,8 +7,8 @@ class Shop(models.Model):
         verbose_name = 'Testing - Shop'
         verbose_name_plural = 'Testing - Shop'
 
-    name = models.CharField(verbose_name='Shop Name', max_length=100)
-    location = models.PointField()
+    name_shop = models.CharField(verbose_name='Shop Name', max_length=100)
+    geom = models.PointField(verbose_name='Location', null=True, blank=True)
     address = models.CharField(max_length=100)
     Open = models.BooleanField(verbose_name='Is the shop is open?')
     capacity = models.IntegerField()
@@ -17,4 +17,4 @@ class Shop(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.name_shop

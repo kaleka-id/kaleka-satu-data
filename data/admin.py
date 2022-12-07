@@ -5,4 +5,4 @@ from .models import Shop
 # Register your models here.
 @admin.register(Shop)
 class ShopAdmin(OSMGeoAdmin):
-    list_display = ('name', 'location', 'updated_at', 'user')
+    list_display = ('name_shop', 'geom', 'updated_at', 'user')
