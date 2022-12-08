@@ -1,5 +1,6 @@
 from django.contrib import admin
-from django.db import models
+from django.contrib.gis.admin import OSMGeoAdmin
+from django.contrib.gis.db import models
 import uuid
 from django.contrib.auth.models import User
 from .spesies import Spesies
@@ -28,13 +29,13 @@ class IUCN(models.Model):
     tanggal_asesmen = models.DateField()
     referensi_asesmen = models.TextField()
     habitat_asal = models.ManyToManyField(Negara)
-    lokasi_geografis = models.TextField(blank=True, help_text='Saat ini tolong diisikan dengan koordinat Well-known Text (WKT) Geografis WGS84. Ke depan akan diganti dengan fitur digitasi spasial')
+    geom = models.PolygonField(verbose_name='Sebaran Geografis', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 @admin.register(IUCN)
-class IUCNModel(admin.ModelAdmin):
+class IUCNModel(OSMGeoAdmin):
     search_fields = ('spesies',)
     ordering = ('spesies',)
     list_filter = ('kategori', 'tanggal_asesmen', 'referensi_asesmen', 'habitat_asal', 'created_at', 'updated_at', 'user')

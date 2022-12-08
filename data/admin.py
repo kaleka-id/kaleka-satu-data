@@ -1,12 +1,3 @@
-from django.contrib import admin
-from django.contrib.gis.admin import OSMGeoAdmin
-from .models import Shop
-
-# Register your models here.
-@admin.register(Shop)
-class ShopAdmin(OSMGeoAdmin):
-    list_display = ('name_shop', 'geom', 'updated_at', 'user')
-
 # REGISTER DATASET KE SINI -- agar bisa dibaca di Admin Page
 from .dataset.alamat import *
 from .dataset.anggota_keluarga import *

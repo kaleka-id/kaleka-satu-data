@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.db import models
 import uuid
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User 
+
 
 class Alamat(models.Model):
     class Meta:
