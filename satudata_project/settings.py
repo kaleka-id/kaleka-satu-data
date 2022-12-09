@@ -12,21 +12,21 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+from .secret import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&#w%i-&3j8i-1mir7z15h8e4w7k*-u*vf3x-p2@1)ukj*+327#'
+SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = secret_debug
 
-ALLOWED_HOSTS = ['34.128.124.116', 'kaleka.azfaiz.com']
+ALLOWED_HOSTS = secret_allowed_host
 
 
 # Application definition
@@ -93,11 +93,11 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'satudata',
-        'USER': 'postgres',
-        'PASSWORD': 'mGt<"QllLGV/^]AC',
-        'HOST': '127.0.0.1',
-        'PORT': '5433'
+        'NAME': secret_name,
+        'USER': secret_user,
+        'PASSWORD': secret_password,
+        'HOST': secret_host,
+        'PORT': secret_port,
     }
 }
 
