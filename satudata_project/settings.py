@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     # Created Apps
     'data',
+    'operation',
 ]
 
 MIDDLEWARE = [
