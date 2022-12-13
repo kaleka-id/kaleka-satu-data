@@ -135,9 +135,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = '/opt/django/django-kaleka-data/site/public/static'
+STATICFILES_DIRS = (
+  os.path.join(BASE_DIR, 'site/public/static/'),
+)
+
 MEDIA_URL = 'media/'
-MEDIA_ROOT = '/opt/django/django-kaleka-data/site/public/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'site/public/media')
+# MEDIA_ROOT = '/opt/django/django-kaleka-data/site/public/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -147,3 +151,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Django Admin Interface
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
+
+# GDAL for Testing in Windows
+if os.name == 'nt':
+    OSGEO4W = r"C:\OSGeo4W"
+    assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
+    GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal306.dll'
+    os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']

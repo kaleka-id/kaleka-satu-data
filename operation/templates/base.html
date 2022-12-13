@@ -1,0 +1,18 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{%block title%}{%endblock title%}</title>
+    <!-- Bootstraps CSS -->
+    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    {%include 'navbar.html'%}
+    {%block head%}{%endblock head%}
+  </head>
+  <body>
+    {%block body%}{%endblock body%}
+    <!-- Bootstraps JS -->
+    <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>
