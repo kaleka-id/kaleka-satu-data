@@ -20,22 +20,26 @@
           <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
         </form>
 
-        <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">Login</button>
-          <button type="button" class="btn btn-warning">Sign-up</button>
-        </div>
-
-        <!-- <div class="dropdown text-end">
+        {% if request.user.is_authenticated %}
+        <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-white" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{% static 'bootstrap/image/user.png' %}" width="32" height="32" class="rounded-circle">Testing
+            <img src="{% static 'bootstrap/image/user.png' %}" width="32" height="32" class="rounded-circle"> {{request.user.username}}
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
             <li><a class="dropdown-item" href="#">Change Password</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
           </ul>
-        </div> -->
+        </div>
+
+        {% else %}
+        <div class="text-end">
+          <a href="{% url 'login' %}">
+            <button type="button" class="btn btn-outline-warning">Login</button>
+          </a>
+        </div>
+        {% endif %}
         
       </div>
     </div>
