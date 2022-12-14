@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block head %}
+<style>
+  .page{
+    font-family: 'Courier New', Courier, monospace;
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>Daftar Artikel</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Kode</th>
+        <th scope="col">Nama</th>
+        <th scope="col">Update Terakhir</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in artikel %}
+        <tr>
+          <th scope="row"><a href="{% url 'testing_artikel_detail' data.slug %}">{{data.id}}</a></th>
+          <td>{{data.kode}}</td>
+          <td>{{data.nama}}</td>
+          <td>{{data.updated_at}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+{% endblock body %}

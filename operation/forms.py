@@ -1,5 +1,6 @@
 from django import forms
 
-class loginForm(forms.Form):
-  username = forms.CharField()
-  password = forms.CharField(widget=forms.PasswordInput)
+class testingForm(forms.Form):
+  kode = forms.CharField(max_length=5)
+  nama = forms.CharField(max_length=30)
+  deskripsi = forms.CharField()

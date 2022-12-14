@@ -5,16 +5,17 @@
 
 {% block head %}
 <style>
-  .page{
+  /* .page{
     font-family: 'Courier New', Courier, monospace;
-  }
+  } */
 </style>
 {% endblock head %}
 
 {% block body %}
 <div class="container page mt-4">
-  <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="200px">
-  <h1>User Logout</h1>
-  <p>You have been logged out. You can login again in <a href="{% url 'login' %}">here</a></p>
+  <h1>{{artikel.nama}} ({{artikel.kode}})</h1>
+  <h6>Terakhir diupdate pada {{artikel.updated_at}}</h6>
+  <p>{{artikel.deskripsi}}</p>
+  <p>Artikel ini dikelola oleh <b><i>{{artikel.user}}</i></b></p>
 </div>
 {% endblock body %}

@@ -7,6 +7,7 @@
         <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" style="height: 40px;">
       </a>          
 
+      {% if request.user.is_authenticated %}
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="/" class="nav-link px-2 text-secondary">Kaleka Satu Data</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Catalogs</a></li>
@@ -15,6 +16,13 @@
         <li><a href="#" class="nav-link px-2 text-white">Forms</a></li>
         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
       </ul>
+      
+      {% else %}
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 text-secondary">Kaleka Satu Data</a></li>
+      </ul>
+
+      {% endif %}
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
@@ -26,7 +34,7 @@
             <img src="{% static 'bootstrap/image/user.png' %}" width="32" height="32" class="rounded-circle"> {{request.user.username}}
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-            <li><a class="dropdown-item" href="#">Change Password</a></li>
+            <li><a class="dropdown-item" href="{% url 'password-change' %}">Change Password</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
