@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Login{% endblock title %}
+{% block title %}Testing Artikel{% endblock title %}
 
 {% block head %}
 <style>
@@ -14,6 +14,7 @@
 {% block body %}
 <div class="container page mt-4">
   <h1>Daftar Artikel</h1>
+  <a href="{% url 'testing_artikel_form' %}" class="btn btn-success">Add Article</a>
   <table class="table table-striped">
     <thead>
       <tr>

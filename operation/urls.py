@@ -14,6 +14,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('password-change/', PasswordChangeView.as_view(), name='password-change'),
     path('password-change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
-    path('dataset/testing-artikel', testingArtikel, name='testing_artikel_list'),
+    path('dataset/testing-artikel/', testingArtikel, name='testing_artikel_list'),
     path('dataset/testing-artikel/<slug:slug>/', testingArtikelDetail, name='testing_artikel_detail'),
+    path('dataset/testing-artikel-add/', article_form, name='testing_artikel_form'),
 ]

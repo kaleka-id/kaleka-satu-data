@@ -14,12 +14,12 @@
 
 {% block body %}
 <div class="container page mt-4">
-  <h1>Change Password</h1>
-  <p>Change your password</p>
+  <h1>Add Article</h1>
+  <p>Add your article here</p>
   <form action="" method="post">
     {{form | crispy}}
     {% csrf_token %}
-    <input type="submit" value="Submit" class="btn btn-success">
+    <input type="submit" value="Add Article" class="btn btn-success">
   </form>
 </div>
 {% endblock body %}
