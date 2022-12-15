@@ -22,7 +22,9 @@
   <h1>Daftar Artikel</h1>
   <div class="p-1">
     <a class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Form List</a>
-    <a href="{% url 'testing_artikel_form' %}" class="btn btn-sm btn-outline-success">Add Article</a>
+    {% if perms.data.add_testing %}
+      <a href="{% url 'testing_artikel_form' %}" class="btn btn-sm btn-outline-success">Add Article</a>
+    {% endif %}
     <input class="form-control-sm" type="search" placeholder="Search" aria-label="Search">
   </div>
   <div class="table-responsive table-scrollable">

@@ -1,5 +1,11 @@
 {% load static %}
 
+<style>
+  .card-hover:hover {
+    background-color: orange;
+  }
+</style>
+
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdroa="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
   <header class="offcanvas-header pb-0">
     <h4 class="offcanvas-title">
@@ -10,12 +16,13 @@
   </header>
   <div class="offcanvas-body">
     <!-- TESTING ARTIKEL -->
-    {% if perms.data.can_view_Testing_Data %}
-    <div class="card bg-light">
-      <a class="card-body text-black text-decoration-none p-2" href="{% url 'testing_artikel_list' %}">
+    {% if perms.data.view_testing %}
+    <div class="card bg-light mb-2">
+      <a class="card-body text-black text-decoration-none p-2 card-hover" href="{% url 'testing_artikel_list' %}">
         Testing - Artikel
       </a>
     </div>
     {% endif %}
+    
   </div>
 </div>

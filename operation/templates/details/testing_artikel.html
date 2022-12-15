@@ -15,6 +15,14 @@
 <div class="container page mt-4">
   <h1>{{artikel.nama}} ({{artikel.kode}})</h1>
   <h6>Terakhir diupdate pada {{artikel.updated_at}}</h6>
+  <div>
+    {% if perms.data.change_testing %}
+      <a class="btn btn-outline-info btn-sm" href="{% url 'testing_artikel_form_update' artikel.slug %}">Update Data</a>
+    {% endif %}
+    {% if perms.data.delete_testing %}
+      <a class="btn btn-outline-danger btn-sm" href="{% url 'testing_artikel_form_delete' artikel.slug %}">Delete Data</a>
+    {% endif %}
+  </div>
   <p>{{artikel.deskripsi}}</p>
   <p>Artikel ini dikelola oleh <b><i>{{artikel.user}}</i></b></p>
 </div>
