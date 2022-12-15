@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Testing Artikel{% endblock title %}
+
+{% block head %}
+<style>
+  .page{
+    font-family: 'Courier New', Courier, monospace;
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container mt-4">
+  <div class="page mt-4">
+    <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="200px">
+    <h1>This is Forms Page</h1>
+    <p>Click the button below to see the form you can manage</p>
+  </div>
+  <a class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Form List</a>
+  {%include 'menu/forms_sidebar.html'%}
+</div>
+{% endblock body %}

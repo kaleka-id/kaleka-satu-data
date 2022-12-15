@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdroa="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <header class="offcanvas-header pb-0">
+    <h4 class="offcanvas-title">
+      <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" style="height: 40px;">
+      Form Data
+    </h4>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </header>
+  <div class="offcanvas-body">
+    <!-- TESTING ARTIKEL -->
+    {% if perms.data.can_view_Testing_Data %}
+    <div class="card bg-light">
+      <a class="card-body text-black text-decoration-none p-2" href="{% url 'testing_artikel_list' %}">
+        Testing - Artikel
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>

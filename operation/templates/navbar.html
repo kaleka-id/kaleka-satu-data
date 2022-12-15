@@ -13,7 +13,11 @@
         <li><a href="#" class="nav-link px-2 text-white">Catalogs</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Dashboards</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Dictionary</a></li>
-        <li><a href="{% url 'testing_artikel_list' %}" class="nav-link px-2 text-white">Forms</a></li>
+        
+        {% if perms.operation.can_view_form %}
+        <li><a href="{% url 'forms' %}" class="nav-link px-2 text-white">Forms</a></li>
+        {% endif %}
+        
         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
       </ul>
       
@@ -33,7 +37,7 @@
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-white" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{% static 'bootstrap/image/user.png' %}" width="32" height="32" class="rounded-circle"> {{request.user.username}}
           </a>
-          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="{% url 'password-change' %}">Change Password</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
