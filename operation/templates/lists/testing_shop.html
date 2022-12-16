@@ -37,7 +37,6 @@
 
   <h1>Daftar Toko</h1>
   <div class="p-1">
-    <a class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Form List</a>
     <!-- {% if perms.data.add_shop %}
       <a href="{% url 'testing_artikel_form' %}" class="btn btn-sm btn-outline-success">Add Article</a>
     {% endif %} -->
@@ -57,6 +56,7 @@
           <th scope="col">Buka</th>
           <th scope="col">Kapasitas</th>
           <th scope="col">Update Terakhir</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -66,12 +66,15 @@
             <td>{{data.name_shop}}</td>
             <td>{{data.Open}}</td>
             <td>{{data.capacity}}</td>
-            <td>{{data.updated_at}}</td>  
+            <td>{{data.updated_at}}</td>
+            <td class="text-end">
+              <a href="" class="text-decoration-none">✏️</a>
+              <a href="" class="text-decoration-none">❌</a>
+            </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
 </div>
-{%include 'menu/forms_sidebar.html'%}
 {% endblock body %}

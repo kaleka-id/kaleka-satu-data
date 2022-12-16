@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Testing Artikel{% endblock title %}
+{% block title %}Forms{% endblock title %}
 
 {% block head %}
 <style>
@@ -16,9 +16,26 @@
   <div class="page mt-4">
     <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="200px">
     <h1>This is Forms Page</h1>
-    <p>Click the button below to see the form you can manage</p>
+    <div class="table-responsive table-scrollable">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Forms dataset</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in forms %}
+            {% if data.perms in perms %}
+              <tr>
+                <th scope="row"><a href="{{data.url_path}}">{{data.nama}}</a></th>
+                <td class="text-end"><a href="{{data.url_add}}" class="text-decoration-none">➕</a></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
-  <a class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Form List</a>
-  {%include 'menu/forms_sidebar.html'%}
 </div>
 {% endblock body %}

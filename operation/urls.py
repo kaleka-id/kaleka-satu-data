@@ -4,10 +4,7 @@ from django.urls import path, include
 from .pages.menu import *
 
 urlpatterns = [
-    path('', home, name='home'),
-    path('forms/', forms, name='forms'),
-
-    # EXTENSION PATH
+    path('', include('operation.pages.menu')),
     path('', include('operation.pages.testing')),
 ]
 

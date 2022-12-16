@@ -79,7 +79,7 @@ def article_form_delete(request, slug):
 def testingShop(request):
   return listData(request, Shop, 'lists/testing_shop.html', 'toko')
 
-def places_dataset(request):
+def testingShopJSON(request):
   return listSpatialData(request, Shop)
 
 
@@ -93,13 +93,13 @@ def testingShopDetail(request, slug):
 
 # URL pada setiap view
 urlpatterns = [
-    path('dataset/testing-artikel/', testingArtikel, name='testing_artikel_list'),
-    path('dataset/testing-artikel/<slug:slug>/', testingArtikelDetail, name='testing_artikel_detail'),
-    path('dataset/testing-artikel-add/', article_form_add, name='testing_artikel_form'),
-    path('dataset/testing-artikel-update/<slug:slug>/', article_form_update, name='testing_artikel_form_update'),
-    path('dataset/testing-artikel-delete/<slug:slug>/', article_form_delete, name='testing_artikel_form_delete'),
+  path('forms/testing-artikel/', testingArtikel, name='testing_artikel_list'),
+  path('forms/testing-artikel/<slug:slug>/', testingArtikelDetail, name='testing_artikel_detail'),
+  path('forms/testing-artikel-add/', article_form_add, name='testing_artikel_form'),
+  path('forms/testing-artikel-update/<slug:slug>/', article_form_update, name='testing_artikel_form_update'),
+  path('forms/testing-artikel-delete/<slug:slug>/', article_form_delete, name='testing_artikel_form_delete'),
 
-    path('dataset/testing-toko/', testingShop, name='testing_toko_list'),
-    path('dataset/testing-toko-json/', places_dataset, name='testing_toko_json'),
-    path('dataset/testing-toko/<slug:slug>/', testingShopDetail, name='testing_toko_detail'),
+  path('forms/testing-toko/', testingShop, name='testing_toko_list'),
+  path('forms/testing-toko-json/', testingShopJSON, name='testing_toko_json'),
+  path('forms/testing-toko/<slug:slug>/', testingShopDetail, name='testing_toko_detail'),
 ]
