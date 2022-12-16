@@ -22,7 +22,7 @@
 
 {% block body %}
 <div class="container page mt-4">
-  <script src="{% static 'leaflet.ajax.min.js' %}" charset="utf-8"></script>
+  <script src="{% static 'leaflet/leaflet.ajax.min.js' %}" charset="utf-8"></script>
   <script type="text/javascript">
     function place_pos(map, options){
       const dataset = new L.GeoJSON.AJAX("{% url 'testing_toko_json' %}",{
