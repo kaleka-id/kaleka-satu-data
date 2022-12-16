@@ -1,33 +1,41 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import permission_required
 from django.forms import ModelForm
-from data.dataset.testing import Testing
+from django.urls import path
+from django.core.serializers import serialize
+from django.http import HttpResponse
+from data.dataset.testing import Testing, Shop
 
+# Fungsi reusable, nanti dibuat file python sendiri
+def listData(request, dataset, url, callback):
+  data = dataset.objects.filter(user=request.user)
+  return render(request, url, {callback: data})
+
+def listSpatialData(request, dataset):
+  place = serialize('geojson', dataset.objects.filter(user=request.user))
+  return HttpResponse(place, content_type='json')
+
+# 🚨DATASET ARTIKEL🚨
 # View dari daftar artikel
-@login_required
 @permission_required('data.view_testing')
 def testingArtikel(request):
-  desc = Testing.objects.filter(user=request.user)
-  return render(request, 'lists/testing_artikel.html', {
-    'artikel': desc
-  })
+  return listData(request, Testing, 'lists/testing_artikel.html', 'artikel')
 
 # View dari informasi detil artikel
-@login_required
+@permission_required('data.view_testing')
 def testingArtikelDetail(request, slug):
   desc = get_object_or_404(Testing, slug=slug)
   return render(request, 'details/testing_artikel.html', {
     'artikel': desc
   })
 
-# form untuk menambahkan artikel
+# form untuk menambahkan dan mengubah artikel
 class testingArtikelForm(ModelForm):
   class Meta:
     model = Testing
     fields = ('kode', 'nama', 'deskripsi')
 
 # View dari form penambahan artikel
-@login_required
 @permission_required('data.add_testing')
 def article_form_add(request):
   if request.method == 'POST':
@@ -46,7 +54,6 @@ def article_form_add(request):
   })
 
 # View dari form perubahan artikel
-@login_required
 @permission_required('data.change_testing')
 def article_form_update(request, slug):
   artikel = get_object_or_404(Testing, slug=slug)
@@ -59,9 +66,40 @@ def article_form_update(request, slug):
     'form':form
   })
 
-@login_required
+# View untuk menghapus artikel
 @permission_required('data.delete_testing')
 def article_form_delete(request, slug):
   artikel = get_object_or_404(Testing, slug=slug)
   artikel.delete()
   return redirect('testing_artikel_list')
+
+# 🚨DATASET SHOP🚨
+# View dari daftar 
+@permission_required('data.view_shop')
+def testingShop(request):
+  return listData(request, Shop, 'lists/testing_shop.html', 'toko')
+
+def places_dataset(request):
+  return listSpatialData(request, Shop)
+
+
+# View dari informasi detil artikel
+@permission_required('data.view_shop')
+def testingShopDetail(request, slug):
+  desc = get_object_or_404(Shop, slug=slug)
+  return render(request, 'details/testing_shop.html', {
+    'toko': desc
+  })
+
+# URL pada setiap view
+urlpatterns = [
+    path('dataset/testing-artikel/', testingArtikel, name='testing_artikel_list'),
+    path('dataset/testing-artikel/<slug:slug>/', testingArtikelDetail, name='testing_artikel_detail'),
+    path('dataset/testing-artikel-add/', article_form_add, name='testing_artikel_form'),
+    path('dataset/testing-artikel-update/<slug:slug>/', article_form_update, name='testing_artikel_form_update'),
+    path('dataset/testing-artikel-delete/<slug:slug>/', article_form_delete, name='testing_artikel_form_delete'),
+
+    path('dataset/testing-toko/', testingShop, name='testing_toko_list'),
+    path('dataset/testing-toko-json/', places_dataset, name='testing_toko_json'),
+    path('dataset/testing-toko/<slug:slug>/', testingShopDetail, name='testing_toko_detail'),
+]

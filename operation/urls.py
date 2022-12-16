@@ -8,5 +8,7 @@ urlpatterns = [
     path('forms/', forms, name='forms'),
 
     # EXTENSION PATH
-    path('', include('operation.ext_urls.testing')),
+    path('', include('operation.pages.testing')),
 ]
+
+

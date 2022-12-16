@@ -3,7 +3,8 @@ import uuid
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
-from django.contrib.gis.admin import OSMGeoAdmin
+# from django.contrib.gis.admin import OSMGeoAdmin
+from leaflet.admin import LeafletGeoAdmin
 from django.utils.crypto import get_random_string
 
 def get_random_for_slug():
@@ -12,8 +13,8 @@ def get_random_for_slug():
 # Create your models here.
 class Shop(models.Model):
     class Meta:
-        verbose_name = 'Testing - Shop'
-        verbose_name_plural = 'Testing - Shop'
+        verbose_name = 'Testing - Toko'
+        verbose_name_plural = 'Testing - Toko'
 
     name_shop = models.CharField(verbose_name='Shop Name', max_length=100)
     geom = models.PointField(verbose_name='Location', null=True, blank=True)
@@ -29,7 +30,7 @@ class Shop(models.Model):
         return self.name_shop
 
 @admin.register(Shop)
-class ShopAdmin(OSMGeoAdmin):
+class ShopAdmin(LeafletGeoAdmin):
     list_display = ('name_shop', 'geom', 'updated_at', 'user')
 
 

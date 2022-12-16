@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # Imported Apps
     'crispy_forms',
     'crispy_bootstrap5',
+    'leaflet',
 
     # Created Apps
     'data',
@@ -168,3 +169,13 @@ if os.name == 'nt':
     assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
     GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal306.dll'
     os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
+
+# LEAFLET
+LEAFLET_CONFIG = {
+    "DEFAULT_CENTER" : (-3, 118),
+    "DEFAULT_ZOOM" : 5,
+    "MAX_ZOOM" : 20,
+    "MIN_ZOOM" : 3,
+    "SCALE" : 'both',
+    "ATTRIBUTION_PREFIX" : "Kaleka Satu Data | Leaflet"
+}

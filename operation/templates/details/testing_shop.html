@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Testing Toko - {{toko.name_shop}}{% endblock title %}
+
+{% block head %}
+<style>
+  
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>{{toko.name_shop}}</h1>
+  <p>Alamat: {{toko.address}}</p>
+  <h6>Terakhir diupdate pada {{toko.updated_at}}</h6>
+  <div>
+    
+  </div>
+  <p>{{toko.geom}}</p>
+  <div id="map"></div>
+  <p>Artikel ini dikelola oleh <b><i>{{toko.user}}</i></b></p>
+</div>
+{% endblock body %}
