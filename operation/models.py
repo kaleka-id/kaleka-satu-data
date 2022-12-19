@@ -11,4 +11,5 @@ class Forms(models.Model):
   nama = models.CharField(max_length=40, verbose_name='Nama Form')
   url_path = models.CharField(max_length=80, verbose_name='URL Path')
   url_add = models.CharField(max_length=80, verbose_name='URL Tambah Data')
-  perms = models.CharField(max_length=80, verbose_name='Nama Permission')
+  perms_view = models.CharField(max_length=80, verbose_name='View Permission')
+  perms_add = models.CharField(max_length=80, verbose_name='Add Permission')

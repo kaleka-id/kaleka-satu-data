@@ -15,12 +15,16 @@
 <div class="container page mt-4">
   <h1>{{artikel.nama}} ({{artikel.kode}})</h1>
   <h6>Terakhir diupdate pada {{artikel.updated_at}}</h6>
-  <div>
+  <div class="mb-3">
     {% if perms.data.change_testing %}
-      <a class="btn btn-outline-info btn-sm" href="{% url 'testing_artikel_form_update' artikel.slug %}">Update Data</a>
+      <a class="btn btn-outline-info btn-sm" href="{% url 'testing_artikel_form_update' artikel.id %}">Update Data</a>
     {% endif %}
     {% if perms.data.delete_testing %}
-      <a class="btn btn-outline-danger btn-sm" href="{% url 'testing_artikel_form_delete' artikel.slug %}">Delete Data</a>
+      <a class="btn btn-outline-danger btn-sm" 
+        href="{% url 'testing_artikel_form_delete' artikel.id %}"
+        onclick="return confirm('Are you sure you want to delete this item?');">
+          Delete Data
+      </a>
     {% endif %}
   </div>
   <p>{{artikel.deskripsi}}</p>

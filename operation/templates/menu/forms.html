@@ -26,10 +26,14 @@
         </thead>
         <tbody>
           {% for data in forms %}
-            {% if data.perms in perms %}
+            {% if data.perms_view in perms %}
               <tr>
                 <th scope="row"><a href="{{data.url_path}}">{{data.nama}}</a></th>
-                <td class="text-end"><a href="{{data.url_add}}" class="text-decoration-none">➕</a></td>
+                <td class="text-end">
+                  {% if data.perms_add in perms %}
+                  <a href="{{data.url_add}}" class="text-decoration-none">➕</a>
+                  {% endif %}
+                </td>
               </tr>
             {% endif %}
           {% endfor %}

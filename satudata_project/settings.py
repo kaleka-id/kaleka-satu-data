@@ -174,10 +174,16 @@ if os.name == 'nt':
 
 # LEAFLET
 LEAFLET_CONFIG = {
-    "DEFAULT_CENTER" : (-3, 118),
-    "DEFAULT_ZOOM" : 5,
-    "MAX_ZOOM" : 20,
-    "MIN_ZOOM" : 3,
-    "SCALE" : 'both',
-    "ATTRIBUTION_PREFIX" : "Kaleka Satu Data | Leaflet"
+    'DEFAULT_CENTER' : (-3, 118),
+    'DEFAULT_ZOOM' : 5,
+    'MAX_ZOOM' : 20,
+    'MIN_ZOOM' : 3,
+    'SCALE' : 'metric',
+    'RESET_VIEW': False,
+    'ATTRIBUTION_PREFIX' : 'Kaleka Satu Data | Leaflet',
+    'PLUGINS': {
+        'forms': {
+            'auto-include': True
+        }
+    }
 }

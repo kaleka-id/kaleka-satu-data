@@ -6,9 +6,6 @@ from ..models import Forms
 def home(request):
     return render(request, 'menu/home.html')
 
-# def forms(request):
-#     return render(request, 'menu/forms.html')
-
 @permission_required('operation.view_forms')
 def forms(request):
   desc = Forms.objects.all()

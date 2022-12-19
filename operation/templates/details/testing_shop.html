@@ -12,12 +12,26 @@
 {% block body %}
 <div class="container page mt-4">
   <h1>{{toko.name_shop}}</h1>
-  <p>Alamat: {{toko.address}}</p>
   <h6>Terakhir diupdate pada {{toko.updated_at}}</h6>
-  <div>
-    
+  <div class="mb-3">
+    {% if perms.data.change_shop %}
+      <a class="btn btn-outline-info btn-sm" href="{% url 'testing_toko_form_update' toko.id %}">Update Data</a>
+    {% endif %}
+    {% if perms.data.delete_shop %}
+      <a class="btn btn-outline-danger btn-sm" 
+        href="{% url 'testing_toko_form_delete' toko.id %}"
+        onclick="return confirm('Are you sure you want to delete this item?');">
+          Delete Data
+      </a>
+    {% endif %}
   </div>
-  <p>{{toko.geom}}</p>
+  <p>Alamat: {{toko.address}}
+  <br> Apakah toko ini buka: <b>{{toko.Open}}</b>
+  <br>Kapasitas toko: <i>{{toko.capacity}}</i></p>
+  <p>
+    <b>Geometri </b><i>(Extended Well-known Text)</i>
+    <input type="text" value="{{toko.geom}}" style="width: 100%;" readonly>
+  </p>
   <div id="map"></div>
   <p>Artikel ini dikelola oleh <b><i>{{toko.user}}</i></b></p>
 </div>

@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load leaflet_tags %}
 
-{% block title %}Add Testing Artikel{% endblock title %}
+{% block title %}Add Testing Toko{% endblock title %}
 
 {% block head %}
 <style>
@@ -12,16 +13,18 @@
     }
   }
 </style>
+  {% leaflet_js %}
+  {% leaflet_css %}
 {% endblock head %}
 
 {% block body %}
 <div class="container page mt-4">
-  <h1>Add Article</h1>
-  <p>Add your article here</p>
+  <h1>Add Toko</h1>
+  <p>Add your toko here</p>
   <form action="" method="post">
     {{form | crispy}}
     {% csrf_token %}
-    <input type="submit" value="Add Article" class="btn btn-success mb-3">
+    <input type="submit" value="Add Toko" class="btn btn-success mb-3">
   </form>
 </div>
 {% endblock body %}
