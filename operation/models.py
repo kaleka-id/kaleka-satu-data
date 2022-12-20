@@ -25,3 +25,4 @@ class Docs(models.Model):
   gambar = models.FileField(upload_to='docs/')
   deskripsi = models.TextField()
   deskripsi_data = ArrayField(models.TextField())
+  updated_at = models.DateTimeField(auto_now=True)

@@ -18,7 +18,10 @@
         <li><a href="{% url 'forms' %}" class="nav-link px-2 text-white">Forms</a></li>
         {% endif %}
         
-        <li><a href="#" class="nav-link px-2 text-white">Docs</a></li>
+        {% if perms.operation.view_docs %}
+        <li><a href="{% url 'docs' %}" class="nav-link px-2 text-white">Docs</a></li>
+        {% endif %}
+
         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
       </ul>
       
