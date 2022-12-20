@@ -31,8 +31,8 @@
       const dataset = new L.GeoJSON.AJAX("{% url 'testing_toko_json' %}",{
         onEachFeature: function(feature, layer){
           layer.bindPopup(
-            '<p>' + feature.properties.pk + '. ' +
-            feature.properties.name_shop + '</p>'
+            `<p><a href="http://kaleka.azfaiz.com/forms/testing-toko/${feature.properties.pk}/" class="text-decoration-none">` + 
+              feature.properties.name_shop + '</a></p>'
           )
         }
       });
