@@ -12,7 +12,7 @@ class Spesies(models.Model):
     nama_indonesia = models.CharField(max_length=50, blank=True)
     nama_inggris = models.CharField(max_length=50, blank=True)
     kingdom = models.CharField(max_length=50)
-    phylum = models.CharField(max_length=50)
+    phylum = models.CharField(max_length=50, verbose_name='Phylum/Division')
     Class = models.CharField(max_length=50)
     order = models.CharField(max_length=50)
     family = models.CharField(max_length=50)

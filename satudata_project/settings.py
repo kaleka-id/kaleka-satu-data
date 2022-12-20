@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # Admin Interface
     'admin_interface',
     'colorfield',
+    'django_better_admin_arrayfield',
 
     # Native Django Apps
     'django.contrib.admin',
@@ -176,14 +177,20 @@ if os.name == 'nt':
 LEAFLET_CONFIG = {
     'DEFAULT_CENTER' : (-3, 118),
     'DEFAULT_ZOOM' : 5,
-    'MAX_ZOOM' : 20,
+    'MAX_ZOOM' : 18,
     'MIN_ZOOM' : 3,
     'SCALE' : 'metric',
     'RESET_VIEW': False,
     'ATTRIBUTION_PREFIX' : 'Kaleka Satu Data | Leaflet',
+    
     'PLUGINS': {
         'forms': {
             'auto-include': True
         }
-    }
+    },
+
+    'TILES': [
+        ('OpenStreetMap', 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {'attribution': ' © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}),
+        ('ESRI Imagery', 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {'attribution': '© <a href="https://www.arcgis.com/">Esri</a>, Maxar, Earthstar Geographics, and the GIS User Community'})
+    ],
 }
