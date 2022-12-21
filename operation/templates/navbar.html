@@ -12,7 +12,10 @@
         <li><a href="/" class="nav-link px-2 text-secondary">Kaleka Satu Data</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Catalogs</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Dashboards</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">Dictionary</a></li>
+
+        {% if perms.operation.view_dictionary %}
+        <li><a href="{% url 'dictionary' %}" class="nav-link px-2 text-white">Dictionary</a></li>
+        {% endif %}
         
         {% if perms.operation.view_forms %}
         <li><a href="{% url 'forms' %}" class="nav-link px-2 text-white">Forms</a></li>

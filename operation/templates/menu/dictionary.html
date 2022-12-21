@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dictionary{% endblock title %}
+
+{% block head %}
+<style>
+  .page{
+    font-family: 'Courier New', Courier, monospace;
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container mt-4">
+  <div class="page mt-4">
+    <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="200px">
+    <h1>This is data dictionary page</h1>
+    <div class="table-responsive table-scrollable">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Dataset</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in dict %}
+            {% if data.perms_view in perms %}
+              <tr>
+                <th scope="row"><a href="{{data.url_path}}">{{data.nama}}</a></th>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock body %}

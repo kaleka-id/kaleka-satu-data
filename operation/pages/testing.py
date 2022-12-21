@@ -5,6 +5,8 @@ from operation.data_modification import listData, listSpatialData, detailData, a
 from data.dataset.testing import Testing, Shop
 from leaflet.forms.widgets import LeafletWidget
 
+from django.shortcuts import render
+
 
 # 🚨DATASET ARTIKEL🚨
 # View dari daftar artikel
@@ -37,6 +39,15 @@ def article_form_update(request, pk):
 @permission_required('data.delete_testing')
 def article_form_delete(request, pk):
   return deleteData(request, Testing, pk, 'testing_artikel_list')
+
+# 
+def dictionary(request):
+  if 'q' in request.GET:
+    q = request.GET['q']
+    data = Testing.objects.filter(nama__icontains=q)
+  else:
+    data = Testing.objects.none()
+  return render(request, 'dictionary/testing_artikel.html', {'artikel': data})
 
 # 🚨DATASET SHOP🚨
 # View dari daftar toko
@@ -83,6 +94,7 @@ urlpatterns = [
   path('forms/testing-artikel-add/', article_form_add, name='testing_artikel_form'),
   path('forms/testing-artikel-update/<uuid:pk>/', article_form_update, name='testing_artikel_form_update'),
   path('forms/testing-artikel-delete/<uuid:pk>/', article_form_delete, name='testing_artikel_form_delete'),
+  path('dict/testing-artikel/', dictionary, name='testing_artikel_dict'),
 
   path('forms/testing-toko/', testingShop, name='testing_toko_list'),
   path('forms/testing-toko-json/', testingShopJSON, name='testing_toko_json'),

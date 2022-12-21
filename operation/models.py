@@ -3,7 +3,7 @@ from django.contrib.postgres.fields import array, HStoreField
 from django_better_admin_arrayfield.models.fields import ArrayField
 import uuid
 
-# Create your models here.
+# FORM
 class Forms(models.Model):
   class Meta:
     verbose_name = 'Form'
@@ -16,6 +16,7 @@ class Forms(models.Model):
   perms_view = models.CharField(max_length=80, verbose_name='View Permission')
   perms_add = models.CharField(max_length=80, verbose_name='Add Permission')
 
+# DOCS
 class Docs(models.Model):
   class Meta:
     verbose_name = 'Documentation'
@@ -26,3 +27,12 @@ class Docs(models.Model):
   deskripsi = models.TextField()
   dictionary_data = HStoreField(blank=True, null=True, verbose_name='Dictionary')
   updated_at = models.DateTimeField(auto_now=True)
+
+# DICT
+class Dictionary(models.Model):
+  class Meta:
+    verbose_name_plural = 'Dictionaries'
+
+  nama = models.CharField(max_length=40)
+  url_path = models.CharField(max_length=80, verbose_name='URL Path')
+  perms_view = models.CharField(max_length=80, verbose_name='View Permission')

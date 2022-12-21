@@ -4,12 +4,13 @@ from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 from django_admin_hstore_widget.forms import HStoreFormField
 from .models import *
 
-# Register your models here.
+# FORMS
 @admin.register(Forms)
 class FormModel(admin.ModelAdmin):
-  search_fields = ('nama', 'url_alias')
+  search_fields = ('nama', )
   list_display = ('id', 'nama', 'url_path', 'url_add')
 
+# DOCS
 class DocsModelForm(forms.ModelForm):
     dictionary_data = HStoreFormField()
     
@@ -23,3 +24,9 @@ class DocsModel(admin.ModelAdmin, DynamicArrayMixin):
   list_display = ('id', 'judul', 'deskripsi')
 
   form = DocsModelForm
+
+# DICTIONARY
+@admin.register(Dictionary)
+class DictionaryModel(admin.ModelAdmin):
+  search_fields = ('nama',)
+  list_display = ('id', 'nama', 'url_path')

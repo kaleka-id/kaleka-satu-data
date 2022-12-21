@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Testing Artikel{% endblock title %}
+
+{% block head %}
+<style>
+  .page{
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .table-scrollable {
+    overflow-x: auto;
+    max-width: 100%;
+    margin: auto;
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container mt-4">
+  <h1 class="page">Cari Artikel</h1>
+  <form class="d-flex mb-3">
+    <input class="form-control" type="search" placeholder="Cari nama artikel" aria-label="Search" name="q">
+    <button class="btn btn-outline-secondary ms-2" type="submit">Search</button>
+  </form>
+
+  {% for data in artikel %}
+  <div class="card mt-1 mb-1">
+    <h5 class="card-header">{{data.kode}}: {{data.nama}}</h5>
+    <div class="card-body">
+      <p class="card-text">{{data.deskripsi}}</p>
+      <button class="btn btn-secondary copy-button" data-url="{{data.id}}">Salin Referensi</button>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+
+<script src="{% static 'js/copy_clipboard/CopyClipboard.js' %}" defer></script>
+{% endblock body %}
