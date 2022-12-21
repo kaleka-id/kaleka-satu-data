@@ -21,6 +21,7 @@ def docs(request):
     'docs': desc
   })
 
+@permission_required('operation.view_docs')
 def docs_detail(request, pk):
   return detailData(request, Docs, pk, 'menu/docs_detail.html', 'docs')
 

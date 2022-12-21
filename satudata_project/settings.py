@@ -35,7 +35,10 @@ INSTALLED_APPS = [
     # Admin Interface
     'admin_interface',
     'colorfield',
+
+    # Array and Dictionary
     'django_better_admin_arrayfield',
+    'django_admin_hstore_widget',
 
     # Native Django Apps
     'django.contrib.admin',
@@ -44,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'django.contrib.gis',
 
     # Imported Apps
@@ -146,7 +150,7 @@ STATIC_URL = 'static/'
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'site/public/static')
 STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'site/public/static/'),
+    os.path.join(BASE_DIR, 'site/public/static/'),
 )
 
 MEDIA_URL = 'media/'

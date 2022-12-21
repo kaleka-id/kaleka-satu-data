@@ -1,5 +1,5 @@
 from django.db import models
-# from django.contrib.postgres.fields import array
+from django.contrib.postgres.fields import array, HStoreField
 from django_better_admin_arrayfield.models.fields import ArrayField
 import uuid
 
@@ -24,5 +24,5 @@ class Docs(models.Model):
   judul = models.CharField(max_length=40)
   gambar = models.FileField(upload_to='docs/')
   deskripsi = models.TextField()
-  deskripsi_data = ArrayField(models.TextField())
+  dictionary_data = HStoreField(blank=True, null=True, verbose_name='Dictionary')
   updated_at = models.DateTimeField(auto_now=True)
