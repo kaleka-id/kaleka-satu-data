@@ -13,9 +13,7 @@ def listSpatialData(request, dataset):
 
 def detailData(request, dataset, pk, url, callback):
   desc = get_object_or_404(dataset, id=pk)
-  return render(request, url, {
-    callback: desc
-  })
+  return render(request, url, {callback: desc})
 
 def addData(request, forms, redirects, url):
   if request.method == 'POST':
@@ -24,6 +22,7 @@ def addData(request, forms, redirects, url):
       artikel = form.save(commit= False)
       artikel.user = request.user
       artikel.save()
+      form.save_m2m()
       return redirect(redirects)
   
   else:
@@ -40,9 +39,7 @@ def updateData(request, dataset, pk, forms, redirects, url):
     form.save()
     return redirect(redirects)
 
-  return render(request, url, {
-    'form':form
-  })
+  return render(request, url, {'form':form})
 
 def deleteData(request, dataset, pk, redirects):
   artikel = get_object_or_404(dataset, id=pk)

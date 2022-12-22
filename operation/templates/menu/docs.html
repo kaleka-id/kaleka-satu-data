@@ -20,8 +20,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Data</th>
+            <th scope="col">Dataset</th>
             <th scope="col">Deskripsi</th>
             <th scope="col">Last Update</th>
           </tr>
@@ -29,8 +28,7 @@
         <tbody>
           {% for data in docs %}
             <tr>
-              <th scope="row"><a href="{% url 'docs_detail' data.id %}">{{data.id}}</a></th>
-              <td>{{data.judul}}</td>
+              <th scope="row"><a href="{% url 'docs_detail' data.id %}">{{data.judul}}</a></th>
               <td>{{data.deskripsi}}</td>
               <td>{{data.updated_at}}</td>
             </tr>

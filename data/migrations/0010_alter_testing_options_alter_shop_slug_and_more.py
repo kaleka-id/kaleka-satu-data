@@ -15,14 +15,14 @@ class Migration(migrations.Migration):
             name='testing',
             options={'verbose_name': 'Testing - Artikel', 'verbose_name_plural': 'Testing - Artikel'},
         ),
-        migrations.AlterField(
-            model_name='shop',
-            name='slug',
-            field=models.SlugField(default=data.dataset.testing.get_random_for_slug, max_length=40, unique=True),
-        ),
-        migrations.AlterField(
-            model_name='testing',
-            name='slug',
-            field=models.SlugField(default=data.dataset.testing.get_random_for_slug, max_length=40, unique=True),
-        ),
+        # migrations.AlterField(
+        #     model_name='shop',
+        #     name='slug',
+        #     field=models.SlugField(default=data.dataset.testing.get_random_for_slug, max_length=40, unique=True),
+        # ),
+        # migrations.AlterField(
+        #     model_name='testing',
+        #     name='slug',
+        #     field=models.SlugField(default=data.dataset.testing.get_random_for_slug, max_length=40, unique=True),
+        # ),
     ]

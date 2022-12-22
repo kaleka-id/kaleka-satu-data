@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Testing Produk - {{produk.nama}}{% endblock title %}
+
+{% block head %}
+<style>
+  /* .page{
+    font-family: 'Courier New', Courier, monospace;
+  } */
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>{{produk.nama}}</h1>
+  <h6>Terakhir diupdate pada {{produk.updated_at}}</h6>
+  <div class="mb-3">
+
+  </div>
+  <h5>Sinopsis</h5>
+  <p>{{produk.deskripsi.deskripsi}}</p>
+  <div>
+    Produk ini dapat dibeli pada toko-toko berikut:
+    <ul>
+      {% for toko in produk.toko.all %}
+        <li><b>{{toko}}</b>. {{toko.address}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h6>Foto Produk</h6>
+    <img src="/media/{{produk.foto}}" height="100px">
+  </div>
+  <p>Artikel ini dikelola oleh <b><i>{{produk.user}}</i></b></p>
+</div>
+{% endblock body %}

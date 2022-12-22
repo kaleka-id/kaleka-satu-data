@@ -19,17 +19,22 @@
 
 {% block body %}
 <div class="container mt-4">
-  <h1 class="page">Cari Artikel</h1>
+  <h1 class="page">Cari Toko</h1>
   <form class="d-flex mb-3">
-    <input class="form-control" type="search" placeholder="Cari nama artikel" aria-label="Search" name="q">
+    <input class="form-control" type="search" placeholder="Cari nama atau alamat toko" aria-label="Search" name="q">
     <button class="btn btn-outline-secondary ms-2" type="submit">Search</button>
   </form>
 
-  {% for data in artikel %}
+  {% for data in toko %}
   <div class="card mt-1 mb-1">
-    <h5 class="card-header">{{data.kode}}: {{data.nama}}</h5>
+    <h5 class="card-header">{{data.name_shop}}</h5>
     <div class="card-body">
-      <p class="card-text">{{data.deskripsi}}</p>
+      <p class="card-text">{{data.address}}</p>
+      <ul>
+        <li>Kondisi: {{data.Open|yesno:"Beroperasi, Tutup"}}</li>
+        <li>Kapasitas: {{data.capacity}}</li>
+        <li>Koordinat: {{data.geom}}</li>
+      </ul>
       <button class="btn btn-secondary copy-button" data-url="{{data.id}}">Salin Referensi</button>
     </div>
   </div>

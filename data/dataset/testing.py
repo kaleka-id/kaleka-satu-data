@@ -3,14 +3,14 @@ import uuid
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
+from data.validators import file_image
 # from django.contrib.gis.admin import OSMGeoAdmin
 from leaflet.admin import LeafletGeoAdmin
-from django.utils.crypto import get_random_string
+from django_better_admin_arrayfield.models.fields import ArrayField
+from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 
-def get_random_for_slug():
-    return get_random_string(length=40)
 
-# Create your models here.
+# 🚨TOKO🚨
 class Shop(models.Model):
     class Meta:
         verbose_name = 'Testing - Toko'
@@ -21,7 +21,6 @@ class Shop(models.Model):
     address = models.CharField(max_length=100)
     Open = models.BooleanField(verbose_name='Is the shop is open?')
     capacity = models.IntegerField()
-    slug = models.SlugField(max_length=40, unique=True, default=get_random_for_slug)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -34,6 +33,7 @@ class ShopAdmin(LeafletGeoAdmin):
     list_display = ('name_shop', 'geom', 'updated_at', 'user')
 
 
+# 🚨ARTIKEL🚨
 class Testing(models.Model):
     class Meta:
         verbose_name = 'Testing - Artikel'
@@ -43,7 +43,6 @@ class Testing(models.Model):
     kode = models.CharField(max_length=5)
     nama = models.CharField(max_length=30)
     deskripsi = models.TextField()
-    slug = models.SlugField(max_length=40, unique=True, default=get_random_for_slug)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -56,3 +55,30 @@ class TestingModel(admin.ModelAdmin):
     search_fields = ('kode', 'nama')
     list_filter = ('kode', 'nama', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'kode', 'nama', 'created_at', 'updated_at', 'user')
+
+
+# 🚨PRODUK🚨
+class Product(models.Model):
+    class Meta:
+        verbose_name = 'Testing - Produk'
+        verbose_name_plural = 'Testing - Produk'
+
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+    nama = models.CharField(max_length=30)
+    deskripsi = models.ForeignKey(Testing, on_delete=models.CASCADE, help_text='Gunakan tabel <a target="blank" href="/dict/testing-artikel/">Testing Artikel</a> sebagai referensi untuk mengisi bagian ini')
+    toko = models.ManyToManyField(Shop, blank=True, null=True)
+    foto = models.FileField(upload_to='testing/', validators=[file_image], blank=True, null=True, help_text='Gunakan file ekstensi .jpg atau .png')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nama
+
+@admin.register(Product)
+class ProductModel(admin.ModelAdmin, DynamicArrayMixin):
+    search_fields = ('nama',)
+    list_filter = ('nama', 'created_at', 'updated_at', 'user')
+    list_display = ('id', 'nama', 'updated_at', 'user')
+    filter_horizontal = ('toko',)
+    raw_id_fields = ('deskripsi',)

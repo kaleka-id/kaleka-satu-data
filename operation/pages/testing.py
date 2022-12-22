@@ -1,8 +1,10 @@
+from django import forms
 from django.contrib.auth.decorators import permission_required
-from django.forms import ModelForm
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.urls import path
+from django.db.models import Q
 from operation.data_modification import listData, listSpatialData, detailData, addData, updateData, deleteData
-from data.dataset.testing import Testing, Shop
+from data.dataset.testing import Testing, Shop, Product
 from leaflet.forms.widgets import LeafletWidget
 
 from django.shortcuts import render
@@ -20,7 +22,7 @@ def testingArtikelDetail(request, pk):
   return detailData(request, Testing, pk, 'details/testing_artikel.html', 'artikel')
 
 # Form untuk menambahkan dan mengubah artikel
-class testingArtikelForm(ModelForm):
+class testingArtikelForm(forms.ModelForm):
   class Meta:
     model = Testing
     fields = ('kode', 'nama', 'deskripsi')
@@ -40,8 +42,8 @@ def article_form_update(request, pk):
 def article_form_delete(request, pk):
   return deleteData(request, Testing, pk, 'testing_artikel_list')
 
-# 
-def dictionary(request):
+# Dictionary artikel
+def article_dict(request):
   if 'q' in request.GET:
     q = request.GET['q']
     data = Testing.objects.filter(nama__icontains=q)
@@ -64,7 +66,7 @@ def testingShopDetail(request, pk):
   return detailData(request, Shop, pk, 'details/testing_shop.html', 'toko')
 
 # Form untuk menambahkan dan mengubah toko
-class testingShopForm(ModelForm):
+class testingShopForm(forms.ModelForm):
   class Meta:
     model = Shop
     fields = ('name_shop', 'geom', 'address', 'Open', 'capacity')
@@ -87,6 +89,51 @@ def shop_form_update(request, pk):
 def shop_form_delete(request, pk):
   return deleteData(request, Shop, pk, 'testing_toko_list')
 
+# Dictionary toko
+def shop_dict(request):
+  if 'q' in request.GET:
+    q = request.GET['q']
+    data = Shop.objects.filter(Q(name_shop__icontains=q) | Q(address__icontains=q))
+  else:
+    data = Shop.objects.none()
+  return render(request, 'dictionary/testing_toko.html', {'toko': data})
+
+
+# 🚨DATASET PRODUK🚨
+# View dari daftar produk
+@permission_required('data.view_product')
+def testingProduct(request):
+  return listData(request, Product, 'lists/testing_produk.html', 'produk')
+
+# View dari informasi detil artikel
+@permission_required('data.view_product')
+def testingProductDetail(request, pk):
+  return detailData(request, Product, pk, 'details/testing_produk.html', 'produk')
+
+# Form untuk menambahkan dan mengubah artikel
+class testingProductForm(forms.ModelForm):
+  class Meta:
+    model = Product
+    fields = ('nama', 'deskripsi', 'foto', 'toko')
+    widgets = {
+      'deskripsi': forms.TextInput(),
+      # 'toko': forms.SelectMultiple()
+      'toko': FilteredSelectMultiple("Shop", is_stacked=True),
+    }
+
+  class Media:
+    css = {
+      'all':['admin/css/widgets.css', 'css/uid-manage-form.css'],
+    }
+    js = ['/admin/jsi18n']
+
+  
+# View dari form penambahan artikel
+@permission_required('data.add_product')
+def product_form_add(request):
+  return addData(request, testingProductForm, 'testing_produk_list', 'forms/testing_produk_add.html')
+
+
 # URL pada setiap view
 urlpatterns = [
   path('forms/testing-artikel/', testingArtikel, name='testing_artikel_list'),
@@ -94,7 +141,7 @@ urlpatterns = [
   path('forms/testing-artikel-add/', article_form_add, name='testing_artikel_form'),
   path('forms/testing-artikel-update/<uuid:pk>/', article_form_update, name='testing_artikel_form_update'),
   path('forms/testing-artikel-delete/<uuid:pk>/', article_form_delete, name='testing_artikel_form_delete'),
-  path('dict/testing-artikel/', dictionary, name='testing_artikel_dict'),
+  path('dict/testing-artikel/', article_dict, name='testing_artikel_dict'),
 
   path('forms/testing-toko/', testingShop, name='testing_toko_list'),
   path('forms/testing-toko-json/', testingShopJSON, name='testing_toko_json'),
@@ -102,4 +149,9 @@ urlpatterns = [
   path('forms/testing-toko-add/', shop_form_add, name='testing_toko_form'),
   path('forms/testing-toko-update/<int:pk>/', shop_form_update, name='testing_toko_form_update'),
   path('forms/testing-toko-delete/<int:pk>/', shop_form_delete, name='testing_toko_form_delete'),
+  path('dict/testing-toko/', shop_dict, name='testing_toko_dict'),
+
+  path('forms/testing-produk/', testingProduct, name='testing_produk_list'),
+  path('forms/testing-produk/<uuid:pk>/', testingProductDetail, name='testing_produk_detail'),
+  path('forms/testing-produk-add/', product_form_add, name='testing_produk_form'),
 ]
