@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Update Testing Produk{% endblock title %}
+
+{% block head %}
+<style>
+  @media screen and (min-width: 500px){
+    .page{
+      width: 500px;
+      margin: auto;
+    }
+  }
+</style>
+{{form.media}}
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>Update Product</h1>
+  <p>Update your product here</p>
+  <form action="" method="post">
+    {{form | crispy}}
+    {% csrf_token %}
+    <input type="submit" value="Update Product" class="btn btn-info mb-3">
+  </form>
+</div>
+{% endblock body %}

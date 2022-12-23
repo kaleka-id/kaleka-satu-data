@@ -16,7 +16,16 @@
   <h1>{{produk.nama}}</h1>
   <h6>Terakhir diupdate pada {{produk.updated_at}}</h6>
   <div class="mb-3">
-
+    {% if perms.data.change_product %}
+      <a class="btn btn-outline-info btn-sm" href="{% url 'testing_produk_form_update' produk.id %}">Update Data</a>
+    {% endif %}
+    {% if perms.data.delete_product %}
+      <a class="btn btn-outline-danger btn-sm" 
+        href="{% url 'testing_produk_form_delete' produk.id %}"
+        onclick="return confirm('Are you sure you want to delete this item?');">
+          Delete Data
+      </a>
+    {% endif %}
   </div>
   <h5>Sinopsis</h5>
   <p>{{produk.deskripsi.deskripsi}}</p>

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Testing Produk{% endblock title %}
+
+{% block head %}
+<style>
+  .page{
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .table-scrollable {
+    overflow-x: auto;
+    max-width: 100%;
+    margin: auto;
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container mt-4">
+  <h1 class="page">Cari Produk</h1>
+  <form class="d-flex mb-3">
+    <input class="form-control" type="search" placeholder="Cari nama produk" aria-label="Search" name="q">
+    <button class="btn btn-outline-secondary ms-2" type="submit">Search</button>
+  </form>
+
+  {% for data in produk %}
+  <div class="card mt-1 mb-1">
+    <h5 class="card-header">{{data.nama}}</h5>
+    <div class="card-body">
+      <div class="card-text">Tersedia di toko-toko berikut:
+        <ul>
+          {% for toko in data.toko.all %}
+            <li><b>{{toko.name_shop}}</b>, {{toko.address}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <button class="btn btn-secondary copy-button" data-url="{{data.id}}">Salin Referensi</button>
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-center mt-5">Pencarian tidak ditemukan, coba cari kata kunci yang lain.</p>
+  {% endfor %}
+
+</div>
+
+<script src="{% static 'js/copy_clipboard/CopyClipboard.js' %}"></script>
+{% endblock body %}

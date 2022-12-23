@@ -17,7 +17,7 @@ class Orang(models.Model):
     tempat_lahir = models.CharField(max_length=30, help_text='Tulisan akan otomatis terkonversi menjadi huruf kapital.')
     tanggal_lahir = models.DateField()
     status_kawin = models.CharField(max_length=11, choices=[('Belum Kawin', 'Belum Kawin'), ('Kawin', 'Kawin'), ('Cerai Hidup', 'Cerai Hidup'), ('Cerai Mati', 'Cerai Mati')], blank=True, null=True)
-    profesi = models.ManyToManyField(Profesi, blank=True, null=True)
+    profesi = models.ManyToManyField(Profesi, blank=True)
     rt = models.PositiveSmallIntegerField(verbose_name='RT')
     rw = models.PositiveSmallIntegerField(verbose_name='RW')
     alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE)

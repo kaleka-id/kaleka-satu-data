@@ -128,11 +128,29 @@ class testingProductForm(forms.ModelForm):
     js = ['/admin/jsi18n']
 
   
-# View dari form penambahan artikel
+# View dari form penambahan produk
 @permission_required('data.add_product')
 def product_form_add(request):
   return addData(request, testingProductForm, 'testing_produk_list', 'forms/testing_produk_add.html')
 
+# View dari form perubahan produk
+@permission_required('data.change_product')
+def product_form_update(request, pk):
+  return updateData(request, Product, pk, testingProductForm, 'testing_produk_list', 'forms/testing_produk_update.html')
+
+# View untuk menghapus produk
+@permission_required('data.delete_product')
+def product_form_delete(request, pk):
+  return deleteData(request, Product, pk, 'testing_produk_list')
+
+# Dictionary produk
+def product_dict(request):
+  if 'q' in request.GET:
+    q = request.GET['q']
+    data = Product.objects.filter(nama__icontains=q)
+  else:
+    data = Product.objects.none()
+  return render(request, 'dictionary/testing_produk.html', {'produk': data})
 
 # URL pada setiap view
 urlpatterns = [
@@ -154,4 +172,7 @@ urlpatterns = [
   path('forms/testing-produk/', testingProduct, name='testing_produk_list'),
   path('forms/testing-produk/<uuid:pk>/', testingProductDetail, name='testing_produk_detail'),
   path('forms/testing-produk-add/', product_form_add, name='testing_produk_form'),
+  path('forms/testing-produk-update/<uuid:pk>/', product_form_update, name='testing_produk_form_update'),
+  path('forms/testing-produk-delete/<uuid:pk>/', product_form_delete, name='testing_produk_form_delete'),
+  path('dict/testing-produk/', product_dict, name='testing_produk_dict'),
 ]
