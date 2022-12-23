@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import path
-from ..models import Forms, Docs, Dictionary
+from ..models import Forms, Docs, Dictionary, Dashboard
 from ..data_modification import detailData
 
 def home(request):
@@ -32,10 +32,23 @@ def dictionary(request):
     'dict': desc
   })
 
+@login_required
+def dashboard(request):
+  desc = Dashboard.objects.all()
+  return render(request, 'menu/dashboard.html', {
+    'dashboard': desc
+  })
+
+@login_required
+def dashboard_detail(request, pk):
+  return detailData(request, Dashboard, pk, 'menu/dashboard_detail.html', 'dashboard')
+
 urlpatterns = [
   path('', home, name='home'),
   path('forms/', forms, name='forms'),
   path('docs/', docs, name='docs'),
   path('docs/<int:pk>/', docs_detail, name='docs_detail'),
   path('dict/', dictionary, name='dictionary'),
+  path('dashboard/', dashboard, name='dashboard'),
+  path('dashboard/<int:pk>/', dashboard_detail, name='dashboard_detail'),
 ]

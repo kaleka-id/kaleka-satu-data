@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block head %}
+<style>
+  .page{
+    font-family: 'Courier New', Courier, monospace;
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container mt-4">
+  <div class="page mt-4">
+    <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="200px">
+    <h1>This is dashboard page</h1>
+    <div class="table-responsive table-scrollable">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Dashboard</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in dashboard %}
+              <tr>
+                <th scope="row"><a href="{% url 'dashboard_detail' data.id %}">{{data.nama}}</a></th>
+                <th class="text-end">{{data.category}} dashboard</th>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock body %}

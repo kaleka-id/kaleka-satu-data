@@ -30,3 +30,9 @@ class DocsModel(admin.ModelAdmin, DynamicArrayMixin):
 class DictionaryModel(admin.ModelAdmin):
   search_fields = ('nama',)
   list_display = ('id', 'nama', 'url_path')
+
+# DASHBOARDS
+@admin.register(Dashboard)
+class DashboardModel(admin.ModelAdmin, DynamicArrayMixin):
+  search_fields = ('nama',)
+  list_display = ('id', 'nama', 'category', 'email_maintainer', 'perms_view')

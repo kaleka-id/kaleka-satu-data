@@ -11,7 +11,7 @@
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="/" class="nav-link px-2 text-secondary">Kaleka Satu Data</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Catalogs</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">Dashboards</a></li>
+        <li><a href="{% url 'dashboard' %}" class="nav-link px-2 text-white">Dashboards</a></li>
 
         {% if perms.operation.view_dictionary %}
         <li><a href="{% url 'dictionary' %}" class="nav-link px-2 text-white">Dictionary</a></li>

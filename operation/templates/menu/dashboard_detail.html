@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - {{dashboard.nama}}{% endblock title %}
+
+{% block head %}
+<style>
+  .page{
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  @media screen and (min-width: 992px){
+    .image{
+      width: 700px;
+    }
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>{{dashboard.nama}}</h1>
+  <p>
+    Category of dashboard: <b>{{dashboard.category}}</b><br>
+    Maintainer: <i>{{dashboard.email_maintainer}}</i>
+  </p>
+  <div class="container d-flex justify-content-center mt-5">
+    <iframe 
+      class="mb-4"
+      width="{{dashboard.width}}" 
+      height="{{dashboard.height}}"
+      src="{{dashboard.embed_url}}" 
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+{% endblock body %}
