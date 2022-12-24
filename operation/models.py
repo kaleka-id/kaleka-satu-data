@@ -41,10 +41,10 @@ class Dictionary(models.Model):
 # DASHBOARD
 class Dashboard(models.Model):
   nama = models.CharField(max_length=40)
-  category = models.CharField(max_length=10, choices=[('Live', 'Live'), ('Analytics', 'Analytics')])
+  category = models.CharField(max_length=20, choices=[('Live (database)', 'Live (database)'), ('Live (spreadsheet)', 'Live (spreadsheet)'), ('Static', 'Static'), ('Analytics', 'Analytics')])
   email_maintainer = models.CharField(max_length=40)
   page_url = models.CharField(max_length=80, verbose_name='Page URL Path')
   embed_url = models.CharField(max_length=100, verbose_name='Embed URL Path')
   width = models.CharField(max_length=8, help_text="Gunakan CSS unit seperti '%', 'cm', 'mm', 'in', 'px', 'pt', dan 'pc'. Contoh: 500px")
   height = models.CharField(max_length=8, help_text="Gunakan CSS unit seperti '%', 'cm', 'mm', 'in', 'px', 'pt', dan 'pc'. Contoh: 500px")
-  perms_view = ArrayField(models.PositiveIntegerField(), null=True, blank=True)
+  perms_view = ArrayField(models.CharField(max_length=30), null=True, blank=True)

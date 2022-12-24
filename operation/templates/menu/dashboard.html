@@ -26,10 +26,12 @@
         </thead>
         <tbody>
           {% for data in dashboard %}
+            {% if request.user.username in data.perms_view %}
               <tr>
                 <th scope="row"><a href="{% url 'dashboard_detail' data.id %}">{{data.nama}}</a></th>
-                <th class="text-end">{{data.category}} dashboard</th>
+                <th class="text-end">{{data.category}}</th>
               </tr>
+            {% endif %}
           {% endfor %}
         </tbody>
       </table>
