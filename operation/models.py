@@ -41,7 +41,7 @@ class Dictionary(models.Model):
 # DASHBOARD
 class Dashboard(models.Model):
   nama = models.CharField(max_length=40)
-  category = models.CharField(max_length=20, choices=[('Live (database)', 'Live (database)'), ('Live (spreadsheet)', 'Live (spreadsheet)'), ('Static', 'Static'), ('Analytics', 'Analytics')])
+  category = models.CharField(max_length=20, choices=[('Static CSV', 'Static CSV'), ('Google Sheets', 'Google Sheets'), ('Google BigQuery', 'Google BigQuery'), ('Amazon Redshift', 'Amazon Redshift'), ('PostgreSQL Database', 'PostgreSQL Database'), ('MySQL Database', 'MySQL Database')])
   email_maintainer = models.CharField(max_length=40)
   page_url = models.CharField(max_length=80, verbose_name='Page URL Path')
   embed_url = models.CharField(max_length=100, verbose_name='Embed URL Path')
