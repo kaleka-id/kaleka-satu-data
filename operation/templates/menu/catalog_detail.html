@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Dashboard - {{dashboard.nama}}{% endblock title %}
+{% block title %}Catalog - {{catalog.nama}}{% endblock title %}
 
 {% block head %}
 <style>
@@ -19,18 +19,15 @@
 
 {% block body %}
 <div class="container page mt-4">
-  <h1>{{dashboard.nama}}</h1>
-  <p>
-    Data source: <b>{{dashboard.category}}</b><br>
-    Maintainer: <i>{{dashboard.email_maintainer}}</i>
-  </p>
+  <h1>{{catalog.nama}}</h1>
+  <p>Maintainer: <i>{{catalog.email_maintainer}}</i></p>
+  <a class="btn btn-success" href="{{catalog.spreadsheet_url}}" target="_blank">Google Sheets</a>
   <div class="container d-flex justify-content-center mt-5">
     <iframe 
       class="mb-4"
-      width="{{dashboard.width}}" 
-      height="{{dashboard.height}}"
-      src="{{dashboard.embed_url}}" 
-      allowfullscreen>
+      width="{{catalog.width}}" 
+      height="{{catalog.height}}"
+      src="{{catalog.embed_url}}">
     </iframe>
   </div>
 </div>

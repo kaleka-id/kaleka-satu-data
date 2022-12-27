@@ -36,3 +36,9 @@ class DictionaryModel(admin.ModelAdmin):
 class DashboardModel(admin.ModelAdmin, DynamicArrayMixin):
   search_fields = ('nama',)
   list_display = ('id', 'nama', 'category', 'email_maintainer', 'perms_view')
+
+# CATALOGS
+@admin.register(Catalog)
+class CatalogModel(admin.ModelAdmin, DynamicArrayMixin):
+  search_fields = ('nama',)
+  list_display = ('id', 'nama', 'email_maintainer', 'perms_view')
