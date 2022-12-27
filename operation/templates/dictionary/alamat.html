@@ -49,7 +49,9 @@
       <li class="page-item"><a class="page-link" href="?page=1&amp;q={{query}}">&laquoFirst</a></li>
       <li class="page-item"><a class="page-link" href="?page={{page.previous_page_number}}&amp;q={{query}}">Previous</a></li>
     {% endif %}
+    {% if alamat.paginator.num_pages %}
       <li class="page-item disabled"><a class="page-link" href="">{{alamat.number}} of {{alamat.paginator.num_pages}}</a></li>
+    {% endif %}
     {% if alamat.has_next %}
       <li class="page-item"><a class="page-link" href="?page={{alamat.next_page_number}}&amp;q={{query}}">Next</a></li>
       <li class="page-item"><a class="page-link" href="?page={{alamat.paginator.num_pages}}&amp;q={{query}}">Last&raquo</a></li>

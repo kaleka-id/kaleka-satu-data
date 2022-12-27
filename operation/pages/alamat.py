@@ -8,6 +8,9 @@ from data.dataset.alamat import Alamat
 
 @permission_required('data.view_alamat')
 def alamat_dict(request):
+  q = None
+  page = None
+
   if 'q' in request.GET:
     q = request.GET['q']
     data = Alamat.objects.filter(
@@ -19,7 +22,8 @@ def alamat_dict(request):
     page = request.GET.get('page')
     data_page = p.get_page(page)
   else:
-    data = Alamat.objects.none()
+    data_page = Alamat.objects.none()
+
   return render(request, 'dictionary/alamat.html', {'alamat': data_page, 'query': q, 'page': page})
 
 urlpatterns = [
