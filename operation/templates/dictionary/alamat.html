@@ -56,6 +56,9 @@
       <li class="page-item"><a class="page-link" href="?page={{alamat.next_page_number}}&amp;q={{query}}">Next</a></li>
       <li class="page-item"><a class="page-link" href="?page={{alamat.paginator.num_pages}}&amp;q={{query}}">Last&raquo</a></li>
     {% endif %}
+    {% if alamat.paginator.num_pages %}
+      <input type="number" onchange="location.href=`?page=${this.value}&amp;q={{query}}`" placeholder="Go to">
+    {% endif %}
     </ul>
   </nav>
 </div>
