@@ -4,6 +4,7 @@ from django.urls import path, include
 from .pages.menu import *
 
 urlpatterns = [
+    path('', include('operation.pages.alamat')),
     path('', include('operation.pages.menu')),
     path('', include('operation.pages.testing')),
 ]
