@@ -44,7 +44,7 @@
 
   <!-- PAGINATOR -->
   <nav class="mt-3 d-flex justify-content-center">
-    <ul class="pagination">
+    <ul class="pagination align-items-center m-1">
     {% if alamat.has_previous %}
       <li class="page-item"><a class="page-link" href="?page=1&amp;q={{query}}">&laquoFirst</a></li>
       <li class="page-item"><a class="page-link" href="?page={{page.previous_page_number}}&amp;q={{query}}">Previous</a></li>
@@ -56,11 +56,13 @@
       <li class="page-item"><a class="page-link" href="?page={{alamat.next_page_number}}&amp;q={{query}}">Next</a></li>
       <li class="page-item"><a class="page-link" href="?page={{alamat.paginator.num_pages}}&amp;q={{query}}">Last&raquo</a></li>
     {% endif %}
-    {% if alamat.paginator.num_pages %}
-      <input type="number" onchange="location.href=`?page=${this.value}&amp;q={{query}}`" placeholder="Go to">
-    {% endif %}
     </ul>
   </nav>
+  {% if alamat.paginator.num_pages %}
+  <div class="d-flex justify-content-center mb-3">
+    <input class="text-center" type="number" onchange="location.href=`?page=${this.value}&amp;q={{query}}`" placeholder="Go to page...">
+  </div>
+  {% endif %}
 </div>
 
 <script src="{% static 'js/copy_clipboard/CopyClipboard.js' %}"></script>

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tutorial - GeoServer di QGIS{% endblock title %}
+{% block head %}{% endblock head %}
+{% block body %}
+  <div class="container mt-3">
+    <h1>Tutorial menggunakan GeoServer di QGIS</h1><br>
+    <ol>
+      <li class="fw-bold">Buka QGIS Desktop</li>
+        <p>Buka QGIS di desktop, disarankan untuk menggunakan QGIS versi 3.16 ke atas untuk menghasilkan koneksi data yang baik. Jika QGIS belum terinstall di komputer, aplikasi ini dapat diunduh secara gratis <a target="_blank" href="https://qgis.org/en/site/forusers/download.html">di sini</a></p>
+        <img src="{% static 'images/qgis_open.png' %}" alt="open qgis"><br><br>
+      <li class="fw-bold">Buka Open Data Source Manager</li>
+        <p>Klik icon Open Data Source Manager yang biasanya ada di toolbar sisi kiri atas</p>
+        <img src="{% static 'images/qgis_data_source.png' %}" alt="open data source"><br><br>
+      <li class="fw-bold">Pilih menu WFS</li>
+        <p>Pilih <b>WFS / OGC API - Features</b> pada sidebar</p>
+        <img src="{% static 'images/qgis_data_source_panel.png' %}" alt="open wfs"><br><br>
+      <li class="fw-bold">Membuat koneksi WFS baru</li>
+        <p>Klik tombol <b>New</b> pada menu WFS / OGC API - Features</p>
+        <img src="{% static 'images/qgis_wfs_connection.png' %}" alt="wfs connection"><br><br>
+      <li class="fw-bold">Setup koneksi ke Kaleka Satu Data</li>
+        <p>Tuliskan <b>Nama</b> koneksi dengan nama <i>Kaleka Satu Data</i>. Kemudian isikan <b>URL</b> dengan kode berikut ini. Jangan lupa untuk memilih versi WFS 1.1 pada <b>WFS Option</b> di bawah.</p>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" value="https://kaleka.azfaiz.com/geoserver/satudata/ows?service=WFS&version=1.1.0" readonly>
+          <div class="input-group-append">
+            <span class="input-group-text">
+              <button class="btn btn-outline-secondary copy-button" data-url="https://kaleka.azfaiz.com/geoserver/satudata/ows?service=WFS&version=1.1.0">Copy URL</button>
+            </span>
+          </div>
+        </div>
+        <img src="{% static 'images/qgis_wfs_connect.png' %}" alt="wfs connect"><br><br>
+      <li class="fw-bold">Otentikasi koneksi ke GeoServer</li>
+        <p>Isikan <b>Username</b> dan <b>Password</b> pada form Basic Authentication. Kontak ke <a href="mailto:afaiz@kaleka.id">afaiz@kaleka.id</a> untuk mendapatkan username dan password GeoServer.</p>
+        <img src="{% static 'images/qgis_wfs_auth.png' %}" alt="wfs auth"><br><br>
+      <li class="fw-bold">Tambahkan layer WFS ke dalam halaman peta</li>
+        <p>Klik <b>Connect</b> untuk mengkoneksikan dengan GeoServer Kaleka Satu Data. Pilih layer yang akan ditampilkan di QGIS kemudian klik <b>Add</b>. Jika membutuhkan dta yang spesifik, dapat dilakukan filter data dengan tombol <b>Build query</b></p>
+        <img src="{% static 'images/qgis_import_wfs.png' %}" alt="wfs import"><br><br>
+      <li class="fw-bold">Selamat, kamu sudah bisa menggunakan data dari Kaleka Satu Data di QGIS</li>
+    </ol>
+  </div>
+
+  <script src="{% static 'js/copy_clipboard/cc_url.js' %}"></script>
+{% endblock body %}

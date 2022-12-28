@@ -54,6 +54,14 @@ def catalog(request):
 def catalog_detail(request, pk):
   return detailData(request, Catalog, pk, 'menu/catalog_detail.html', 'catalog')
 
+@login_required
+def about(request):
+  return render(request, 'menu/about.html')
+
+@login_required
+def about_geoserver_qgis(request):
+  return render(request, 'menu/tutorial/geoserver_qgis.html')
+
 urlpatterns = [
   path('', home, name='home'),
   path('forms/', forms, name='forms'),
@@ -64,4 +72,6 @@ urlpatterns = [
   path('dashboard/<int:pk>/', dashboard_detail, name='dashboard_detail'),
   path('catalog/', catalog, name='catalog'),
   path('catalog/<int:pk>/', catalog_detail, name='catalog_detail'),
+  path('about/', about, name='about'),
+  path('about/tutorial-geoserver-di-qgis', about_geoserver_qgis, name='about_geoserver_qgis'),
 ]

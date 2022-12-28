@@ -14,12 +14,12 @@ from django.shortcuts import render
 # View dari daftar artikel
 @permission_required('data.view_testing')
 def testingArtikel(request):
-  return listData(request, Testing, 'lists/testing_artikel.html', 'artikel')
+  return listData(request, Testing, 'forms/lists/testing_artikel.html', 'artikel')
 
 # View dari informasi detil artikel
 @permission_required('data.view_testing')
 def testingArtikelDetail(request, pk):
-  return detailData(request, Testing, pk, 'details/testing_artikel.html', 'artikel')
+  return detailData(request, Testing, pk, 'forms/details/testing_artikel.html', 'artikel')
 
 # Form untuk menambahkan dan mengubah artikel
 class testingArtikelForm(forms.ModelForm):
@@ -30,12 +30,12 @@ class testingArtikelForm(forms.ModelForm):
 # View dari form penambahan artikel
 @permission_required('data.add_testing')
 def article_form_add(request):
-  return addData(request, testingArtikelForm, 'testing_artikel_list', 'forms/testing_artikel_add.html')
+  return addData(request, testingArtikelForm, 'testing_artikel_list', 'forms/form/testing_artikel_add.html')
 
 # View dari form perubahan artikel
 @permission_required('data.change_testing')
 def article_form_update(request, pk):
-  return updateData(request, Testing, pk, testingArtikelForm, 'testing_artikel_list', 'forms/testing_artikel_update.html')
+  return updateData(request, Testing, pk, testingArtikelForm, 'testing_artikel_list', 'forms/form/testing_artikel_update.html')
 
 # View untuk menghapus artikel
 @permission_required('data.delete_testing')
@@ -55,7 +55,7 @@ def article_dict(request):
 # View dari daftar toko
 @permission_required('data.view_shop')
 def testingShop(request):
-  return listData(request, Shop, 'lists/testing_shop.html', 'toko')
+  return listData(request, Shop, 'forms/lists/testing_shop.html', 'toko')
 
 def testingShopJSON(request):
   return listSpatialData(request, Shop)
@@ -63,7 +63,7 @@ def testingShopJSON(request):
 # View dari informasi detil toko
 @permission_required('data.view_shop')
 def testingShopDetail(request, pk):
-  return detailData(request, Shop, pk, 'details/testing_shop.html', 'toko')
+  return detailData(request, Shop, pk, 'forms/details/testing_shop.html', 'toko')
 
 # Form untuk menambahkan dan mengubah toko
 class testingShopForm(forms.ModelForm):
@@ -77,12 +77,12 @@ class testingShopForm(forms.ModelForm):
 # View dari form penambahan toko
 @permission_required('data.add_shop')
 def shop_form_add(request):
-  return addData(request, testingShopForm, 'testing_toko_list', 'forms/testing_toko_add.html')
+  return addData(request, testingShopForm, 'testing_toko_list', 'forms/form/testing_toko_add.html')
 
 # View dari form perubahan toko
 @permission_required('data.change_shop')
 def shop_form_update(request, pk):
-  return updateData(request, Shop, pk, testingShopForm, 'testing_toko_list', 'forms/testing_toko_update.html')
+  return updateData(request, Shop, pk, testingShopForm, 'testing_toko_list', 'forms/form/testing_toko_update.html')
 
 # View untuk menghapus toko
 @permission_required('data.delete_shop')
@@ -103,12 +103,12 @@ def shop_dict(request):
 # View dari daftar produk
 @permission_required('data.view_product')
 def testingProduct(request):
-  return listData(request, Product, 'lists/testing_produk.html', 'produk')
+  return listData(request, Product, 'forms/lists/testing_produk.html', 'produk')
 
 # View dari informasi detil artikel
 @permission_required('data.view_product')
 def testingProductDetail(request, pk):
-  return detailData(request, Product, pk, 'details/testing_produk.html', 'produk')
+  return detailData(request, Product, pk, 'forms/details/testing_produk.html', 'produk')
 
 # Form untuk menambahkan dan mengubah artikel
 class testingProductForm(forms.ModelForm):
@@ -131,12 +131,12 @@ class testingProductForm(forms.ModelForm):
 # View dari form penambahan produk
 @permission_required('data.add_product')
 def product_form_add(request):
-  return addData(request, testingProductForm, 'testing_produk_list', 'forms/testing_produk_add.html')
+  return addData(request, testingProductForm, 'testing_produk_list', 'forms/form/testing_produk_add.html')
 
 # View dari form perubahan produk
 @permission_required('data.change_product')
 def product_form_update(request, pk):
-  return updateData(request, Product, pk, testingProductForm, 'testing_produk_list', 'forms/testing_produk_update.html')
+  return updateData(request, Product, pk, testingProductForm, 'testing_produk_list', 'forms/form/testing_produk_update.html')
 
 # View untuk menghapus produk
 @permission_required('data.delete_product')
