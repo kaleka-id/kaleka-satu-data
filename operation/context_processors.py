@@ -1,5 +1,9 @@
 from operation.models import Profile
 
 def profil(request):
-  profile = Profile.objects.filter(user=request.user)
-  return {'profil': profile}
+  if request.user.is_authenticated:
+    profile = Profile.objects.filter(user=request.user)
+    return {'profil': profile}
+  else:
+    profile = Profile.objects.none()
+    return {'profil': profile}
