@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock title %}
+{% block head %}{% endblock head %}
+{% block body %}
+  <div class="container">
+    <main class="mt-5">
+      <h1>Profile User</h1>
+      <div class="row">
+        <div class="col-3">
+          {% for data in profil %}
+            {% if data.user == request.user %}
+            <a href="{% url 'profile_form_update' data.id %}">
+              <img class="img-fluid" src="{{data.avatar}}" alt="" style="width: max-content; height: auto;">
+            </a>
+            {% endif %}
+          {% empty %}
+          <a href="{% url 'profile_form_add' %}" class="btn btn-sm btn-outline-secondary">Add Profile</a>
+          {% endfor %}
+        </div>
+        <div class="col-9">
+          <h3>{{request.user.first_name}} {{request.user.last_name}}</h3>
+          <h6><i>Username:</i> {{request.user.username}}</h6>
+          <h6><i>E-mail:</i> {{request.user.email}}</h6>
+          {% if request.user.is_active %}
+          <h6><i>Status:</i> ✅Active</h6>
+          {% else %}
+          <h6><i>Status:</i> ⛔Inactive</h6>
+          {% endif %}
+        </div>
+      </div>
+    </main>
+  </div>
+{% endblock body %}

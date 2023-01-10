@@ -42,3 +42,9 @@ class DashboardModel(admin.ModelAdmin, DynamicArrayMixin):
 class CatalogModel(admin.ModelAdmin, DynamicArrayMixin):
   search_fields = ('nama',)
   list_display = ('id', 'nama', 'email_maintainer', 'perms_view')
+
+# PROFILE
+@admin.register(Profile)
+class ProfileModel(admin.ModelAdmin):
+  search_fields = ('user',)
+  list_display = ('id', 'user', 'avatar')

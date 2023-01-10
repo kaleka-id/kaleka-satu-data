@@ -38,11 +38,18 @@
         {% if request.user.is_authenticated %}
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-white" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{% static 'bootstrap/image/user.png' %}" width="32" height="32" class="rounded-circle"> {{request.user.username}}
+            {% for data in profil %}
+              {% if data.user == request.user %}
+              <img src="{{data.avatar}}" width="42" height="42">
+              {% endif %}
+            {% empty %}
+            <img src="{% static 'bootstrap/image/user.png' %}" width="42" height="42">
+            {% endfor %}
+            <b>{{request.user.username}}</b>
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="{% url 'password-change' %}">Change Password</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
           </ul>

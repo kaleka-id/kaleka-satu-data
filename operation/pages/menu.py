@@ -1,11 +1,12 @@
+from django import forms as iforms
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import path
-from ..models import Forms, Docs, Dictionary, Dashboard, Catalog
-from ..data_modification import detailData
+from ..models import Forms, Docs, Dictionary, Dashboard, Catalog, Profile
+from ..data_modification import detailData, addData, updateData
 
 def home(request):
-    return render(request, 'menu/home.html')
+  return render(request, 'menu/home.html')
 
 @permission_required('operation.view_forms')
 def forms(request):
@@ -55,6 +56,23 @@ def catalog_detail(request, pk):
   return detailData(request, Catalog, pk, 'menu/catalog_detail.html', 'catalog')
 
 @login_required
+def profile(request):
+  return render(request, 'menu/profile.html')
+
+class ProfileForm(iforms.ModelForm):
+  class Meta:
+    model = Profile
+    fields = ('avatar',)
+
+@login_required
+def profile_form_add(request):
+  return addData(request, ProfileForm, 'profile', 'menu/profile_add.html')
+
+@login_required
+def profile_form_update(request, pk):
+  return updateData(request, Profile, pk, ProfileForm, 'profile', 'menu/profile_update.html')
+
+@login_required
 def about(request):
   return render(request, 'menu/about.html')
 
@@ -72,6 +90,9 @@ urlpatterns = [
   path('dashboard/<int:pk>/', dashboard_detail, name='dashboard_detail'),
   path('catalog/', catalog, name='catalog'),
   path('catalog/<int:pk>/', catalog_detail, name='catalog_detail'),
+  path('profile/', profile, name='profile'),
+  path('profile/add/', profile_form_add, name='profile_form_add'),
+  path('profile/<uuid:pk>/', profile_form_update, name='profile_form_update'),
   path('about/', about, name='about'),
   path('about/tutorial-geoserver-di-qgis', about_geoserver_qgis, name='about_geoserver_qgis'),
 ]
