@@ -8,6 +8,9 @@ class Profesi(models.Model):
     class Meta:
         verbose_name = 'Profesi'
         verbose_name_plural = 'Profesi'
+        permissions = [
+            ('search_profesi', 'Can search Profesi in Dictionary')
+        ]
 
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     nama = models.CharField(max_length=50)

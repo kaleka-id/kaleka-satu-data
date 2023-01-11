@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Alamat{% endblock title %}
+{% block title %}Orang{% endblock title %}
 
 {% block head %}
 <style>
@@ -19,22 +19,24 @@
 
 {% block body %}
 <div class="container mt-4">
-  <h1 class="page">Cari Alamat</h1>
+  <h1 class="page">Cari Orang</h1>
   <form class="d-flex mb-3">
-    <input class="form-control" type="search" placeholder="Cari alamat" aria-label="Search" name="q">
+    <input class="form-control" type="search" placeholder="Cari orang" aria-label="Search" name="q">
     <button class="btn btn-outline-secondary ms-2" type="submit">Search</button>
   </form>
 
   {% for data in dataset %}
   <div class="card mt-1 mb-1">
-    <h5 class="card-header">{{data.kode_desa}}: {{data.nama_desa|title}}</h5>
+    <h5 class="card-header">{{data.nama_lengkap}}</h5>
     <div class="card-body">
-      <p class="card-text">
-        Desa/Kelurahan: <b>{{data.nama_desa}}</b> <br>
-        Kecamatan: <b>{{data.nama_kec}}</b> <br>
-        Kabupaten/Kota: <b>{{data.nama_kabkot}}</b> <br>
-        Provinsi: <b>{{data.nama_prov}}</b>
-      </p>
+      <ul>
+        <li><b>NIK:</b> {{data.nik}}</li>
+        <li><b>Jenis Kelamin:</b> {{data.jenis_kelamin}}</li>
+        <li><b>Tempat & Tanggal Lahir:</b> {{data.tempat_lahir|title}}, {{data.tanggal_lahir|date:"d-m-Y"}}</li>
+        <li><b>Status Kawin:</b> {{data.status_kawin}}</li>
+        <li><b>Profesi</b>: {% for profesi in data.profesi.all %}<span class="badge bg-light text-dark">{{profesi}}</span> {% endfor %}</li>
+        <li><b>Alamat:</b> {{data.alamat.nama_desa|title}} RT {{data.rt}} RW {{data.rw}}, {{data.alamat.nama_kec|title}}, {{data.alamat.nama_kabkot|title}}, {{data.alamat.nama_prov}}</li>
+      </ul>
       <button class="btn btn-secondary copy-button" data-url="{{data.id}}">Salin Referensi</button>
     </div>
   </div>

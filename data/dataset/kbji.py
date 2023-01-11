@@ -7,6 +7,9 @@ class KBJI(models.Model):
     class Meta:
         verbose_name = 'Klasifikasi Baku Jabatan'
         verbose_name_plural = 'Klasifikasi Baku Jabatan'
+        permissions = [
+            ('search_kbji', 'Can search KBJI in Dictionary')
+        ]
 
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     kode_gol_pokok = models.CharField(max_length=1, verbose_name='Kode Golongan Pokok')

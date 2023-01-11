@@ -9,6 +9,9 @@ class Orang(models.Model):
     class Meta:
         verbose_name = 'Orang'
         verbose_name_plural = 'Orang'
+        permissions = [
+            ('search_orang', 'Can search Orang in Dictionary')
+        ]
 
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     nik = models.PositiveBigIntegerField(verbose_name='Nomor Induk Kependudukan', unique=True)

@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.db.models import Q
 from data.dataset.alamat import Alamat
 
-@permission_required('data.view_alamat')
+@permission_required('data.search_alamat')
 def alamat_dict(request):
   q = None
   page = None
@@ -18,13 +18,13 @@ def alamat_dict(request):
       Q(nama_kabkot__icontains=q) |
       Q(nama_kec__icontains=q) |
       Q(nama_desa__icontains=q)).order_by('nama_desa')
-    p = Paginator(data, 5)
+    p = Paginator(data, 20)
     page = request.GET.get('page')
     data_page = p.get_page(page)
   else:
     data_page = Alamat.objects.none()
 
-  return render(request, 'dictionary/alamat.html', {'alamat': data_page, 'query': q, 'page': page})
+  return render(request, 'dictionary/alamat.html', {'dataset': data_page, 'query': q, 'page': page})
 
 urlpatterns = [
   path('dict/alamat/', alamat_dict, name='alamat_dict'),

@@ -5,7 +5,10 @@ from .pages.menu import *
 
 urlpatterns = [
     path('', include('operation.pages.alamat')),
+    path('', include('operation.pages.kbji')),
     path('', include('operation.pages.menu')),
+    path('', include('operation.pages.orang')),
+    path('', include('operation.pages.profesi')),
     path('', include('operation.pages.testing')),
 ]
 

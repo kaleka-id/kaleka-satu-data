@@ -8,6 +8,9 @@ class Alamat(models.Model):
     class Meta:
         verbose_name = 'Alamat'
         verbose_name_plural = 'Alamat'
+        permissions = [
+            ('search_alamat', 'Can search Alamat in Dictionary'),
+        ]
 
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     kode_prov = models.CharField(max_length=2, verbose_name='Kode Provinsi')
