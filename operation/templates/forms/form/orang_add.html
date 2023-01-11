@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Orang{% endblock title %}
+
+{% block head %}
+<style>
+  @media screen and (min-width: 500px){
+    .page{
+      width: 500px;
+      margin: auto;
+    }
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>Add Orang</h1>
+  <p>Add new orang here</p>
+  <form action="" method="post">
+    {{form | crispy}}
+    {% csrf_token %}
+    <input type="submit" value="Add Orang" class="btn btn-success mb-3">
+  </form>
+</div>
+{% endblock body %}

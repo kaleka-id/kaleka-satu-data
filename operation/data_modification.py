@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.serializers import serialize
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 
-# LIST OF DATA MODIFICATION FUNCTIONS
-def listData(request, dataset, url, callback):
+
+# LIST OF DATA MODIFICATION FUNCTIONS 
+def listData(request, dataset, url, callback, paginator):
   data = dataset.objects.filter(user=request.user)
-  return render(request, url, {callback: data})
+  p = Paginator(data, paginator)
+  page = request.GET.get('page')
+  data_page = p.get_page(page)
+  return render(request, url, {callback: data_page, 'page': page})
 
 def listSpatialData(request, dataset):
   place = serialize('geojson', dataset.objects.filter(user=request.user))

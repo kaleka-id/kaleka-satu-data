@@ -14,7 +14,7 @@ from django.shortcuts import render
 # View dari daftar artikel
 @permission_required('data.view_testing')
 def testingArtikel(request):
-  return listData(request, Testing, 'forms/lists/testing_artikel.html', 'artikel')
+  return listData(request, Testing, 'forms/lists/testing_artikel.html', 'artikel', 20)
 
 # View dari informasi detil artikel
 @permission_required('data.view_testing')
@@ -55,7 +55,7 @@ def article_dict(request):
 # View dari daftar toko
 @permission_required('data.view_shop')
 def testingShop(request):
-  return listData(request, Shop, 'forms/lists/testing_shop.html', 'toko')
+  return listData(request, Shop, 'forms/lists/testing_shop.html', 'toko', 20)
 
 def testingShopJSON(request):
   return listSpatialData(request, Shop)
@@ -103,7 +103,7 @@ def shop_dict(request):
 # View dari daftar produk
 @permission_required('data.view_product')
 def testingProduct(request):
-  return listData(request, Product, 'forms/lists/testing_produk.html', 'produk')
+  return listData(request, Product, 'forms/lists/testing_produk.html', 'produk', 20)
 
 # View dari informasi detil artikel
 @permission_required('data.view_product')

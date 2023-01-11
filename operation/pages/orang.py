@@ -1,9 +1,13 @@
+from django import forms
 from django.contrib.auth.decorators import permission_required
+from django.contrib.admin.widgets import AdminDateWidget
 from django.core.paginator import Paginator
 from django.urls import path
 from django.shortcuts import render
+from operation.data_modification import listData, listSpatialData, detailData, addData, updateData, deleteData
 from data.dataset.orang import Orang
 
+# DICTIONARY
 @permission_required('data.search_orang')
 def orang_dict(request):
   q = None
@@ -20,6 +24,47 @@ def orang_dict(request):
 
   return render(request, 'dictionary/orang.html', {'dataset': data_page, 'query': q, 'page': page})
 
+# FORM
+# View dari daftar orang
+@permission_required('data.view_orang')
+def orangList(request):
+  return listData(request, Orang, 'forms/lists/orang.html', 'orang', 20)
+
+# View dari informasi detil orang
+@permission_required('data.view_orang')
+def orangDetail(request, pk):
+  return detailData(request, Orang, pk, 'forms/details/orang.html', 'orang')
+
+# Form untuk menambahkan dan mengubah orang
+class orangForm(forms.ModelForm):
+  class Meta:
+    model = Orang
+    fields = ('nik', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'profesi', 'rt', 'rw', 'alamat')
+    widgets = {
+      'tanggal_lahir': forms.DateInput(attrs={'type': 'date'}),
+      'alamat': forms.TextInput(),
+    }
+
+# View dari form penambahan orang
+@permission_required('data.add_orang')
+def orang_form_add(request):
+  return addData(request, orangForm, 'orang_list', 'forms/form/orang_add.html')
+
+# View dari form perubahan orang
+@permission_required('data.change_testing')
+def orang_form_update(request, pk):
+  return updateData(request, Orang, pk, orangForm, 'orang_list', 'forms/form/orang_update.html')
+
+# View untuk menghapus orang
+@permission_required('data.delete_testing')
+def orang_form_delete(request, pk):
+  return deleteData(request, Orang, pk, 'orang_list')
+
 urlpatterns = [
   path('dict/orang/', orang_dict, name='orang_dict'),
+  path('forms/orang/', orangList, name='orang_list'),
+  path('forms/orang/<uuid:pk>/', orangDetail, name='orang_detail'),
+  path('forms/orang-add/', orang_form_add, name='orang_form_add'),
+  path('forms/orang-update/<uuid:pk>/', orang_form_update, name='orang_form_update'),
+  path('forms/orang-delete/<uuid:pk>/', orang_form_delete, name='orang_form_delete'),
 ]

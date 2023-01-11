@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Orang - {{orang.nama_lengkap}}{% endblock title %}
+
+{% block head %}
+<style>
+  /* .page{
+    font-family: 'Courier New', Courier, monospace;
+  } */
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>{{orang.nama_lengkap}}</h1>
+  <h6>Terakhir diupdate pada {{orang.updated_at}}</h6>
+  <div class="mb-3">
+    {% if perms.data.change_testing %}
+      <a class="btn btn-outline-info btn-sm" href="{% url 'orang_form_update' orang.id %}">Update Data</a>
+    {% endif %}
+    {% if perms.data.delete_testing %}
+      <a class="btn btn-outline-danger btn-sm" 
+        href="{% url 'orang_form_delete' orang.id %}"
+        onclick="return confirm('Are you sure you want to delete this item?');">
+          Delete Data
+      </a>
+    {% endif %}
+  </div>
+  <ul>
+    <li><b>NIK:</b> {{orang.nik}}</li>
+    <li><b>Jenis Kelamin:</b> {{orang.jenis_kelamin}}</li>
+    <li><b>Tempat & Tanggal Lahir:</b> {{orang.tempat_lahir|title}}, {{orang.tanggal_lahir|date:"d-m-Y"}}</li>
+    <li><b>Status Kawin:</b> {{orang.status_kawin}}</li>
+    <li><b>Profesi:</b> {% for profesi in orang.profesi.all %}{{profesi}}, {% endfor %}</li>
+    <li><b>Alamat:</b> {{orang.alamat.nama_desa|title}} RT {{orang.rt}} RW {{orang.rw}}, {{orang.alamat.nama_kec|title}}, {{orang.alamat.nama_kabkot|title}}, {{orang.alamat.nama_prov}}</li>
+  </ul>
+  <p>Data ini dikelola oleh <b><i>{{orang.user}}</i></b></p>
+</div>
+{% endblock body %}

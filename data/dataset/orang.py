@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 from .profesi import Profesi
 from .alamat import Alamat
 
@@ -23,7 +24,7 @@ class Orang(models.Model):
     profesi = models.ManyToManyField(Profesi, blank=True)
     rt = models.PositiveSmallIntegerField(verbose_name='RT')
     rw = models.PositiveSmallIntegerField(verbose_name='RW')
-    alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE)
+    alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/alamat/">Alamat</a> sebagai referensi untuk mengisi bagian ini'))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
