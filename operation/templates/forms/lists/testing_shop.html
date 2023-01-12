@@ -44,10 +44,12 @@
 
   <h1>Daftar Toko</h1>
   <div class="p-1">
-    {% if perms.data.add_shop %}
+    <form>
+      {% if perms.data.add_shop %}
       <a href="{% url 'testing_toko_form' %}" class="btn btn-sm btn-outline-success">Add Toko</a>
-    {% endif %}
-    <input class="form-control-sm" type="search" placeholder="Search" aria-label="Search">
+      {% endif %}
+      <input class="form-control-sm" type="search" placeholder="Search" aria-label="Search" name="q">
+    </form>
   </div>
 
   <div class="pb-2 pt-3">
@@ -67,7 +69,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for data in toko %}
+        {% for data in dataset %}
           <tr>
             <th scope="row"><a href="{% url 'testing_toko_detail' data.id %}">{{data.id}}</a></th>
             <td>{{data.name_shop}}</td>
@@ -88,27 +90,7 @@
     </table>
   </div>
 
-  <!-- PAGINATOR -->
-  <nav class="mt-3 d-flex justify-content-center">
-    <ul class="pagination align-items-center m-1">
-    {% if toko.has_previous %}
-      <li class="page-item"><a class="page-link" href="?page=1">&laquoFirst</a></li>
-      <li class="page-item"><a class="page-link" href="?page={{toko.previous_page_number}}">Previous</a></li>
-    {% endif %}
-    {% if toko.paginator.num_pages %}
-      <li class="page-item disabled"><a class="page-link" href="">{{toko.number}} of {{toko.paginator.num_pages}}</a></li>
-    {% endif %}
-    {% if toko.has_next %}
-      <li class="page-item"><a class="page-link" href="?page={{toko.next_page_number}}">Next</a></li>
-      <li class="page-item"><a class="page-link" href="?page={{toko.paginator.num_pages}}">Last&raquo</a></li>
-    {% endif %}
-    </ul>
-  </nav>
-  {% if toko.paginator.num_pages %}
-  <div class="d-flex justify-content-center mb-3">
-    <input class="text-center" type="number" onchange="location.href=`?page=${this.value}`" placeholder="Go to page...">
-  </div>
-  {% endif %}
+  {% include 'forms/lists/base/paginator.html' %}
 
 </div>
 {% endblock body %}

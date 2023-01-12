@@ -5,14 +5,7 @@ from django.core.paginator import Paginator
 
 
 # LIST OF DATA MODIFICATION FUNCTIONS 
-def listData(request, dataset, url, callback, paginator):
-  data = dataset.objects.filter(user=request.user)
-  p = Paginator(data, paginator)
-  page = request.GET.get('page')
-  data_page = p.get_page(page)
-  return render(request, url, {callback: data_page, 'page': page})
-
-def listSpatialData(request, dataset):
+def geojsonData(request, dataset):
   place = serialize('geojson', dataset.objects.filter(user=request.user))
   return HttpResponse(place, content_type='json')
 

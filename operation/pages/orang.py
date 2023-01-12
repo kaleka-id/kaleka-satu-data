@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib.auth.decorators import permission_required
-from django.contrib.admin.widgets import AdminDateWidget
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.urls import path
 from django.shortcuts import render
-from operation.data_modification import listData, listSpatialData, detailData, addData, updateData, deleteData
+from operation.data_modification import detailData, addData, updateData, deleteData
 from data.dataset.orang import Orang
 
 # DICTIONARY
@@ -15,7 +15,9 @@ def orang_dict(request):
 
   if 'q' in request.GET:
     q = request.GET['q']
-    data = Orang.objects.filter(nama_lengkap__icontains=q).order_by('nama_lengkap')
+    data = Orang.objects.filter(
+      Q(nama_lengkap__icontains=q) |
+      Q(nik__icontains=q)).order_by('nama_lengkap')
     p = Paginator(data, 20)
     page = request.GET.get('page')
     data_page = p.get_page(page)
@@ -28,7 +30,28 @@ def orang_dict(request):
 # View dari daftar orang
 @permission_required('data.view_orang')
 def orangList(request):
-  return listData(request, Orang, 'forms/lists/orang.html', 'orang', 20)
+  num_page = 20
+  
+  query = None
+  page = None
+
+  if 'q' in request.GET:
+    query = request.GET['q']
+    data = Orang.objects.filter(
+      Q(user=request.user, nama_lengkap__icontains=query) |
+      Q(user=request.user, nik__icontains=query))
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Orang.objects.filter(user=request.user)
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+
+  return render(request, 'forms/lists/orang.html', {'dataset': data_page, 'page': page, 'query': query})
+
 
 # View dari informasi detil orang
 @permission_required('data.view_orang')

@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.urls import path
 from django.db.models import Q
-from operation.data_modification import listData, listSpatialData, detailData, addData, updateData, deleteData
+from django.core.paginator import Paginator
+from operation.data_modification import geojsonData, detailData, addData, updateData, deleteData
 from data.dataset.testing import Testing, Shop, Product
 from leaflet.forms.widgets import LeafletWidget
 
@@ -14,7 +15,25 @@ from django.shortcuts import render
 # View dari daftar artikel
 @permission_required('data.view_testing')
 def testingArtikel(request):
-  return listData(request, Testing, 'forms/lists/testing_artikel.html', 'artikel', 20)
+  num_page = 20
+  
+  query = None
+  page = None
+
+  if 'q' in request.GET:
+    query = request.GET['q']
+    data = Testing.objects.filter(user=request.user, nama__icontains=query)
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Testing.objects.filter(user=request.user)
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+
+  return render(request, 'forms/lists/testing_artikel.html', {'dataset': data_page, 'page': page, 'query': query})
 
 # View dari informasi detil artikel
 @permission_required('data.view_testing')
@@ -55,10 +74,28 @@ def article_dict(request):
 # View dari daftar toko
 @permission_required('data.view_shop')
 def testingShop(request):
-  return listData(request, Shop, 'forms/lists/testing_shop.html', 'toko', 20)
+  num_page = 20
+  
+  query = None
+  page = None
+
+  if 'q' in request.GET:
+    query = request.GET['q']
+    data = Shop.objects.filter(user=request.user, name_shop__icontains=query)
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Shop.objects.filter(user=request.user)
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+
+  return render(request, 'forms/lists/testing_shop.html', {'dataset': data_page, 'page': page, 'query': query})
 
 def testingShopJSON(request):
-  return listSpatialData(request, Shop)
+  return geojsonData(request, Shop)
 
 # View dari informasi detil toko
 @permission_required('data.view_shop')
@@ -103,7 +140,25 @@ def shop_dict(request):
 # View dari daftar produk
 @permission_required('data.view_product')
 def testingProduct(request):
-  return listData(request, Product, 'forms/lists/testing_produk.html', 'produk', 20)
+  num_page = 20
+  
+  query = None
+  page = None
+
+  if 'q' in request.GET:
+    query = request.GET['q']
+    data = Product.objects.filter(user=request.user, nama__icontains=query)
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Product.objects.filter(user=request.user)
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+
+  return render(request, 'forms/lists/testing_produk.html', {'dataset': data_page, 'page': page, 'query': query})
 
 # View dari informasi detil artikel
 @permission_required('data.view_product')
