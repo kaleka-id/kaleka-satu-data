@@ -6,6 +6,7 @@ from .dataset.iucn import *
 from .dataset.kbji import *
 from .dataset.keluarga import *
 from .dataset.kodepos import *
+from .dataset.lahan import *
 from .dataset.negara import *
 from .dataset.orang import *
 from .dataset.profesi import *

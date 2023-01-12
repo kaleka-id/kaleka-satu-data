@@ -33,6 +33,7 @@ class Orang(models.Model):
         return self.nama_lengkap
 
     def save(self, *args, **kwargs):
+        self.nama_lengkap = self.nama_lengkap.upper()
         self.tempat_lahir = self.tempat_lahir.upper()
         return super(Orang, self).save(*args, **kwargs)
 
