@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load leaflet_tags %}
+
+{% block title %}Update Lahan{% endblock title %}
+
+{% block head %}
+<style>
+  @media screen and (min-width: 500px){
+    .page{
+      width: 500px;
+      margin: auto;
+    }
+  }
+</style>
+  {% leaflet_js %}
+  {% leaflet_css %}
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>Update Lahan</h1>
+  <p>
+    <b>Petani:
+      {% for item in data %}
+        {% if item.petani.id == form.petani.value %}
+          {{item.petani.nama_lengkap}}
+        {% endif %}
+      {% endfor %}
+    </b> 
+  </p>
+
+  <form action="" method="post">
+    {{form | crispy}}
+    {% csrf_token %}
+    <input type="submit" value="Update Lahan" class="btn btn-info mb-3">
+  </form>
+</div>
+{% endblock body %}

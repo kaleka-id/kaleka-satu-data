@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lahan - {{lahan.petani.nama_lengkap}}{% endblock title %}
+
+{% block head %}
+<style>
+  /* .page{
+    font-family: 'Courier New', Courier, monospace;
+  } */
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  
+  <h1>{{lahan.id}}</h1>
+  <h6>Terakhir diupdate pada {{lahan.updated_at}}</h6>
+  <div class="mb-3">
+    {% if perms.data.change_testing %}
+      <a class="btn btn-outline-info btn-sm" href="{% url 'lahan_form_update' lahan.id %}">Update Data</a>
+    {% endif %}
+    {% if perms.data.delete_testing %}
+      <a class="btn btn-outline-danger btn-sm" 
+        href="{% url 'lahan_form_delete' lahan.id %}"
+        onclick="return confirm('Are you sure you want to delete this item?');">
+          Delete Data
+      </a>
+    {% endif %}
+  </div>
+  <ul>
+    <li><b>Geometri Lahan:</b> {{lahan.geom}}</li>
+    <li><b>Nama Petani:</b> {{lahan.petani.nama_lengkap}}</li>
+    <li><b>Status Petani:</b> {{lahan.status_petani|title}}</li>
+    <li><b>Alamat Petani:</b> {{lahan.petani.alamat.nama_desa|title}} RT {{lahan.petani.rt}} RW {{lahan.petani.rw}}, {{lahan.petani.alamat.nama_kec|title}}, {{lahan.petani.alamat.nama_kabkot|title}}, {{lahan.petani.alamat.nama_prov}}</li>
+    <li><b>Jenis Legalitas:</b> {{lahan.jenis_legalitas}}</li>
+    <li><b>Nomor Legalitas:</b> {{lahan.nomor_legalitas}}</li>
+    <li><b>Tahun Legalitas:</b> {{lahan.tahun_legalitas}}</li>
+  </ul>
+  <p>Data ini dikelola oleh <b><i>{{lahan.user}}</i></b></p>
+</div>
+{% endblock body %}

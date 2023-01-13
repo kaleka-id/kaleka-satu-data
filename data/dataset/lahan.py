@@ -5,6 +5,7 @@ import uuid
 from data.dataset.orang import Orang
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 
 class Lahan(models.Model):
   class Meta:
@@ -16,7 +17,7 @@ class Lahan(models.Model):
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
   geom = models.PolygonField(verbose_name='Lahan')
-  petani = models.ForeignKey(Orang, on_delete=models.CASCADE)
+  petani = models.ForeignKey(Orang, on_delete=models.CASCADE, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/orang/">Orang</a> sebagai referensi untuk mengisi bagian ini'))
   status_petani = models.CharField(max_length=10, choices=[('pemilik', 'Pemilik Lahan'), ('penggarap', 'Penggarap Lahan')])
   jenis_legalitas = models.CharField(max_length=25, null=True, blank=True, choices=[('Hak Milik', 'Hak Milik'), ('Hak Sewa', 'Hak Sewa'), ('Hak Guna Lahan', 'Hak Guna Lahan'), ('Hak Guna Bangunan', 'Hak Guna Bangunan'), ('Girik', 'Girik'), ('Surat Keterangan Tanah', 'Surat Keterangan Tanah'), ('Tanah Adat', 'Tanah Adat'), ('Tanpa Status', 'Tidak ada Status (Komunal)')])
   nomor_legalitas = models.CharField(max_length=20)

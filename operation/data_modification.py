@@ -33,11 +33,12 @@ def addData(request, forms, redirects, url):
 def updateData(request, dataset, pk, forms, redirects, url):
   artikel = get_object_or_404(dataset, id=pk)
   form = forms(request.POST or None, instance=artikel)
+  data = dataset.objects.filter(user=request.user)
   if form.is_valid():
     form.save()
     return redirect(redirects)
 
-  return render(request, url, {'form':form})
+  return render(request, url, {'form':form, 'data':data})
 
 def deleteData(request, dataset, pk, redirects):
   artikel = get_object_or_404(dataset, id=pk)
