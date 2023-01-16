@@ -15,7 +15,7 @@ def detailData(request, dataset, pk, url, callback):
 
 def addData(request, forms, redirects, url):
   if request.method == 'POST':
-    form = forms(request.POST)
+    form = forms(request.POST, request.FILES)
     if form.is_valid():
       artikel = form.save(commit= False)
       artikel.user = request.user
@@ -32,7 +32,7 @@ def addData(request, forms, redirects, url):
 
 def updateData(request, dataset, pk, forms, redirects, url):
   artikel = get_object_or_404(dataset, id=pk)
-  form = forms(request.POST or None, instance=artikel)
+  form = forms(request.POST or None, request.FILES or None, instance=artikel)
   data = dataset.objects.filter(user=request.user)
   if form.is_valid():
     form.save()

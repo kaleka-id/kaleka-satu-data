@@ -28,8 +28,6 @@
 
   <script type="text/javascript">
     function place_pos(map, options){
-      
-      
       const dataset = new L.GeoJSON.AJAX("{% url 'lahan_json' %}",{
         onEachFeature: function(feature, layer){
           layer.bindPopup(

@@ -19,7 +19,7 @@
 <div class="container page mt-4">
   <h1>Update Product</h1>
   <p>Update your product here</p>
-  <form action="" method="post">
+  <form action="" method="post" enctype="multipart/form-data">
     {{form | crispy}}
     {% csrf_token %}
     <input type="submit" value="Update Product" class="btn btn-info mb-3">

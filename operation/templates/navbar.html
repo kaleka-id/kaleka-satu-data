@@ -51,6 +51,11 @@
             <li><a class="dropdown-item" href="{% url 'password-change' %}">Change Password</a></li>
             <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
+            {% if request.user.is_staff %}
+            <li><a class="dropdown-item" href="/admin" target="_blank">Admin</a></li>
+            <li><a class="dropdown-item" href="/geoserver" target="_blank">GeoServer</a></li>
+            <li><hr class="dropdown-divider"></li>
+            {% endif %}
             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
           </ul>
         </div>
