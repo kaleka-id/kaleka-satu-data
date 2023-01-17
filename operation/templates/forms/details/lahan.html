@@ -17,10 +17,10 @@
   <h1>{{lahan.id}}</h1>
   <h6>Terakhir diupdate pada {{lahan.updated_at}}</h6>
   <div class="mb-3">
-    {% if perms.data.change_testing %}
+    {% if perms.data.change_lahan %}
       <a class="btn btn-outline-info btn-sm" href="{% url 'lahan_form_update' lahan.id %}">Update Data</a>
     {% endif %}
-    {% if perms.data.delete_testing %}
+    {% if perms.data.delete_lahan %}
       <a class="btn btn-outline-danger btn-sm" 
         href="{% url 'lahan_form_delete' lahan.id %}"
         onclick="return confirm('Are you sure you want to delete this item?');">

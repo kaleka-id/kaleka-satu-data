@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kegiatan - {{kegiatan.nama}}{% endblock title %}
+
+{% block head %}
+<style>
+  /* .page{
+    font-family: 'Courier New', Courier, monospace;
+  } */
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>{{kegiatan.nama}}</h1>
+  <h6>Terakhir diupdate pada {{kegiatan.updated_at}}</h6>
+  <div class="mb-3">
+    {% if perms.data.change_kegiatan %}
+      <a class="btn btn-outline-info btn-sm" href="">Update Data</a>
+    {% endif %}
+    {% if perms.data.delete_kegiatan %}
+      <a class="btn btn-outline-danger btn-sm" 
+        href=""
+        onclick="return confirm('Are you sure you want to delete this item?');">
+          Delete Data
+      </a>
+    {% endif %}
+  </div>
+  <ul>
+    <li><b>Nama Kegiatan:</b> {{kegiatan.nama}}</li>
+    <li><b>Tanggal Pelaksanaan:</b> {{kegiatan.tanggal_mulai}} - {{kegiatan.tanggal_selesai}}</li>
+    <li><b>Daftar Peserta</b> <br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>No.</td>
+            <td>Nama Lengkap</td>
+            <td>NIK</td>
+            <td>Alamat</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in peserta %}
+          <tr>
+            <th></th>
+            <td>{{p.peserta|title}}</td>
+            <td>{{p.peserta.nik}}</td>
+            <td>{{p.peserta.alamat.nama_desa|title}} RT {{p.peserta.rt}} RW {{p.peserta.rw}}, {{p.peserta.alamat.nama_kec|title}}, {{p.peserta.alamat.nama_kabkot|title}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </li>
+    <li><b>Dokumentasi</b><br>
+      {% for f in foto %}
+      <a href="/media/{{f.foto}}" download><img src="/media/{{f.foto}}" alt="" height="100px"></a>
+      {% endfor %}
+    </li>
+  </ul>
+  <p>Data ini dikelola oleh <b><i>{{kegiatan.user}}</i></b></p>
+</div>
+
+<script>
+  const table = document.getElementsByTagName('tbody')[0],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+  for (let i = 0, len = rows.length; i < len; i++) {
+    rows[i].children[0][text] = 1 + i + rows[i].children[0][text];
+  }
+</script>
+{% endblock body %}
