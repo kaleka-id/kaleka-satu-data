@@ -68,9 +68,14 @@ class FotoKegiatan(models.Model):
     verbose_name = 'Foto Kegiatan'
     verbose_name_plural = 'Foto Kegiatan'
 
+  def get_filename(instance, filename):
+    extension = filename.split('.')[-1]
+    unique = uuid.uuid1().hex
+    return f'dataset/kegiatan/foto/{unique}.{extension}'
+
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
   kegiatan = models.ForeignKey(Kegiatan, on_delete=models.CASCADE)
-  foto = models.ImageField()
+  foto = models.ImageField(upload_to=get_filename)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
