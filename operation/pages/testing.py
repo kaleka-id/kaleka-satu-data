@@ -173,15 +173,8 @@ class testingProductForm(forms.ModelForm):
     widgets = {
       'deskripsi': forms.TextInput(),
       # 'toko': forms.SelectMultiple()
-      'toko': FilteredSelectMultiple("Shop", is_stacked=True),
+      'toko': forms.CheckboxSelectMultiple(),
     }
-
-  class Media:
-    css = {
-      'all':['admin/css/widgets.css', 'css/uid-manage-form.css'],
-    }
-    js = ['/admin/jsi18n']
-
   
 # View dari form penambahan produk
 @permission_required('data.add_product')

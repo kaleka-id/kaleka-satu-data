@@ -4,6 +4,7 @@ from .dataset.anggota_keluarga import *
 from .dataset.isced_attainment import *
 from .dataset.iucn import *
 from .dataset.kbji import *
+from .dataset.kegiatan import *
 from .dataset.keluarga import *
 from .dataset.kodepos import *
 from .dataset.lahan import *
