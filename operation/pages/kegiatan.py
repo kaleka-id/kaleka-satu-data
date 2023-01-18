@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator
 from django.urls import path
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from operation.data_modification import geojsonData, detailData, addData, updateData, deleteData
 from data.dataset.kegiatan import Kegiatan, PesertaKegiatan, FotoKegiatan
 
@@ -163,12 +163,28 @@ class fotoKegiatanForm(forms.ModelForm):
     fields = ('kegiatan', 'foto')
     widgets = {
       'kegiatan': forms.TextInput(),
+      'foto': forms.ClearableFileInput(attrs={'multiple': True})
     }
 
-# View dari form penambahan foto kegiatan
+# View dari form penambahan foto kegiatan, tidak menggunakan template karena ada fitur upload banyak file
 @permission_required('data.add_foto_kegiatan')
 def foto_kegiatan_form_add(request):
-  return addData(request, fotoKegiatanForm, 'foto_kegiatan_list', 'forms/form/kegiatan_foto_add.html')
+  if request.method == 'POST':
+    form = fotoKegiatanForm(request.POST, request.FILES)
+    images = request.FILES.getlist('foto')
+
+    if form.is_valid():
+      post = form.save(commit= False)
+      post.user = request.user
+      if images:  #check if user has uploaded some files
+        for img in images:
+          FotoKegiatan.objects.create(kegiatan=post.kegiatan, foto=img, user=request.user)
+      return redirect('foto_kegiatan_list')
+  
+  else:
+    form = fotoKegiatanForm()
+
+  return render(request, 'forms/form/kegiatan_foto_add.html', {'form': form})
 
 # View dari form perubahan foto kegiatan
 @permission_required('data.change_foto_kegiatan')
