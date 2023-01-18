@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db import models
 import uuid
 from django.contrib.auth.models import User 
+from django.utils.safestring import mark_safe
 from data.dataset.orang import Orang
 
 # 🚨KEGIATAN🚨
@@ -43,8 +44,8 @@ class PesertaKegiatan(models.Model):
     verbose_name_plural = 'Peserta Kegiatan'
   
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-  kegiatan = models.ForeignKey(Kegiatan, on_delete=models.CASCADE)
-  peserta = models.ForeignKey(Orang, on_delete=models.CASCADE)
+  kegiatan = models.ForeignKey(Kegiatan, on_delete=models.CASCADE, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/kegiatan/">Kegiatan</a> sebagai referensi untuk mengisi bagian ini'))
+  peserta = models.ForeignKey(Orang, on_delete=models.CASCADE, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/orang/">Orang</a> sebagai referensi untuk mengisi bagian ini'))
   status_kehadiran = models.CharField(max_length=10, choices=[('Peserta', 'Peserta'), ('Narasumber', 'Narasumber'), ('Panitia', 'Panitia')])
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Update Peserta Kegiatan{% endblock title %}
+
+{% block head %}
+<style>
+  @media screen and (min-width: 500px){
+    .page{
+      width: 500px;
+      margin: auto;
+    }
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>Update peserta kegiatan</h1>
+  <p>
+    {% for item in data %}
+      {% if item.kegiatan.id == form.kegiatan.value and item.peserta.id == form.peserta.value %}
+      <b>Nama Kegiatan:</b> {{item.kegiatan.nama}} <br>
+      <b>Nama Petani:</b> {{item.peserta.nama_lengkap}}
+      {% endif %}
+    {% endfor %}
+  </p>
+
+  <form action="" method="post">
+    {{form | crispy}}
+    {% csrf_token %}
+    <input type="submit" value="Update Peserta Kegiatan" class="btn btn-info mb-3">
+  </form>
+</div>
+{% endblock body %}

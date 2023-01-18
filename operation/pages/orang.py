@@ -74,12 +74,12 @@ def orang_form_add(request):
   return addData(request, orangForm, 'orang_list', 'forms/form/orang_add.html')
 
 # View dari form perubahan orang
-@permission_required('data.change_testing')
+@permission_required('data.change_orang')
 def orang_form_update(request, pk):
   return updateData(request, Orang, pk, orangForm, 'orang_list', 'forms/form/orang_update.html')
 
 # View untuk menghapus orang
-@permission_required('data.delete_testing')
+@permission_required('data.delete_orang')
 def orang_form_delete(request, pk):
   return deleteData(request, Orang, pk, 'orang_list')
 
