@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from .profesi import Profesi
 from .alamat import Alamat
+from import_export.admin import ImportExportModelAdmin
 
 class Orang(models.Model):
     class Meta:
@@ -38,7 +39,7 @@ class Orang(models.Model):
         return super(Orang, self).save(*args, **kwargs)
 
 @admin.register(Orang)
-class OrangModel(admin.ModelAdmin):
+class OrangModel(ImportExportModelAdmin):
     search_fields = ('nama_lengkap', 'nik')
     list_filter = ('jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'profesi', 'rt', 'rw', 'alamat', 'created_at', 'updated_at', 'user')
     list_display = ('nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'updated_at', 'user')

@@ -4,6 +4,7 @@ import uuid
 from django.contrib.auth.models import User 
 from django.utils.safestring import mark_safe
 from data.dataset.orang import Orang
+from import_export.admin import ImportExportModelAdmin
 
 # 🚨KEGIATAN🚨
 class Kegiatan(models.Model):
@@ -26,7 +27,7 @@ class Kegiatan(models.Model):
     return self.nama
   
 @admin.register(Kegiatan)
-class KegiatanModel(admin.ModelAdmin):
+class KegiatanModel(ImportExportModelAdmin):
   search_fields = ('nama',)
   ordering = ('nama',)
   list_filter = ('tanggal_mulai', 'tanggal_selesai', 'created_at', 'updated_at', 'user')
@@ -52,7 +53,7 @@ class PesertaKegiatan(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 @admin.register(PesertaKegiatan)
-class PesertaKegiatanModel(admin.ModelAdmin):
+class PesertaKegiatanModel(ImportExportModelAdmin):
   ordering = ('kegiatan',)
   list_filter = ('kegiatan', 'peserta', 'status_kehadiran', 'created_at', 'updated_at', 'user')
   list_display = ('id', 'kegiatan', 'peserta', 'status_kehadiran', 'updated_at', 'user')

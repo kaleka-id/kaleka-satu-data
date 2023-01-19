@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from import_export.admin import ImportExportModelAdmin
 
 class SITC(models.Model):
     class Meta:
@@ -27,7 +28,7 @@ class SITC(models.Model):
 
 
 @admin.register(SITC)
-class SITCModel(admin.ModelAdmin):
+class SITCModel(ImportExportModelAdmin):
     search_fields = ('deskripsi_section', 'deskripsi_division', 'deskripsi_group', 'deskripsi_subgroup', 'deskripsi_heading')
     list_filter = ('kode_section', 'kode_division', 'kode_group', 'kode_subgroup', 'kode_heading', 'dasar_hukum', 'status_data', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'kode_section', 'kode_division', 'kode_group', 'kode_subgroup', 'kode_heading', 'status_data', 'updated_at', 'user')

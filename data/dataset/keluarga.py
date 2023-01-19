@@ -3,6 +3,7 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import User
 from .alamat import Alamat
+from import_export.admin import ImportExportModelAdmin
 
 class Keluarga(models.Model):
     class Meta:
@@ -22,7 +23,7 @@ class Keluarga(models.Model):
         return str(self.nkk)
 
 @admin.register(Keluarga)
-class KeluargaModel(admin.ModelAdmin):
+class KeluargaModel(ImportExportModelAdmin):
     search_fields = ('nkk',)
     list_filter = ('rt', 'rw', 'alamat', 'created_at', 'updated_at', 'user')
     list_display = ('nkk', 'updated_at', 'user')

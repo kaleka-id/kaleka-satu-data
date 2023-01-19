@@ -3,6 +3,7 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import User
 from .kbji import KBJI
+from import_export.admin import ImportExportModelAdmin
 
 class Profesi(models.Model):
     class Meta:
@@ -23,7 +24,7 @@ class Profesi(models.Model):
         return self.nama
 
 @admin.register(Profesi)
-class ProfesiModel(admin.ModelAdmin):
+class ProfesiModel(ImportExportModelAdmin):
     search_fields = ('nama',)
     list_filter = ('kode_kbji', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'nama', 'kode_kbji', 'updated_at', 'user')

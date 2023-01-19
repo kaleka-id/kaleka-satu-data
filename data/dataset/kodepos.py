@@ -3,6 +3,7 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import User
 from .alamat import Alamat
+from import_export.admin import ImportExportModelAdmin
 
 class KodePos(models.Model):
     class Meta:
@@ -22,7 +23,7 @@ class KodePos(models.Model):
         return self.kode
 
 @admin.register(KodePos)
-class KodePosModel(admin.ModelAdmin):
+class KodePosModel(ImportExportModelAdmin):
     search_fields = ('kode',)
     list_filter = ('dasar_hukum', 'status_data', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'kode', 'status_data', 'updated_at', 'user')

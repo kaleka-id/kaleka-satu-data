@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from import_export.admin import ImportExportModelAdmin
 
 class ISCED_Attainment(models.Model):
     class Meta:
@@ -22,7 +23,7 @@ class ISCED_Attainment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 @admin.register(ISCED_Attainment)
-class ISCED_AttainmentModel(admin.ModelAdmin):
+class ISCED_AttainmentModel(ImportExportModelAdmin):
     search_fields = ('deskripsi_level', 'deskripsi_category', 'deskripsi_subcategory')
     list_filter = ('kode_level', 'kode_category', 'kode_subcategory', 'dasar_hukum', 'status_data', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'kode_level', 'kode_category', 'kode_subcategory', 'status_data', 'updated_at', 'user')

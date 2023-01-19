@@ -4,6 +4,7 @@ import uuid
 from django.contrib.auth.models import User
 from .orang import Orang
 from .keluarga import Keluarga
+from import_export.admin import ImportExportModelAdmin
 
 class AnggotaKeluarga(models.Model):
     class Meta:
@@ -19,7 +20,7 @@ class AnggotaKeluarga(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 @admin.register(AnggotaKeluarga)
-class AnggotaKeluargaModel(admin.ModelAdmin):
+class AnggotaKeluargaModel(ImportExportModelAdmin):
     search_fields = ('orang',)
     list_filter = ('orang', 'keluarga', 'created_at', 'updated_at')
     list_display = ('id', 'orang', 'keluarga', 'updated_at', 'user')

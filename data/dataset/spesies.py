@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from import_export.admin import ImportExportModelAdmin
 
 class Spesies(models.Model):
     class Meta:
@@ -28,7 +29,7 @@ class Spesies(models.Model):
         return self.species
 
 @admin.register(Spesies)
-class SpesiesModel(admin.ModelAdmin):
+class SpesiesModel(ImportExportModelAdmin):
     search_fields = ('nama_indonesia', 'nama_inggris', 'kingdom', 'phylum', 'Class', 'order', 'family', 'genus', 'species')
     list_filter = ('nama_indonesia', 'nama_inggris', 'kingdom', 'phylum', 'Class', 'order', 'family', 'genus', 'species', 'dasar_hukum', 'status_data', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'nama_indonesia', 'kingdom', 'phylum', 'Class', 'order', 'family', 'genus', 'species', 'status_data', 'updated_at', 'user')

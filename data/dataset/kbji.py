@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from import_export.admin import ImportExportModelAdmin
 
 class KBJI(models.Model):
     class Meta:
@@ -32,7 +33,7 @@ class KBJI(models.Model):
         return self.jabatan
 
 @admin.register(KBJI)
-class KBJIModel(admin.ModelAdmin):
+class KBJIModel(ImportExportModelAdmin):
     search_fields = ('golongan_pokok', 'subgolongan_pokok', 'golongan', 'subgolongan', 'jabatan')
     list_filter = ('kode_gol_pokok', 'kode_subgol_pokok', 'kode_gol', 'kode_subgol', 'kode_jabatan', 'dasar_hukum', 'status_data', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'golongan_pokok', 'subgolongan_pokok', 'golongan', 'subgolongan', 'jabatan', 'status_data', 'updated_at', 'user')

@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.db import models
 import uuid
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+from import_export.admin import ImportExportModelAdmin
 
 
 class Alamat(models.Model):
@@ -38,7 +39,7 @@ class Alamat(models.Model):
         return super(Alamat, self).save(*args, **kwargs)
 
 @admin.register(Alamat)
-class AlamatModel(admin.ModelAdmin):
+class AlamatModel(ImportExportModelAdmin):
     search_fields = ('nama_prov', 'nama_kabkot', 'nama_kec', 'nama_desa')
     ordering = ('kode_desa',)
     list_filter = ('kode_prov', 'nama_prov', 

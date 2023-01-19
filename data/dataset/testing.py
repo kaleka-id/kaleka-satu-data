@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from leaflet.admin import LeafletGeoAdmin
 from django_better_admin_arrayfield.models.fields import ArrayField
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
+from import_export.admin import ImportExportModelAdmin
 
 
 # 🚨TOKO🚨
@@ -52,7 +53,7 @@ class Testing(models.Model):
         return self.nama
 
 @admin.register(Testing)
-class TestingModel(admin.ModelAdmin):
+class TestingModel(ImportExportModelAdmin):
     search_fields = ('kode', 'nama')
     list_filter = ('kode', 'nama', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'kode', 'nama', 'created_at', 'updated_at', 'user')
@@ -77,7 +78,7 @@ class Product(models.Model):
         return self.nama
 
 @admin.register(Product)
-class ProductModel(admin.ModelAdmin, DynamicArrayMixin):
+class ProductModel(ImportExportModelAdmin, DynamicArrayMixin):
     search_fields = ('nama',)
     list_filter = ('nama', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'nama', 'updated_at', 'user')

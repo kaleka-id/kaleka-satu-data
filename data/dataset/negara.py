@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from import_export.admin import ImportExportModelAdmin
 
 class Negara(models.Model):
     class Meta:
@@ -75,7 +76,7 @@ class Negara(models.Model):
         return self.nama_singkat
 
 @admin.register(Negara)
-class NegaraModel(admin.ModelAdmin):
+class NegaraModel(ImportExportModelAdmin):
     search_fields = ('nama_singkat', 'nama_resmi')
     list_filter = ('region_pbb', 'region_wb', 'subregion', 'dasar_hukum', 'status_data', 'created_at', 'updated_at', 'user')
     list_display = ('id', 'nama_singkat', 'region_pbb', 'region_wb', 'subregion', 'status_data', 'updated_at', 'user')

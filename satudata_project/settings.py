@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'leaflet',
+    'import_export',
 
     # Created Apps
     'data',
