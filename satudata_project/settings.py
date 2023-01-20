@@ -202,3 +202,10 @@ LEAFLET_CONFIG = {
         ('ESRI Imagery', 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {'attribution': '© <a href="https://www.arcgis.com/">Esri</a>, Maxar, Earthstar Geographics, and the GIS User Community'})
     ],
 }
+
+# GOOGLE CLOUD STORAGE
+from google.oauth2 import service_account
+
+DEFAULT_FILE_STORAGE = secret_storage_default
+GS_BUCKET_NAME = secret_storage_bucket
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(secret_storage_credential)
