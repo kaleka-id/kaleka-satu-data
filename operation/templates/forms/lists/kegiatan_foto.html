@@ -45,7 +45,7 @@
           <tr>
             <th>{{data.id}}</th>
             <td><a href="{% url 'kegiatan_detail' data.kegiatan.id %}" target="_blank">{{data.kegiatan.nama}}</a></td>
-            <td class="text-center"><a href="/media/{{data.foto}}"><img src="/media/{{data.foto}}" height="100px"></a></td>
+            <td class="text-center"><a href="https://storage.googleapis.com/kaleka_satu_data_operational/{{data.foto}}"><img src="https://storage.googleapis.com/kaleka_satu_data_operational/{{data.foto}}" height="100px"></a></td>
             <td>{{data.updated_at}}</td>
             <td class="text-end">
               {% if perms.data.change_foto_kegiatan %}
