@@ -69,7 +69,7 @@ class Product(models.Model):
     nama = models.CharField(max_length=30)
     deskripsi = models.ForeignKey(Testing, on_delete=models.CASCADE, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/testing-artikel/">Testing Artikel</a> sebagai referensi untuk mengisi bagian ini'))
     toko = models.ManyToManyField(Shop, blank=True)
-    foto = models.FileField(upload_to='testing/', validators=[file_image], blank=True, null=True, help_text='Gunakan file ekstensi .jpg, .jpeg atau .png')
+    foto = models.FileField(upload_to='dataset/testing/produk', validators=[file_image], blank=True, null=True, help_text='Gunakan file ekstensi .jpg, .jpeg atau .png')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
