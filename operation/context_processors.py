@@ -1,4 +1,4 @@
-from operation.models import Profile
+from operation.ops_models.profiles import Profile
 
 def profil(request):
   if request.user.is_authenticated:
