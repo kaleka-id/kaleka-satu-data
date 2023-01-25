@@ -76,7 +76,7 @@ class FotoKegiatan(models.Model):
     return f'dataset/kegiatan/foto/{unique}.{extension}'
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-  kegiatan = models.ForeignKey(Kegiatan, on_delete=models.CASCADE)
+  kegiatan = models.ForeignKey(Kegiatan, on_delete=models.CASCADE, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/kegiatan/">Kegiatan</a> sebagai referensi untuk mengisi bagian ini'))
   foto = models.ImageField(upload_to=get_filename)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)

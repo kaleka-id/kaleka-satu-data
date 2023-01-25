@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'leaflet',
     'import_export',
+    'django_user_agents',
 
     # Created Apps
     'data',
@@ -69,7 +70,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # ADDDED MIDDLEWARE
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
+
+MIDDLEWARE_CLASSES = (
+    # other middlewares...
+    'django_user_agents.middleware.UserAgentMiddleware',
+)
 
 ROOT_URLCONF = 'satudata_project.urls'
 
@@ -86,7 +95,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 # CUSTOM CONTEXT PROCESSOR
-                'operation.context_processors.profil'
+                'operation.context_processors.profil',
             ],
         },
     },

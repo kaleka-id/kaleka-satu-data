@@ -30,6 +30,44 @@
           {% endif %}
         </div>
       </div>
+      <div class="row mt-4">
+        <div class="col-md mb-2">
+          <h4>Electronic Type</h4>
+          <table class="table table-hover">
+            <thead></thead>
+            <tbody>
+              <tr><td>{% if request.user_agent.is_mobile %}✅{% else %}⛔{% endif %} Smartphone</td></tr>
+              <tr><td>{% if request.user_agent.is_tablet %}✅{% else %}⛔{% endif %} Tablet</td></tr>
+              <tr><td>{% if request.user_agent.is_pc %}✅{% else %}⛔{% endif %} Computer/Laptop</td></tr>
+              <tr><td>{% if request.user_agent.is_touch_capable %}✅{% else %}⛔{% endif %} Touchscreen</td></tr>
+              <tr><td>{% if request.user_agent.is_bot %}✅{% else %}⛔{% endif %} Bots</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md mb-2">
+          <h4>Software Type</h4>
+          <table class="table table-hover">
+            <thead></thead>
+            <tbody>
+              <tr><td><b>OS Type:</b> {{request.user_agent.os.family}}</td></tr>
+              <tr><td><b>OS Version:</b> {{request.user_agent.os.version_string}}</td></tr>
+              <tr><td><b>Browser Type:</b> {{request.user_agent.browser.family}}</td></tr>
+              <tr><td><b>Browser Version:</b> {{request.user_agent.browser.version_string}}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md mb-2">
+          <h4>Device Type</h4>
+          <table class="table table-hover">
+            <thead></thead>
+            <tbody>
+              <tr><td><b>Device Type:</b> {{request.user_agent.device.family}}</td></tr>
+              <tr><td><b>Device Brand:</b> {{request.user_agent.device.brand}}</td></tr>
+              <tr><td><b>Device Model:</b> {{request.user_agent.device.model}}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </main>
   </div>
 {% endblock body %}
