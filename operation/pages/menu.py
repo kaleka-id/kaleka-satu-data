@@ -70,7 +70,7 @@ def profile_form_add(request):
 
 @login_required
 def profile_form_update(request, pk):
-  return updateData(request, Profile, pk, ProfileForm, 'profile', 'menu/profile_update.html')
+  return updateData(request, Profile, pk, ProfileForm, 'profile', 'menu/profile_update.html', 'operation_profile')
 
 @login_required
 def about(request):
