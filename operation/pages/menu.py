@@ -66,7 +66,7 @@ class ProfileForm(iforms.ModelForm):
 
 @login_required
 def profile_form_add(request):
-  return addData(request, ProfileForm, 'profile', 'menu/profile_add.html')
+  return addData(request, ProfileForm, 'profile', 'menu/profile_add.html', 'operation_profile')
 
 @login_required
 def profile_form_update(request, pk):
