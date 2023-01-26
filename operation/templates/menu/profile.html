@@ -5,69 +5,67 @@
 {% block head %}{% endblock head %}
 {% block body %}
   <div class="container">
-    <main class="mt-5">
-      <h1>Profile User</h1>
-      <div class="row">
-        <div class="col-3">
-          {% for data in profil %}
-            {% if data.user == request.user %}
-            <a href="{% url 'profile_form_update' data.id %}">
-              <img class="img-fluid" src="{{data.avatar}}" alt="" style="width: max-content; height: auto;">
-            </a>
-            {% endif %}
-          {% empty %}
-          <a href="{% url 'profile_form_add' %}" class="btn btn-sm btn-outline-secondary">Add Profile</a>
-          {% endfor %}
-        </div>
-        <div class="col-9">
-          <h3>{{request.user.first_name}} {{request.user.last_name}}</h3>
-          <h6><i>Username:</i> {{request.user.username}}</h6>
-          <h6><i>E-mail:</i> {{request.user.email}}</h6>
-          {% if request.user.is_active %}
-          <h6><i>Status:</i> ✅Active</h6>
-          {% else %}
-          <h6><i>Status:</i> ⛔Inactive</h6>
+    <h1>Profile User</h1>
+    <div class="row">
+      <div class="col-3">
+        {% for data in profil %}
+          {% if data.user == request.user %}
+          <a href="{% url 'profile_form_update' data.id %}">
+            <img class="img-fluid" src="{{data.avatar}}" alt="" style="width: max-content; height: auto;">
+          </a>
           {% endif %}
-        </div>
+        {% empty %}
+        <a href="{% url 'profile_form_add' %}" class="btn btn-sm btn-outline-secondary">Add Profile</a>
+        {% endfor %}
       </div>
-      <div class="row mt-4">
-        <div class="col-md mb-2">
-          <h4>Electronic Type</h4>
-          <table class="table table-hover">
-            <thead></thead>
-            <tbody>
-              <tr><td>{% if request.user_agent.is_mobile %}✅{% else %}⛔{% endif %} Smartphone</td></tr>
-              <tr><td>{% if request.user_agent.is_tablet %}✅{% else %}⛔{% endif %} Tablet</td></tr>
-              <tr><td>{% if request.user_agent.is_pc %}✅{% else %}⛔{% endif %} Computer/Laptop</td></tr>
-              <tr><td>{% if request.user_agent.is_touch_capable %}✅{% else %}⛔{% endif %} Touchscreen</td></tr>
-              <tr><td>{% if request.user_agent.is_bot %}✅{% else %}⛔{% endif %} Bots</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-md mb-2">
-          <h4>Software Type</h4>
-          <table class="table table-hover">
-            <thead></thead>
-            <tbody>
-              <tr><td><b>OS Type:</b> {{request.user_agent.os.family}}</td></tr>
-              <tr><td><b>OS Version:</b> {{request.user_agent.os.version_string}}</td></tr>
-              <tr><td><b>Browser Type:</b> {{request.user_agent.browser.family}}</td></tr>
-              <tr><td><b>Browser Version:</b> {{request.user_agent.browser.version_string}}</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-md mb-2">
-          <h4>Device Type</h4>
-          <table class="table table-hover">
-            <thead></thead>
-            <tbody>
-              <tr><td><b>Device Type:</b> {{request.user_agent.device.family}}</td></tr>
-              <tr><td><b>Device Brand:</b> {{request.user_agent.device.brand}}</td></tr>
-              <tr><td><b>Device Model:</b> {{request.user_agent.device.model}}</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="col-9">
+        <h3>{{request.user.first_name}} {{request.user.last_name}}</h3>
+        <h6><i>Username:</i> {{request.user.username}}</h6>
+        <h6><i>E-mail:</i> {{request.user.email}}</h6>
+        {% if request.user.is_active %}
+        <h6><i>Status:</i> ✅Active</h6>
+        {% else %}
+        <h6><i>Status:</i> ⛔Inactive</h6>
+        {% endif %}
       </div>
-    </main>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md mb-2">
+        <h4>Electronic Type</h4>
+        <table class="table table-hover">
+          <thead></thead>
+          <tbody>
+            <tr><td>{% if request.user_agent.is_mobile %}✅{% else %}⛔{% endif %} Smartphone</td></tr>
+            <tr><td>{% if request.user_agent.is_tablet %}✅{% else %}⛔{% endif %} Tablet</td></tr>
+            <tr><td>{% if request.user_agent.is_pc %}✅{% else %}⛔{% endif %} Computer/Laptop</td></tr>
+            <tr><td>{% if request.user_agent.is_touch_capable %}✅{% else %}⛔{% endif %} Touchscreen</td></tr>
+            <tr><td>{% if request.user_agent.is_bot %}✅{% else %}⛔{% endif %} Bots</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md mb-2">
+        <h4>Software Type</h4>
+        <table class="table table-hover">
+          <thead></thead>
+          <tbody>
+            <tr><td><b>OS Type:</b> {{request.user_agent.os.family}}</td></tr>
+            <tr><td><b>OS Version:</b> {{request.user_agent.os.version_string}}</td></tr>
+            <tr><td><b>Browser Type:</b> {{request.user_agent.browser.family}}</td></tr>
+            <tr><td><b>Browser Version:</b> {{request.user_agent.browser.version_string}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md mb-2">
+        <h4>Device Type</h4>
+        <table class="table table-hover">
+          <thead></thead>
+          <tbody>
+            <tr><td><b>Device Type:</b> {{request.user_agent.device.family}}</td></tr>
+            <tr><td><b>Device Brand:</b> {{request.user_agent.device.brand}}</td></tr>
+            <tr><td><b>Device Model:</b> {{request.user_agent.device.model}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 {% endblock body %}

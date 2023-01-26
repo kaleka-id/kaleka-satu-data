@@ -12,9 +12,41 @@
     <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
     {%include 'navbar.html'%}
     {%block head%}{%endblock head%}
+    
+    <style>
+      .collapsing {
+        -webkit-transition: none;
+        transition: none;
+        display: none;
+    }
+    </style>
+
   </head>
   <body>
-    {%block body%}{%endblock body%}
+    <!-- JQuery -->
+    <script src="{% static 'jquery/jquery-3.6.3.min.js' %}"></script>
+    
+    <div class="container-fluid">
+      <div class="row">
+        {%include 'sidebar.html'%}
+        <div class="col-lg-3 d-none" id="sidebar-shadow"></div>
+        <div id="content">
+          {%block body%}{%endblock body%}
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $('#sidebar').on('shown.bs.collapse', function () {
+        $("#content").addClass("col-lg-9")
+        $("#sidebar-shadow").removeClass("d-none")
+      });
+      
+      $('#sidebar').on('hidden.bs.collapse', function () {
+        $("#content").removeClass("col-lg-9")
+        $("#sidebar-shadow").addClass("d-none")
+      });
+    </script>
     <!-- Bootstraps JS -->
     <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
   </body>

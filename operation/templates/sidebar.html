@@ -1,0 +1,67 @@
+{% load static %}
+
+<link href="{% static 'bootstrap/sidebar/style.css' %}" rel="stylesheet">
+
+<div class="col-lg-3 collapse position-fixed p-0" id="sidebar">
+  <main style="height: 100vh;">
+    <div class="flex-shrink-0 p-3 bg-white" style="width: 100%;">
+      <a href="/" class="text-decoration-none text-dark">
+        <div class="text-center">
+          <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" alt="Kaleka Satu Data" height="50"><br>
+          <b>Kaleka Satu Data</b>
+        </div>
+      </a>
+      <hr>
+      <ul class="list-unstyled ps-0">
+        {% if request.user.is_authenticated %}
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded" id="sidebar-header">
+            Product Data
+          </button>
+          <div>
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="{% url 'catalog' %}" class="link-dark rounded">Catalog</a></li>
+              <li><a href="{% url 'dashboard' %}" class="link-dark rounded">Dashboard</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded">
+            Editor Data
+          </button>
+          <div>
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="{% url 'dictionary' %}" class="link-dark rounded">Dictionary</a></li>
+              <li><a href="{% url 'forms' %}" class="link-dark rounded">Form</a></li>
+              <li><a href="{% url 'docs' %}" class="link-dark rounded">Documentation</a></li>
+            </ul>
+          </div>
+        </li>
+        {% else %}
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded">Account</button>
+          <div>
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="{% url 'login' %}" class="link-dark rounded">Login</a></li>
+            </ul>
+          </div>
+        </li>
+        {% endif %}
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded">
+            About
+          </button>
+          <div>
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="{% url 'about' %}" class="link-dark rounded">Term of Use</a></li>
+              {% if request.user.is_staff %}
+              <li><a href="/admin" target="_blank" class="link-dark rounded">Admin Page</a></li>
+              <li><a href="/geoserver" target="_blank" class="link-dark rounded">GeoServer</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </main>
+</div>
