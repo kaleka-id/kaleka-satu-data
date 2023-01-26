@@ -70,17 +70,17 @@ class lahanForm(forms.ModelForm):
 # View dari form penambahan lahan
 @permission_required('data.add_lahan')
 def lahan_form_add(request):
-  return addData(request, lahanForm, 'lahan_list', 'forms/form/lahan_add.html')
+  return addData(request, lahanForm, 'lahan_list', 'forms/form/lahan_add.html', 'data_lahan')
 
 # View dari form perubahan lahan
 @permission_required('data.change_lahan')
 def lahan_form_update(request, pk):
-  return updateData(request, Lahan, pk, lahanForm, 'lahan_list', 'forms/form/lahan_update.html')
+  return updateData(request, Lahan, pk, lahanForm, 'lahan_list', 'forms/form/lahan_update.html', 'data_lahan')
 
 # View untuk menghapus lahan
 @permission_required('data.delete_testing')
 def lahan_form_delete(request, pk):
-  return deleteData(request, Lahan, pk, 'lahan_list')
+  return deleteData(request, Lahan, pk, 'lahan_list', 'data_lahan')
 
 urlpatterns = [
   path('dict/lahan/', lahan_dict, name='lahan_dict'),

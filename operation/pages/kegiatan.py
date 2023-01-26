@@ -5,6 +5,7 @@ from django.urls import path
 from django.shortcuts import render, redirect, get_object_or_404
 from operation.data_modification import geojsonData, detailData, addData, updateData, deleteData
 from data.dataset.kegiatan import Kegiatan, PesertaKegiatan, FotoKegiatan
+from operation.ops_models.data_logs import DataLog
 
 # 🚨KEGIATAN🚨
 @permission_required('data.search_kegiatan')
@@ -71,17 +72,17 @@ class kegiatanForm(forms.ModelForm):
 # View dari form penambahan kegiatan
 @permission_required('data.add_kegiatan')
 def kegiatan_form_add(request):
-  return addData(request, kegiatanForm, 'kegiatan_list', 'forms/form/kegiatan_add.html')
+  return addData(request, kegiatanForm, 'kegiatan_list', 'forms/form/kegiatan_add.html', 'data_kegiatan')
 
 # View dari form perubahan kegiatan
 @permission_required('data.change_kegiatan')
 def kegiatan_form_update(request, pk):
-  return updateData(request, Kegiatan, pk, kegiatanForm, 'kegiatan_list', 'forms/form/kegiatan_update.html')
+  return updateData(request, Kegiatan, pk, kegiatanForm, 'kegiatan_list', 'forms/form/kegiatan_update.html', 'data_kegiatan')
 
 # View untuk menghapus peserta kegiatan
 @permission_required('data.delete_kegiatan')
 def kegiatan_form_delete(request, pk):
-  return deleteData(request, Kegiatan, pk, 'kegiatan_list')
+  return deleteData(request, Kegiatan, pk, 'kegiatan_list', 'data_kegiatan')
 
 # 🚨PESERTA KEGIATAN🚨
 # View dari daftar foto kegiatan
@@ -120,17 +121,17 @@ class pesertaKegiatanForm(forms.ModelForm):
 # View dari form penambahan peserta kegiatan
 @permission_required('data.add_peserta_kegiatan')
 def peserta_kegiatan_form_add(request):
-  return addData(request, pesertaKegiatanForm, 'peserta_kegiatan_list', 'forms/form/kegiatan_peserta_add.html')
+  return addData(request, pesertaKegiatanForm, 'peserta_kegiatan_list', 'forms/form/kegiatan_peserta_add.html', 'data_pesertakegiatan')
 
 # View dari form perubahan peserta kegiatan
 @permission_required('data.change_peserta_kegiatan')
 def peserta_kegiatan_form_update(request, pk):
-  return updateData(request, PesertaKegiatan, pk, pesertaKegiatanForm, 'peserta_kegiatan_list', 'forms/form/kegiatan_peserta_update.html')
+  return updateData(request, PesertaKegiatan, pk, pesertaKegiatanForm, 'peserta_kegiatan_list', 'forms/form/kegiatan_peserta_update.html', 'data_pesertakegiatan')
 
 # View untuk menghapus peserta kegiatan
 @permission_required('data.delete_peserta_kegiatan')
 def peserta_kegiatan_form_delete(request, pk):
-  return deleteData(request, PesertaKegiatan, pk, 'peserta_kegiatan_list')
+  return deleteData(request, PesertaKegiatan, pk, 'peserta_kegiatan_list', 'data_pesertakegiatan')
 
 # 🚨FOTO KEGIATAN🚨
 # View dari daftar foto kegiatan
@@ -169,16 +170,34 @@ class fotoKegiatanForm(forms.ModelForm):
 # View dari form penambahan foto kegiatan, tidak menggunakan template karena ada fitur upload banyak file
 @permission_required('data.add_foto_kegiatan')
 def foto_kegiatan_form_add(request):
+  # LOGIKA UNTUK TIPE DEVICE
+  if request.user_agent.device.family == None:
+    device_type = 'None'
+  else:
+    device_type=request.user_agent.device.family
+
+  # KIRIM KE DATABASE
   if request.method == 'POST':
     form = fotoKegiatanForm(request.POST, request.FILES)
     images = request.FILES.getlist('foto')
 
     if form.is_valid():
       post = form.save(commit= False)
-      post.user = request.user
       if images:  #check if user has uploaded some files
         for img in images:
+          # KIRIM DB FOTO KEGIATAN
           FotoKegiatan.objects.create(kegiatan=post.kegiatan, foto=img, user=request.user)
+
+          # KIRIM DB DATA LOGS
+          DataLog.objects.create(
+            action='INSERT',
+            dataset='data_fotokegiatan',
+            id_dataset=post.id,
+            user=request.user,
+            ip_user=request.META.get('REMOTE_ADDR'),
+            device_user=device_type,
+            os_user=request.user_agent.os.family,
+            browser_user=request.user_agent.browser.family)
       return redirect('foto_kegiatan_list')
   
   else:
@@ -189,12 +208,12 @@ def foto_kegiatan_form_add(request):
 # View dari form perubahan foto kegiatan
 @permission_required('data.change_foto_kegiatan')
 def foto_kegiatan_form_update(request, pk):
-  return updateData(request, FotoKegiatan, pk, fotoKegiatanForm, 'foto_kegiatan_list', 'forms/form/kegiatan_foto_update.html')
+  return updateData(request, FotoKegiatan, pk, fotoKegiatanForm, 'foto_kegiatan_list', 'forms/form/kegiatan_foto_update.html', 'data_fotokegiatan')
 
 # View untuk menghapus foto kegiatan
 @permission_required('data.delete_foto_kegiatan')
 def foto_kegiatan_form_delete(request, pk):
-  return deleteData(request, FotoKegiatan, pk, 'foto_kegiatan_list')
+  return deleteData(request, FotoKegiatan, pk, 'foto_kegiatan_list', 'data_fotokegiatan')
 
 urlpatterns = [
   path('dict/kegiatan/', kegiatan_dict, name='kegiatan_dict'),

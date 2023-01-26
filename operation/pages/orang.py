@@ -62,7 +62,7 @@ def orangDetail(request, pk):
 class orangForm(forms.ModelForm):
   class Meta:
     model = Orang
-    fields = ('nik', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'profesi', 'rt', 'rw', 'alamat')
+    fields = ('nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'profesi', 'rt', 'rw', 'alamat')
     widgets = {
       'tanggal_lahir': forms.DateInput(attrs={'type': 'date'}),
       'alamat': forms.TextInput(),
@@ -71,17 +71,17 @@ class orangForm(forms.ModelForm):
 # View dari form penambahan orang
 @permission_required('data.add_orang')
 def orang_form_add(request):
-  return addData(request, orangForm, 'orang_list', 'forms/form/orang_add.html')
+  return addData(request, orangForm, 'orang_list', 'forms/form/orang_add.html', 'data_orang')
 
 # View dari form perubahan orang
 @permission_required('data.change_orang')
 def orang_form_update(request, pk):
-  return updateData(request, Orang, pk, orangForm, 'orang_list', 'forms/form/orang_update.html')
+  return updateData(request, Orang, pk, orangForm, 'orang_list', 'forms/form/orang_update.html', 'data_orang')
 
 # View untuk menghapus orang
 @permission_required('data.delete_orang')
 def orang_form_delete(request, pk):
-  return deleteData(request, Orang, pk, 'orang_list')
+  return deleteData(request, Orang, pk, 'orang_list', 'data_orang')
 
 urlpatterns = [
   path('dict/orang/', orang_dict, name='orang_dict'),

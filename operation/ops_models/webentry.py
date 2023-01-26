@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib import admin
+from import_export.admin import ExportMixin
 
 # WEB ENTRY MODEL
 class WebEntry(models.Model):
   class Meta:
-    verbose_name_plural = 'Web Entries'
+    verbose_name_plural = 'Web entries'
 
   action = models.CharField(max_length=50, editable=False)
   ip = models.GenericIPAddressField(null=True, editable=False)
@@ -23,7 +24,7 @@ class WebEntry(models.Model):
 
 # WEB ENTRY ADMIN
 @admin.register(WebEntry)
-class WebEntryModel(admin.ModelAdmin):
+class WebEntryModel(ExportMixin ,admin.ModelAdmin):
   search_fields = ('username',)
   list_display = ('id', 'ip', 'electronic', 'browser_type', 'action', 'timestamp', 'username')
   list_filter = (

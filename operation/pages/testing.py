@@ -49,17 +49,17 @@ class testingArtikelForm(forms.ModelForm):
 # View dari form penambahan artikel
 @permission_required('data.add_testing')
 def article_form_add(request):
-  return addData(request, testingArtikelForm, 'testing_artikel_list', 'forms/form/testing_artikel_add.html')
+  return addData(request, testingArtikelForm, 'testing_artikel_list', 'forms/form/testing_artikel_add.html', 'data_testing')
 
 # View dari form perubahan artikel
 @permission_required('data.change_testing')
 def article_form_update(request, pk):
-  return updateData(request, Testing, pk, testingArtikelForm, 'testing_artikel_list', 'forms/form/testing_artikel_update.html')
+  return updateData(request, Testing, pk, testingArtikelForm, 'testing_artikel_list', 'forms/form/testing_artikel_update.html', 'data_testing')
 
 # View untuk menghapus artikel
 @permission_required('data.delete_testing')
 def article_form_delete(request, pk):
-  return deleteData(request, Testing, pk, 'testing_artikel_list')
+  return deleteData(request, Testing, pk, 'testing_artikel_list', 'data_testing')
 
 # Dictionary artikel
 def article_dict(request):
@@ -114,17 +114,17 @@ class testingShopForm(forms.ModelForm):
 # View dari form penambahan toko
 @permission_required('data.add_shop')
 def shop_form_add(request):
-  return addData(request, testingShopForm, 'testing_toko_list', 'forms/form/testing_toko_add.html')
+  return addData(request, testingShopForm, 'testing_toko_list', 'forms/form/testing_toko_add.html', 'data_shop')
 
 # View dari form perubahan toko
 @permission_required('data.change_shop')
 def shop_form_update(request, pk):
-  return updateData(request, Shop, pk, testingShopForm, 'testing_toko_list', 'forms/form/testing_toko_update.html')
+  return updateData(request, Shop, pk, testingShopForm, 'testing_toko_list', 'forms/form/testing_toko_update.html', 'data_shop')
 
 # View untuk menghapus toko
 @permission_required('data.delete_shop')
 def shop_form_delete(request, pk):
-  return deleteData(request, Shop, pk, 'testing_toko_list')
+  return deleteData(request, Shop, pk, 'testing_toko_list', 'data_shop')
 
 # Dictionary toko
 def shop_dict(request):
@@ -179,17 +179,17 @@ class testingProductForm(forms.ModelForm):
 # View dari form penambahan produk
 @permission_required('data.add_product')
 def product_form_add(request):
-  return addData(request, testingProductForm, 'testing_produk_list', 'forms/form/testing_produk_add.html')
+  return addData(request, testingProductForm, 'testing_produk_list', 'forms/form/testing_produk_add.html', 'data_product')
 
 # View dari form perubahan produk
 @permission_required('data.change_product')
 def product_form_update(request, pk):
-  return updateData(request, Product, pk, testingProductForm, 'testing_produk_list', 'forms/form/testing_produk_update.html')
+  return updateData(request, Product, pk, testingProductForm, 'testing_produk_list', 'forms/form/testing_produk_update.html', 'data_product')
 
 # View untuk menghapus produk
 @permission_required('data.delete_product')
 def product_form_delete(request, pk):
-  return deleteData(request, Product, pk, 'testing_produk_list')
+  return deleteData(request, Product, pk, 'testing_produk_list', 'data_product')
 
 # Dictionary produk
 def product_dict(request):
