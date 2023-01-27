@@ -1,73 +1,42 @@
 {% load static %}
 
-<header class="p-3 bg-dark text-white sticky-top">
+<nav class="navbar bg-light sticky-top">
   <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" style="height: 40px;">
-      </a>          
-
-      {% if request.user.is_authenticated %}
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="/" class="nav-link px-2 text-secondary">Kaleka Satu Data</a></li>
-        <li><a href="{% url 'catalog' %}" class="nav-link px-2 text-white">Catalogs</a></li>
-        <li><a href="{% url 'dashboard' %}" class="nav-link px-2 text-white">Dashboards</a></li>
-
-        {% if perms.operation.view_dictionary %}
-        <li><a href="{% url 'dictionary' %}" class="nav-link px-2 text-white">Dictionary</a></li>
-        {% endif %}
-        
-        {% if perms.operation.view_forms %}
-        <li><a href="{% url 'forms' %}" class="nav-link px-2 text-white">Forms</a></li>
-        {% endif %}
-        
-        {% if perms.operation.view_docs %}
-        <li><a href="{% url 'docs' %}" class="nav-link px-2 text-white">Docs</a></li>
-        {% endif %}
-
-        <li><a href="{% url 'about' %}" class="nav-link px-2 text-white">About</a></li>
-      </ul>
-      
-      {% else %}
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="/" class="nav-link px-2 text-secondary">Kaleka Satu Data</a></li>
-      </ul>
-
-      {% endif %}
-
-        {% if request.user.is_authenticated %}
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-white" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            {% for data in profil %}
-              {% if data.user == request.user %}
-              <img src="{{data.avatar}}" width="42" height="42">
-              {% endif %}
-            {% empty %}
-            <img src="{% static 'bootstrap/image/user.png' %}" width="42" height="42">
-            {% endfor %}
-            <b>{{request.user.username}}</b>
-          </a>
-          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="{% url 'password-change' %}">Change Password</a></li>
-            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-            <li><hr class="dropdown-divider"></li>
-            {% if request.user.is_staff %}
-            <li><a class="dropdown-item" href="/admin" target="_blank">Admin</a></li>
-            <li><a class="dropdown-item" href="/geoserver" target="_blank">GeoServer</a></li>
-            <li><hr class="dropdown-divider"></li>
-            {% endif %}
-            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-          </ul>
-        </div>
-
-        {% else %}
-        <div class="text-end">
-          <a href="{% url 'login' %}">
-            <button type="button" class="btn btn-outline-warning">Login</button>
-          </a>
-        </div>
-        {% endif %}
-        
-      </div>
+    <div>
+      <a class="btn btn-primary-outline" data-bs-toggle="collapse" href="#sidebar" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" alt="Kaleka Satu Data" width="30" height="24"> <i><b>Kaleka Satu Data</b></i>
+      </a>
     </div>
-  </header>
+
+
+    {% if request.user.is_authenticated %}
+    <div class="dropdown text-end">
+      <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-white" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        {% if request.user_agent.is_pc %}
+          <i class="text-dark">Selamat datang, <b>{{request.user.first_name}} {{request.user.last_name}}</b>
+        {% endif %}</i>
+        {% for data in profil %}
+          {% if data.user == request.user %}
+          <img src="{{data.avatar}}" width="42" height="42">
+          {% endif %}
+        {% empty %}
+        <img src="{% static 'bootstrap/image/user.png' %}" width="42" height="42">
+        {% endfor %}
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="{% url 'password-change' %}">Change Password</a></li>
+        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+    </div>
+
+    {% else %}
+    <div class="text-end">
+      <a href="{% url 'login' %}">
+        <button type="button" class="btn btn-outline-warning">Login</button>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</nav>
