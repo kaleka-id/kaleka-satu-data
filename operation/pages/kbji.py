@@ -4,9 +4,12 @@ from django.urls import path
 from django.shortcuts import render
 from django.db.models import Q
 from data.dataset.kbji import KBJI
+from operation.signals import log_activity
 
 @permission_required('data.search_kbji')
 def KBJI_dict(request):
+  log_activity(request)
+
   q = None
   page = None
 

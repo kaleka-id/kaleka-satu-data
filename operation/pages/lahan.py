@@ -7,10 +7,13 @@ from django.shortcuts import render
 from operation.data_modification import geojsonData, detailData, addData, updateData, deleteData
 from data.dataset.lahan import Lahan
 from leaflet.forms.widgets import LeafletWidget
+from operation.signals import log_activity
 
 # DICTIONARY
 @permission_required('data.search_lahan')
 def lahan_dict(request):
+  log_activity(request)
+
   q = None
   page = None
 
@@ -28,6 +31,8 @@ def lahan_dict(request):
 # View dari daftar lahan
 @permission_required('data.view_lahan')
 def lahanList(request):
+  log_activity(request)
+
   num_page = 20
   
   query = None
@@ -51,11 +56,13 @@ def lahanList(request):
   return render(request, 'forms/lists/lahan.html', {'dataset': data_page, 'page': page, 'query': query})
 
 def lahanJSON(request):
+  log_activity(request)
   return geojsonData(request, Lahan)
 
 # View dari informasi detil orang
 @permission_required('data.view_orang')
 def lahanDetail(request, pk):
+  log_activity(request)
   return detailData(request, Lahan, pk, 'forms/details/lahan.html', 'lahan')
 
 class lahanForm(forms.ModelForm):
@@ -70,16 +77,19 @@ class lahanForm(forms.ModelForm):
 # View dari form penambahan lahan
 @permission_required('data.add_lahan')
 def lahan_form_add(request):
+  log_activity(request)
   return addData(request, lahanForm, 'lahan_list', 'forms/form/lahan_add.html', 'data_lahan')
 
 # View dari form perubahan lahan
 @permission_required('data.change_lahan')
 def lahan_form_update(request, pk):
+  log_activity(request)
   return updateData(request, Lahan, pk, lahanForm, 'lahan_list', 'forms/form/lahan_update.html', 'data_lahan')
 
 # View untuk menghapus lahan
 @permission_required('data.delete_testing')
 def lahan_form_delete(request, pk):
+  log_activity(request)
   return deleteData(request, Lahan, pk, 'lahan_list', 'data_lahan')
 
 urlpatterns = [

@@ -5,9 +5,12 @@ from django.urls import path
 from django.shortcuts import render
 from django.db.models import Q
 from data.dataset.alamat import Alamat
+from operation.signals import log_activity
 
 @permission_required('data.search_alamat')
 def alamat_dict(request):
+  log_activity(request)
+
   q = None
   page = None
 

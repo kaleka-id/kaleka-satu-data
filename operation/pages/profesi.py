@@ -3,9 +3,12 @@ from django.core.paginator import Paginator
 from django.urls import path
 from django.shortcuts import render
 from data.dataset.profesi import Profesi
+from operation.signals import log_activity
 
 @permission_required('data.search_profesi')
 def profesi_dict(request):
+  log_activity(request)
+  
   q = None
   page = None
 

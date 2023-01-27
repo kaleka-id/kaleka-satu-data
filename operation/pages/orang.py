@@ -6,10 +6,13 @@ from django.urls import path
 from django.shortcuts import render
 from operation.data_modification import detailData, addData, updateData, deleteData
 from data.dataset.orang import Orang
+from operation.signals import log_activity
 
 # DICTIONARY
 @permission_required('data.search_orang')
 def orang_dict(request):
+  log_activity(request)
+
   q = None
   page = None
 
@@ -30,6 +33,8 @@ def orang_dict(request):
 # View dari daftar orang
 @permission_required('data.view_orang')
 def orangList(request):
+  log_activity(request)
+
   num_page = 20
   
   query = None
@@ -56,6 +61,8 @@ def orangList(request):
 # View dari informasi detil orang
 @permission_required('data.view_orang')
 def orangDetail(request, pk):
+  log_activity(request)
+
   return detailData(request, Orang, pk, 'forms/details/orang.html', 'orang')
 
 # Form untuk menambahkan dan mengubah orang
@@ -71,16 +78,19 @@ class orangForm(forms.ModelForm):
 # View dari form penambahan orang
 @permission_required('data.add_orang')
 def orang_form_add(request):
+  log_activity(request)
   return addData(request, orangForm, 'orang_list', 'forms/form/orang_add.html', 'data_orang')
 
 # View dari form perubahan orang
 @permission_required('data.change_orang')
 def orang_form_update(request, pk):
+  log_activity(request)
   return updateData(request, Orang, pk, orangForm, 'orang_list', 'forms/form/orang_update.html', 'data_orang')
 
 # View untuk menghapus orang
 @permission_required('data.delete_orang')
 def orang_form_delete(request, pk):
+  log_activity(request)
   return deleteData(request, Orang, pk, 'orang_list', 'data_orang')
 
 urlpatterns = [

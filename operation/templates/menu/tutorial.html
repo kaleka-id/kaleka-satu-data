@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tutorial{% endblock title %}
+{% block head %}{% endblock head %}
+{% block body %}
+  <div class="container">
+    <header>
+      <div class="row mt-3">
+        <div class="col text-end">
+          <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="70px">
+        </div>
+        <div class="col" style="line-height:20px">
+          <i class="fs-2"><b>Kaleka</b></i><br>
+          <i class="fs-3">Satu Data</i><br>
+          <i class="fs-6 fw-light">is managed by Data Team</i>
+        </div>
+      </div>
+    </header>
+    <div class="mt-5">
+      <h4>Tutorial menggunakan Portal Kaleka Satu Data</h4>
+      <ol>
+        <li><a href="{% url 'tutorial_geoserver_qgis' %}">Tutorial menggunakan GeoServer di QGIS</a></li>
+      </ol>
+    </div>
+  </div>
+{% endblock body %}
