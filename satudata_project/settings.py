@@ -168,7 +168,14 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'site/public/media')
-# MEDIA_ROOT = '/opt/django/django-kaleka-data/site/public/media'
+
+# DJANGO EMAIL
+EMAIL_BACKEND = email_backend
+EMAIL_HOST = email_host
+EMAIL_PORT = email_port
+EMAIL_USE_TLS = email_use_tls
+EMAIL_HOST_USER = email_user
+EMAIL_HOST_PASSWORD = email_password
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

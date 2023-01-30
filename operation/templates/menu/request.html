@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Request{% endblock title %}
+
+{% block head %}
+<style>
+  .page{
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .table-scrollable {
+    overflow-x: auto;
+    max-width: 100%;
+    margin: auto;
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>Daftar Request</h1>
+  <div class="p-1">
+    <form>
+      {% if perms.data.add_kegiatan %}
+        <a href="{% url 'request_form_add' %}" class="btn btn-sm btn-outline-success">Create Request</a>
+      {% endif %}
+      <input class="form-control-sm" type="search" placeholder="Search" aria-label="Search" name="q">
+    </form>
+  </div>
+
+  <div class="table-responsive table-scrollable">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nama Request</th>
+          <th scope="col">Tipe request</th>
+          <th scope="col" class="text-center">Status</th>
+          <th scope="col">Tanggal dibuat</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in dataset %}
+          <tr>
+            <th scope="row"></th>
+            <td>{{data.subject}}</td>
+            <td>{{data.request_type}}</td>
+            {% if data.status == 'Pending' %}
+            <td class="text-center"><span class="badge bg-warning text-dark">{{data.status}}</span></td>
+            {% elif data.status == 'Process' %}
+            <td class="text-center"><span class="badge bg-info text-dark">{{data.status}}</span></td>
+            {% elif data.status == 'Complete' %}
+            <td class="text-center"><span class="badge bg-success">{{data.status}}</span></td>
+            {% elif data.status == 'Decline' %}
+            <td class="text-center"><span class="badge bg-danger">{{data.status}}</span></td>
+            {% endif %}
+            <td>{{data.created_at}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% include 'paginator.html' %}
+
+  <script>
+    const table = document.getElementsByTagName('tbody')[0],
+    rows = table.getElementsByTagName('tr'),
+    text = 'textContent' in document ? 'textContent' : 'innerText';
+  
+    for (let i = 0, len = rows.length; i < len; i++) {
+      rows[i].children[0][text] = 1 + i + rows[i].children[0][text];
+    }
+  </script>
+
+</div>
+{% endblock body %}

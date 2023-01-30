@@ -1,10 +1,12 @@
 from django import forms as iforms
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import path
-from operation.models import Forms, Docs, Dictionary, Dashboard, Catalog, Profile
+from django.core.mail import EmailMessage
+from operation.models import Forms, Docs, Dictionary, Dashboard, Catalog, Profile, Request
 from operation.data_modification import detailData, addData, updateData
 from operation.signals import log_activity
+from operation.ops_models.data_logs import DataLog
 
 def home(request):
   log_activity(request)
@@ -13,7 +15,6 @@ def home(request):
 @permission_required('operation.view_forms')
 def forms(request):
   log_activity(request)
-  print(request.build_absolute_uri())
   desc = Forms.objects.all().order_by('nama')
   return render(request, 'menu/forms.html', {
     'forms': desc
@@ -95,6 +96,65 @@ def tutorial(request):
   log_activity(request)
   return render(request, 'menu/tutorial.html')
 
+def request(request):
+  dataset = Request.objects.filter(user=request.user)
+  log_activity(request)
+  return render(request, 'menu/request.html', {'dataset': dataset})
+
+# Form untuk menambahkan request
+class requestForm(iforms.ModelForm):
+  class Meta:
+    model = Request
+    fields = ('subject', 'request_type', 'message')
+
+@login_required
+def request_form_add(request):
+  # LOGIKA UNTUK TIPE DEVICE
+  if request.user_agent.device.family == None:
+    device_type = 'None'
+  else:
+    device_type=request.user_agent.device.family
+
+  # KIRIM KE DATABASE
+  if request.method == 'POST':
+    form = requestForm(request.POST, request.FILES)
+    if form.is_valid():
+      item = form.save(commit= False)
+      item.user = request.user
+      item.save()
+      form.save_m2m()
+
+      log_activity(request)
+
+      DataLog.objects.create(
+        action='INSERT',
+        dataset='operation_request',
+        id_dataset=item.id,
+        user=request.user,
+        ip_user=request.META.get('REMOTE_ADDR'),
+        device_user=device_type,
+        os_user=request.user_agent.os.family,
+        browser_user=request.user_agent.browser.family)
+
+      email = EmailMessage(
+        item.subject,
+        item.message,
+        'satudata@kaleka.id',
+        to=[request.user.email],
+        cc=['cwiratama@kaleka.id', 'afaiz@kaleka.id', 'riwanda@kaleka.id'],
+        headers={'Message-ID': item.id},
+      )
+      email.send()
+
+      return redirect('request')
+  
+  else:
+    form = requestForm()
+
+  return render(request, 'menu/request_add.html', {
+    'form': form 
+  })
+
 @login_required
 def tutorial_geoserver_qgis(request):
   log_activity(request)
@@ -115,5 +175,7 @@ urlpatterns = [
   path('profile/<uuid:pk>/', profile_form_update, name='profile_form_update'),
   path('about/', about, name='about'),
   path('tutorial/', tutorial, name='tutorial'),
+  path('request/', request, name='request'),
+  path('request/add/', request_form_add, name='request_form_add'),
   path('tutorial/tutorial-geoserver-di-qgis', tutorial_geoserver_qgis, name='tutorial_geoserver_qgis'),
 ]
