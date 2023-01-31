@@ -20,15 +20,74 @@
 {% block body %}
 <div class="container page mt-4">
   <h1>{{catalog.nama}}</h1>
-  <p>Maintainer: <i>{{catalog.email_maintainer}}</i></p>
-  <a class="btn btn-success" href="{{catalog.spreadsheet_url}}" target="_blank">Google Sheets</a>
-  <div class="container d-flex justify-content-center mt-5">
-    <iframe 
-      class="mb-4"
-      width="{{catalog.width}}" 
-      height="{{catalog.height}}"
-      src="{{catalog.embed_url}}">
-    </iframe>
-  </div>
+  <p>Maintainer: 
+    {% for email in catalog.email_maintainers %}
+    <a href="mailto:{{email}}"><span class="badge bg-primary">{{email}}</span></a>
+    {% endfor %}
+  </p>
+
+  <h3>Spreadsheets</h3>
+  <div class="d-flex align-content-start flex-wrap">
+    {% for key, value in catalog.spreadsheets_download.items %}
+      <div class="m-1 text-center">
+        <a href="{{value}}" class="text-decoration-none text-dark">
+          <img src="{% static 'images/files/spreadsheet.png' %}" alt="presentation" width="50px"><br>
+          <i>{{key}}</i><br>
+        </a>
+      </div>
+    {% endfor %}
+  </div><br>
+
+  <h3>BigQuery</h3>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>A</th>
+        <td>B</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for key, value in catalog.bigquery_table.items %}
+      <tr>
+        <td>{{key}}</td>
+        <td>{{value}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Documents</h3>
+  <div class="d-flex align-content-start flex-wrap">
+    {% for key, value in catalog.documents_portable.items %}
+      <div class="m-1 text-center">
+        <a href="{{value}}" class="text-decoration-none text-dark">
+          <img src="{% static 'images/files/portable.png' %}" alt="presentation" width="50px"><br>
+          <i>{{key}}</i><br>
+        </a>
+      </div>
+    {% endfor %}
+  </div><br>
+  <div class="d-flex align-content-start flex-wrap">
+    {% for key, value in catalog.documents_document.items %}
+      <div class="m-1 text-center">
+        <a href="{{value}}" class="text-decoration-none text-dark">
+          <img src="{% static 'images/files/document.png' %}" alt="presentation" width="50px"><br>
+          <i>{{key}}</i><br>
+        </a>
+      </div>
+    {% endfor %}
+  </div><br>
+
+  <h3>Presentations</h3>
+  <div class="d-flex align-content-start flex-wrap">
+    {% for key, value in catalog.documents_presentation.items %}
+      <div class="m-1 text-center">
+        <a href="{{value}}" class="text-decoration-none text-dark">
+          <img src="{% static 'images/files/presentation.png' %}" alt="presentation" width="50px"><br>
+          <i>{{key}}</i><br>
+        </a>
+      </div>
+    {% endfor %}
+  </div><br>
 </div>
 {% endblock body %}

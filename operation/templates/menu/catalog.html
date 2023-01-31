@@ -26,7 +26,7 @@
         </thead>
         <tbody>
           {% for data in catalog %}
-            {% if request.user.username in data.perms_view %}
+            {% if data.permission_view in request.user.groups.all %}
               <tr>
                 <th scope="row"><a href="{% url 'catalog_detail' data.id %}">{{data.nama}}</a></th>
                 <th class="text-end">{{data.email_maintainer}}</th>

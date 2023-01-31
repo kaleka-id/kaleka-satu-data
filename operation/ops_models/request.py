@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
+from import_export.admin import ExportMixin
 
 # REQUEST MODEL
 class Request(models.Model):
@@ -31,6 +32,6 @@ class Request(models.Model):
 
 # REQUEST ADMIN
 @admin.register(Request)
-class RequestModel(admin.ModelAdmin):
+class RequestModel(ExportMixin, admin.ModelAdmin):
   search_fields = ('subject',)
   list_display = ('subject', 'request_type', 'status', 'created_at', 'user')
