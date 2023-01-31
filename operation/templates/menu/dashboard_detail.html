@@ -23,9 +23,9 @@
   <p>
     Data source: <b>{{dashboard.category}}</b><br>
     Maintainer: 
-    {% for email in dashboard.email_maintainers %}
-    <a href="mailto:{{email}}"><span class="badge bg-primary">{{email}}</span></a>
-    {% endfor %}
+      {% for email in dashboard.email_maintainers %}
+      <a href="mailto:{{email}}"><span class="badge bg-primary">{{email}}</span></a>
+      {% endfor %}
   </p>
   <div class="container d-flex justify-content-center mt-5">
     <iframe 

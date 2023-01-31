@@ -26,24 +26,12 @@
     {% endfor %}
   </p>
 
-  <h3>Spreadsheets</h3>
-  <div class="d-flex align-content-start flex-wrap">
-    {% for key, value in catalog.spreadsheets_download.items %}
-      <div class="m-1 text-center">
-        <a href="{{value}}" class="text-decoration-none text-dark">
-          <img src="{% static 'images/files/spreadsheet.png' %}" alt="presentation" width="50px"><br>
-          <i>{{key}}</i><br>
-        </a>
-      </div>
-    {% endfor %}
-  </div><br>
-
   <h3>BigQuery</h3>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th>Table</th>
-        <td>BigQuery path</td>
+        <th>BigQuery path</th>
       </tr>
     </thead>
     <tbody>
@@ -58,34 +46,22 @@
 
   <h3>Documents</h3>
   <div class="d-flex align-content-start flex-wrap">
-    {% for key, value in catalog.documents_portable.items %}
-      <div class="m-1 text-center">
-        <a href="{{value}}" class="text-decoration-none text-dark">
-          <img src="{% static 'images/files/portable.png' %}" alt="presentation" width="50px"><br>
-          <i>{{key}}</i><br>
+    {% for doc in catalog_doc %}
+      <div class="m-1 text-center mx-3">
+        <a href="{{doc.documents.url}}" class="text-decoration-none text-dark">
+          {% if doc.extension == '.docx' %}
+          <img src="{% static 'images/files/docx.png' %}" alt="presentation" width="50px"><br>
+          {% elif doc.extension == '.doc' %}
+          <img src="{% static 'images/files/doc.png' %}" alt="presentation" width="50px"><br>
+          {% elif doc.extension == '.pptx' %}
+          <img src="{% static 'images/files/pptx.png' %}" alt="presentation" width="50px"><br>
+          {% elif doc.extension == '.ppt' %}
+          <img src="{% static 'images/files/ppt.png' %}" alt="presentation" width="50px"><br>
+          {% elif doc.extension == '.pdf' %}
+          <img src="{% static 'images/files/pdf.png' %}" alt="presentation" width="50px"><br>
+          {% endif %}
         </a>
-      </div>
-    {% endfor %}
-  </div><br>
-  <div class="d-flex align-content-start flex-wrap">
-    {% for key, value in catalog.documents_document.items %}
-      <div class="m-1 text-center">
-        <a href="{{value}}" class="text-decoration-none text-dark">
-          <img src="{% static 'images/files/document.png' %}" alt="presentation" width="50px"><br>
-          <i>{{key}}</i><br>
-        </a>
-      </div>
-    {% endfor %}
-  </div><br>
-
-  <h3>Presentations</h3>
-  <div class="d-flex align-content-start flex-wrap">
-    {% for key, value in catalog.documents_presentation.items %}
-      <div class="m-1 text-center">
-        <a href="{{value}}" class="text-decoration-none text-dark">
-          <img src="{% static 'images/files/presentation.png' %}" alt="presentation" width="50px"><br>
-          <i>{{key}}</i><br>
-        </a>
+        {{doc.filename}}
       </div>
     {% endfor %}
   </div><br>

@@ -1,9 +1,9 @@
 from django import forms as iforms
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import path
 from django.core.mail import EmailMessage
-from operation.models import Forms, Docs, Dictionary, Dashboard, Catalog, Profile, Request
+from operation.models import Forms, Docs, Dictionary, Dashboard, Catalog, CatalogDocument, Profile, Request
 from operation.data_modification import detailData, addData, updateData
 from operation.signals import log_activity
 from operation.ops_models.data_logs import DataLog
@@ -59,13 +59,17 @@ def catalog(request):
   log_activity(request)
   desc = Catalog.objects.all().order_by('nama')
   return render(request, 'menu/catalog.html', {
-    'catalog': desc
+    'catalog': desc,
   })
 
 @login_required
 def catalog_detail(request, pk):
   log_activity(request)
-  return detailData(request, Catalog, pk, 'menu/catalog_detail.html', 'catalog')
+  desc = get_object_or_404(Catalog, id=pk)
+  doc = CatalogDocument.objects.filter(catalog=desc.id)
+  return render(request, 'menu/catalog_detail.html', {
+    'catalog': desc,
+    'catalog_doc': doc})
 
 @login_required
 def profile(request):
