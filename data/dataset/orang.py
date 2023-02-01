@@ -26,6 +26,8 @@ class Orang(models.Model):
     rt = models.PositiveSmallIntegerField(verbose_name='RT')
     rw = models.PositiveSmallIntegerField(verbose_name='RW')
     alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/alamat/">Alamat</a> sebagai referensi untuk mengisi bagian ini'))
+    status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')])
+    keterangan = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -42,7 +44,7 @@ class Orang(models.Model):
 class OrangModel(ImportExportModelAdmin):
     search_fields = ('nama_lengkap', 'nik')
     list_filter = ('jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'profesi', 'rt', 'rw', 'alamat', 'created_at', 'updated_at', 'user')
-    list_display = ('nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'updated_at', 'user')
+    list_display = ('nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'status_data', 'updated_at', 'user')
     filter_horizontal = ('profesi',)
     raw_id_fields = ('alamat',)
     readonly_fields = ('user',)

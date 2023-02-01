@@ -69,7 +69,7 @@ def orangDetail(request, pk):
 class orangForm(forms.ModelForm):
   class Meta:
     model = Orang
-    fields = ('nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'profesi', 'rt', 'rw', 'alamat')
+    fields = ('nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_kawin', 'profesi', 'rt', 'rw', 'alamat', 'status_data', 'keterangan')
     widgets = {
       'tanggal_lahir': forms.DateInput(attrs={'type': 'date'}),
       'alamat': forms.TextInput(),
