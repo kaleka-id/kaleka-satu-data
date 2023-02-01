@@ -40,6 +40,19 @@
     <li><b>Profesi:</b> {% for profesi in orang.profesi.all %}{{profesi}}, {% endfor %}</li>
     <li><b>Alamat:</b> {{orang.alamat.nama_desa|title}} RT {{orang.rt}} RW {{orang.rw}}, {{orang.alamat.nama_kec|title}}, {{orang.alamat.nama_kabkot|title}}, {{orang.alamat.nama_prov}}</li>
   </ul>
-  <p>Data ini dikelola oleh <b><i>{{orang.user}}</i></b></p>
+  <p>
+    Data ini dikelola oleh <b><i>{{orang.user}}</i></b><br>
+    <i>Status Data: </i>
+      {% if orang.status_data == 'Updated' %}
+        <span class="badge bg-success">{{orang.status_data}}</span><br>
+      {% elif orang.status_data == 'Need Confirmation' %}
+        <span class="badge bg-warning text-dark">{{orang.status_data}}</span><br>
+      {% else %}
+        <span class="badge bg-danger">{{orang.status_data}}</span><br>
+      {% endif %}
+    <i>Keterangan: </i><br>
+    <input type="text" value="{{orang.keterangan}}" class="form-control input-sm" disabled>
+  </p>
+
 </div>
 {% endblock body %}

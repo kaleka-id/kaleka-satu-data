@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import path
 from django.shortcuts import render
-from operation.data_modification import detailData, addData, updateData, deleteData
+from operation.data_modification import detailData, addData, updateData, commentData, deleteData
 from data.dataset.orang import Orang
 from operation.signals import log_activity
 from operation.ops_models.profiles import Profile
@@ -129,7 +129,7 @@ def orang_form_update(request, pk):
 @permission_required('data.change_orang')
 def orang_form_comment(request, pk):
   log_activity(request)
-  return updateData(request, Orang, pk, orangFormComment, 'orang_list', 'forms/form/orang_update.html', 'data_orang')
+  return commentData(request, Orang, pk, orangFormComment, 'orang_list', 'forms/form/orang_update.html', 'data_orang')
 
 # View untuk menghapus orang
 @permission_required('data.delete_orang')

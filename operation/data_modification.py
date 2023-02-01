@@ -56,6 +56,32 @@ def updateData(request, dataset, pk, forms, redirects, url, db_dataset):
   form = forms(request.POST or None, request.FILES or None, instance=item)
   data = dataset.objects.filter(user=request.user)
   if form.is_valid():
+    item.user = request.user
+    form.save()
+    DataLog.objects.create(
+        action='UPDATE',
+        dataset=db_dataset,
+        id_dataset=item.id,
+        user=request.user,
+        ip_user=request.META.get('REMOTE_ADDR'),
+        device_user=device_type,
+        os_user=request.user_agent.os.family,
+        browser_user=request.user_agent.browser.family)
+    return redirect(redirects)
+
+  return render(request, url, {'form':form, 'data':data})
+
+def commentData(request, dataset, pk, forms, redirects, url, db_dataset):
+  # LOGIKA UNTUK TIPE DEVICE
+  if request.user_agent.device.family == None:
+    device_type = 'None'
+  else:
+    device_type=request.user_agent.device.family
+
+  item = get_object_or_404(dataset, id=pk)
+  form = forms(request.POST or None, request.FILES or None, instance=item)
+  data = dataset.objects.filter(user=request.user)
+  if form.is_valid():
     form.save()
     DataLog.objects.create(
         action='UPDATE',
