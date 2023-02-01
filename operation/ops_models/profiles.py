@@ -64,9 +64,13 @@ class Profile(models.Model):
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   avatar = models.CharField(max_length=50, choices=AVATAR_CHOICES, default=PATH + 'chimp.png')
+  status = models.CharField(max_length=20, choices=[('Normal User', 'Normal User'), ('Observer', 'Observer')], default='Normal User')
+  user_observed = models.ManyToManyField(User, blank=True, related_name='user_observed')
 
 # PROFILE ADMIN
 @admin.register(Profile)
 class ProfileModel(admin.ModelAdmin):
   search_fields = ('user',)
-  list_display = ('id', 'user', 'avatar')
+  list_display = ('user', 'avatar', 'status')
+  ordering = ('user',)
+  filter_horizontal = ('user_observed',)
