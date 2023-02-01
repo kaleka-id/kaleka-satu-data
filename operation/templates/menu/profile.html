@@ -27,6 +27,15 @@
         {% else %}
         <h6><i>Status:</i> ⛔Inactive</h6>
         {% endif %}
+        {% for user in profil %}
+        <h6><i>Status User:</i> {{user.status}}</h6>
+        {% if user.status == 'Observer' %}
+        <h6><i>Observed User:</i> </h6>
+          {% for item in user.user_observed.all %}
+          <span class="badge bg-dark">{{item}}</span>
+          {% endfor %}
+        {% endif %}
+        {% endfor %}
       </div>
     </div>
     <div class="row mt-4">

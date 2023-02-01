@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.serializers import serialize
 from django.http import HttpResponse
 from operation.ops_models.data_logs import DataLog
+from operation.ops_models.profiles import Profile
+from django.contrib.auth.models import User
 
 # LIST OF DATA MODIFICATION FUNCTIONS 
 def geojsonData(request, dataset):
@@ -78,9 +80,14 @@ def commentData(request, dataset, pk, forms, redirects, url, db_dataset):
   else:
     device_type=request.user_agent.device.family
 
+  from django.db.models.expressions import F
+
   item = get_object_or_404(dataset, id=pk)
   form = forms(request.POST or None, request.FILES or None, instance=item)
   data = dataset.objects.filter(user=request.user)
+  
+  form.fields["user"].queryset = User.objects.filter(id__in=Profile.objects.filter(user=request.user).values_list('user_observed', flat=True))
+
   if form.is_valid():
     form.save()
     DataLog.objects.create(

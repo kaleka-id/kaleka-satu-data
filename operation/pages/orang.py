@@ -111,7 +111,7 @@ class orangForm(forms.ModelForm):
 class orangFormComment(forms.ModelForm):
   class Meta:
     model = Orang
-    fields = ('status_data', 'keterangan')
+    fields = ('status_data', 'keterangan', 'user')
 
 # View dari form penambahan orang
 @permission_required('data.add_orang')
