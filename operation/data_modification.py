@@ -10,6 +10,11 @@ def geojsonData(request, dataset):
   place = serialize('geojson', dataset.objects.filter(user=request.user))
   return HttpResponse(place, content_type='json')
 
+def geojsonDataObserver(request, dataset):
+  profile = Profile.objects.filter(user=request.user).values_list('user_observed', flat=True)
+  place = serialize('geojson', dataset.objects.filter(user__in=profile))
+  return HttpResponse(place, content_type='json')
+
 def detailData(request, dataset, pk, url, callback):
   desc = get_object_or_404(dataset, id=pk)
   return render(request, url, {callback: desc})

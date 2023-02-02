@@ -17,6 +17,11 @@
     {% if perms.data.change_shop %}
       <a class="btn btn-outline-info btn-sm" href="{% url 'testing_toko_form_update' toko.id %}">Update Data</a>
     {% endif %}
+    {% for user in profil %}
+      {% if user.status == 'Observer' %}
+        <a class="btn btn-outline-warning btn-sm" href="{% url 'testing_toko_form_comment' toko.id %}">Comment Data</a>
+      {% endif %}
+    {% endfor %}
     {% if perms.data.delete_shop %}
       <a class="btn btn-outline-danger btn-sm" 
         href="{% url 'testing_toko_form_delete' toko.id %}"

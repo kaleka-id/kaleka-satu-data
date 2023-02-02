@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import permission_required
 from django.urls import path
 from django.db.models import Q
 from django.core.paginator import Paginator
-from operation.data_modification import geojsonData, detailData, addData, updateData, commentData, deleteData
+from operation.data_modification import geojsonData, geojsonDataObserver, detailData, addData, updateData, commentData, deleteData
 from data.dataset.testing import Testing, Shop, Product
 from leaflet.forms.widgets import LeafletWidget
 from django.shortcuts import render
@@ -171,6 +171,10 @@ def testingShop_observer(request):
 def testingShopJSON(request):
   log_activity(request)
   return geojsonData(request, Shop)
+
+def testingShopJSON_observer(request):
+  log_activity(request)
+  return geojsonDataObserver(request, Shop)
 
 # View dari informasi detil toko
 @permission_required('data.view_shop')
@@ -352,6 +356,7 @@ urlpatterns = [
   path('forms/testing-toko/', testingShop, name='testing_toko_list'),
   path('forms/testing-toko/observer/', testingShop_observer, name='testing_toko_list_observer'),
   path('forms/testing-toko-json/', testingShopJSON, name='testing_toko_json'),
+  path('forms/testing-toko-json/observer/', testingShopJSON_observer, name='testing_toko_json_observer'),
   path('forms/testing-toko/<int:pk>/', testingShopDetail, name='testing_toko_detail'),
   path('forms/testing-toko-add/', shop_form_add, name='testing_toko_form'),
   path('forms/testing-toko-update/<int:pk>/', shop_form_update, name='testing_toko_form_update'),

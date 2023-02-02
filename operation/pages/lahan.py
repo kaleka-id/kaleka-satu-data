@@ -4,10 +4,11 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import path
 from django.shortcuts import render
-from operation.data_modification import geojsonData, detailData, addData, updateData, deleteData
+from operation.data_modification import geojsonData, geojsonDataObserver, detailData, addData, commentData, updateData, deleteData
 from data.dataset.lahan import Lahan
 from leaflet.forms.widgets import LeafletWidget
 from operation.signals import log_activity
+from operation.ops_models.profiles import Profile
 
 # DICTIONARY
 @permission_required('data.search_lahan')
@@ -35,8 +36,8 @@ def lahanList(request):
 
   num_page = 20
   
-  query = None
-  page = None
+  query = ''
+  page = ''
 
   if 'q' in request.GET:
     query = request.GET['q']
@@ -55,9 +56,41 @@ def lahanList(request):
 
   return render(request, 'forms/lists/lahan.html', {'dataset': data_page, 'page': page, 'query': query})
 
+# View dari daftar lahan dengan observer mode
+@permission_required('data.view_lahan')
+def lahanListObserver(request):
+  log_activity(request)
+
+  num_page = 20
+  
+  query = ''
+  page = ''
+  profile = Profile.objects.filter(user=request.user).values_list('user_observed', flat=True)
+
+  if 'q' in request.GET:
+    query = request.GET['q']
+    data = Lahan.objects.filter(
+      Q(user__in=profile, nama_lengkap__icontains=query) |
+      Q(user__in=profile, nik__icontains=query))
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Lahan.objects.filter(user__in=profile)
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+
+  return render(request, 'forms/lists/lahan_observer.html', {'dataset': data_page, 'page': page, 'query': query})
+
 def lahanJSON(request):
   log_activity(request)
   return geojsonData(request, Lahan)
+
+def lahanJSONObserver(request):
+  log_activity(request)
+  return geojsonDataObserver(request, Lahan)
 
 # View dari informasi detil orang
 @permission_required('data.view_orang')
@@ -74,6 +107,11 @@ class lahanForm(forms.ModelForm):
       'petani': forms.TextInput(),
     }
 
+class lahanFormComment(forms.ModelForm):
+  class Meta:
+    model = Lahan
+    fields = ('user',)
+
 # View dari form penambahan lahan
 @permission_required('data.add_lahan')
 def lahan_form_add(request):
@@ -86,6 +124,12 @@ def lahan_form_update(request, pk):
   log_activity(request)
   return updateData(request, Lahan, pk, lahanForm, 'lahan_list', 'forms/form/lahan_update.html', 'data_lahan')
 
+# View dari form perubahan lahan
+@permission_required('data.change_lahan')
+def lahan_form_comment(request, pk):
+  log_activity(request)
+  return commentData(request, Lahan, pk, lahanFormComment, 'lahan_list', 'forms/form/lahan_update.html', 'data_lahan')
+
 # View untuk menghapus lahan
 @permission_required('data.delete_testing')
 def lahan_form_delete(request, pk):
@@ -95,9 +139,12 @@ def lahan_form_delete(request, pk):
 urlpatterns = [
   path('dict/lahan/', lahan_dict, name='lahan_dict'),
   path('forms/lahan/', lahanList, name='lahan_list'),
+  path('forms/lahan/observer/', lahanListObserver, name='lahan_list_observer'),
   path('forms/lahan-json/', lahanJSON, name='lahan_json'),
+  path('forms/lahan-json/observer', lahanJSONObserver, name='lahan_json_observer'),
   path('forms/lahan/<uuid:pk>/', lahanDetail, name='lahan_detail'),
   path('forms/lahan-add/', lahan_form_add, name='lahan_form_add'),
   path('forms/lahan-update/<uuid:pk>/', lahan_form_update, name='lahan_form_update'),
+  path('forms/lahan-comment/<uuid:pk>/', lahan_form_comment, name='lahan_form_comment'),
   path('forms/lahan-delete/<uuid:pk>/', lahan_form_delete, name='lahan_form_delete'),
 ]

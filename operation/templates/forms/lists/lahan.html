@@ -22,9 +22,15 @@
 
 {% block body %}
 <div class="container page mt-4">
+  <!-- LEAFLET AJAX -->
   <script src="{% static 'leaflet/leaflet.ajax.min.js' %}" charset="utf-8"></script>
+  <!-- LEAFLET FULL SCREEN -->
   <script src="{% static 'leaflet/fullscreen/leaflet.fullscreen.min.js' %}"></script>
   <link rel="stylesheet" href="{% static 'leaflet/fullscreen/leaflet.fullscreen.css' %}">
+  <!-- LEAFLET GEOLOCATION -->
+  <link rel="stylesheet" href="{% static 'leaflet/geolocation/L.Control.Locate.min.css' %}" />
+  <script src="{% static 'leaflet/geolocation/L.Control.Locate.min.js' %}" charset="utf-8"></script>
+
 
   <script type="text/javascript">
     function place_pos(map, options){
@@ -40,6 +46,8 @@
       dataset.addTo(map)
 
       map.addControl(new L.Control.Fullscreen());
+
+      L.control.locate().addTo(map);
     }
   </script>
 
@@ -50,6 +58,11 @@
         <a href="{% url 'lahan_form_add' %}" class="btn btn-sm btn-outline-success">Add Lahan</a>
       {% endif %}
       <input class="form-control-sm" type="search" placeholder="Search" aria-label="Search" name="q">
+      {% for user in profil %}
+        {% if user.status == 'Observer' %}
+        <a href="{% url 'lahan_list_observer' %}" class="btn btn-sm btn-outline-warning">Observer Mode</a>
+        {% endif %}
+      {% endfor %}
     </form>
   </div>
 

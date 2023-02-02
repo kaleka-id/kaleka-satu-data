@@ -38,8 +38,8 @@ def orangList(request):
 
   num_page = 20
   
-  query = None
-  page = None
+  query = ''
+  page = ''
 
   if 'q' in request.GET:
     query = request.GET['q']

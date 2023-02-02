@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Foto Kegiatan{% endblock title %}
+{% block title %}Foto Kegiatan (Observer Mode){% endblock title %}
 
 {% block head %}
 <style>
@@ -26,11 +26,6 @@
         <a href="{% url 'foto_kegiatan_form_add' %}" class="btn btn-sm btn-outline-success">Add Foto Kegiatan</a>
       {% endif %}
       <input class="form-control-sm" type="search" placeholder="Search nama kegiatan" aria-label="Search" name="q">
-      {% for user in profil %}
-        {% if user.status == 'Observer' %}
-        <a href="{% url 'foto_kegiatan_list_observer' %}" class="btn btn-sm btn-outline-warning">Observer Mode</a>
-        {% endif %}
-      {% endfor %}
     </form>
   </div>
 
@@ -42,6 +37,7 @@
           <th scope="col">Nama Kegiatan</th>
           <th scope="col">Foto Kegiatan</th>
           <th scope="col">Update Terakhir</th>
+          <th scope="col">User</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -52,12 +48,10 @@
             <td><a href="{% url 'kegiatan_detail' data.kegiatan.id %}" target="_blank">{{data.kegiatan.nama}}</a></td>
             <td class="text-center"><a href="{{data.foto.url}}"><img src="https://storage.googleapis.com/kaleka_satu_data_operational/{{data.foto}}" height="100px"></a></td>
             <td>{{data.updated_at}}</td>
+            <td>{{data.user}}</td>
             <td class="text-end">
               {% if perms.data.change_foto_kegiatan %}
-              <a href="{% url 'foto_kegiatan_form_update' data.id %}" class="text-decoration-none">✏️</a>
-              {% endif %}
-              {% if perms.data.delete_foto_kegiatan %}
-              <a href="{% url 'foto_kegiatan_form_delete' data.id %}" class="text-decoration-none" onclick="return confirm('Are you sure you want to delete this item?');">❌</a>
+              <a href="{% url 'foto_kegiatan_form_comment' data.id %}" class="text-decoration-none">👁️‍🗨️</a>
               {% endif %}
             </td>  
           </tr>

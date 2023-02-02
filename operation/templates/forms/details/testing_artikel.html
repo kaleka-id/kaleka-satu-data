@@ -21,7 +21,7 @@
     {% endif %}
     {% for user in profil %}
       {% if user.status == 'Observer' %}
-        <a class="btn btn-outline-warning btn-sm" href="{% url 'orang_form_comment' orang.id %}">Comment Data</a>
+        <a class="btn btn-outline-warning btn-sm" href="{% url 'testing_artikel_form_comment' artikel.id %}">Comment Data</a>
       {% endif %}
     {% endfor %}
     {% if perms.data.delete_testing %}
