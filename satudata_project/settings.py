@@ -210,6 +210,11 @@ LEAFLET_CONFIG = {
     'PLUGINS': {
         'forms': {
             'auto-include': True
+        },
+        'fullscreen': {
+            'css': ['/static/leaflet/geolocation/L.Control.Locate.min.css'],
+            'js': ['/static/leaflet/geolocation/L.Control.Locate.min.js'],
+            'auto-include': True
         }
     },
 

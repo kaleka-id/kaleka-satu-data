@@ -19,6 +19,11 @@
     {% if perms.data.change_testing %}
       <a class="btn btn-outline-info btn-sm" href="{% url 'testing_artikel_form_update' artikel.id %}">Update Data</a>
     {% endif %}
+    {% for user in profil %}
+      {% if user.status == 'Observer' %}
+        <a class="btn btn-outline-warning btn-sm" href="{% url 'orang_form_comment' orang.id %}">Comment Data</a>
+      {% endif %}
+    {% endfor %}
     {% if perms.data.delete_testing %}
       <a class="btn btn-outline-danger btn-sm" 
         href="{% url 'testing_artikel_form_delete' artikel.id %}"

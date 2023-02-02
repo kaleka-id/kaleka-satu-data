@@ -67,7 +67,7 @@ def orangListObserver(request):
   
   query = ''
   page = ''
-  profile = Profile.objects.all().values_list('user_observed', flat=True)
+  profile = Profile.objects.filter(user=request.user).values_list('user_observed', flat=True)
 
   if 'q' in request.GET:
     query = request.GET['q']

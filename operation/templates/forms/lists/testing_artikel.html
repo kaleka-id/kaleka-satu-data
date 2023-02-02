@@ -26,6 +26,11 @@
       <a href="{% url 'testing_artikel_form' %}" class="btn btn-sm btn-outline-success">Add Article</a>
       {% endif %}
       <input class="form-control-sm" type="search" placeholder="Search" aria-label="Search" name="q">
+      {% for user in profil %}
+        {% if user.status == 'Observer' %}
+        <a href="{% url 'testing_artikel_list_observer' %}" class="btn btn-sm btn-outline-warning">Observer Mode</a>
+        {% endif %}
+      {% endfor %}
     </form>
   </div>
   <div class="table-responsive table-scrollable">
