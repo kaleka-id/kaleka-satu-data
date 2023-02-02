@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import path
 from django.core.mail import EmailMessage
+from django.core.paginator import Paginator
 from operation.models import Forms, Docs, Dictionary, Dashboard, Catalog, CatalogDocument, Profile, Request
 from operation.data_modification import detailData, addData, updateData
 from operation.signals import log_activity
@@ -15,17 +16,57 @@ def home(request):
 @permission_required('operation.view_forms')
 def forms(request):
   log_activity(request)
-  desc = Forms.objects.all().order_by('nama')
+
+  num_page = 20
+  
+  q = ''
+  page = ''
+
+  if 'q' in request.GET:
+    q = request.GET['q']
+    data = Forms.objects.filter(nama__icontains=q).order_by('nama')
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Forms.objects.all()
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
   return render(request, 'menu/forms.html', {
-    'forms': desc
+    'dataset': data_page,
+    'query': q, 
+    'page': page,
   })
 
 @permission_required('operation.view_docs')
 def docs(request):
   log_activity(request)
-  desc = Docs.objects.all().order_by('judul')
+  
+  num_page = 20
+  
+  q = ''
+  page = ''
+
+  if 'q' in request.GET:
+    q = request.GET['q']
+    data = Docs.objects.filter(judul__icontains=q).order_by('judul')
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Docs.objects.all()
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+    
   return render(request, 'menu/docs.html', {
-    'docs': desc
+    'dataset': data_page,
+    'query': q, 
+    'page': page,
   })
 
 @permission_required('operation.view_docs')
@@ -36,17 +77,57 @@ def docs_detail(request, pk):
 @permission_required('operation.view_docs')
 def dictionary(request):
   log_activity(request)
-  desc = Dictionary.objects.all().order_by('nama')
+  
+  num_page = 20
+  
+  q = ''
+  page = ''
+
+  if 'q' in request.GET:
+    q = request.GET['q']
+    data = Dictionary.objects.filter(nama__icontains=q).order_by('nama')
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Dictionary.objects.all()
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
   return render(request, 'menu/dictionary.html', {
-    'dict': desc
+    'dataset': data_page,
+    'query': q, 
+    'page': page,
   })
 
 @login_required
 def dashboard(request):
   log_activity(request)
-  desc = Dashboard.objects.all().order_by('nama')
+  
+  num_page = 20
+  
+  q = ''
+  page = ''
+
+  if 'q' in request.GET:
+    q = request.GET['q']
+    data = Dashboard.objects.filter(nama__icontains=q).order_by('nama')
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Dashboard.objects.all()
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+
   return render(request, 'menu/dashboard.html', {
-    'dashboard': desc
+    'dataset': data_page,
+    'query': q, 
+    'page': page,
   })
 
 @login_required
@@ -57,9 +138,29 @@ def dashboard_detail(request, pk):
 @login_required
 def catalog(request):
   log_activity(request)
-  desc = Catalog.objects.all().order_by('nama')
+
+  num_page = 20
+  
+  q = ''
+  page = ''
+
+  if 'q' in request.GET:
+    q = request.GET['q']
+    data = Catalog.objects.filter(nama__icontains=q).order_by('nama')
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
+  else:
+    data = Catalog.objects.all()
+    p = Paginator(data, num_page)
+    page = request.GET.get('page')
+    data_page = p.get_page(page)
+  
   return render(request, 'menu/catalog.html', {
-    'catalog': desc,
+    'dataset': data_page, 
+    'query': q, 
+    'page': page,
   })
 
 @login_required

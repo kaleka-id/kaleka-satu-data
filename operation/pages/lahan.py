@@ -15,8 +15,8 @@ from operation.ops_models.profiles import Profile
 def lahan_dict(request):
   log_activity(request)
 
-  q = None
-  page = None
+  q = ''
+  page = ''
 
   if 'q' in request.GET:
     q = request.GET['q']

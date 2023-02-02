@@ -14,8 +14,13 @@
 {% block body %}
 <div class="container mt-4">
   <div class="page mt-4">
-    <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="200px">
     <h1>This is dashboard page</h1>
+
+    <form class="d-flex mb-3">
+      <input class="form-control" type="search" placeholder="Cari dashboard" aria-label="Search" name="q">
+      <button class="btn btn-outline-secondary ms-2" type="submit">Search</button>
+    </form>
+
     <div class="table-responsive table-scrollable">
       <table class="table table-striped">
         <thead>
@@ -25,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for data in dashboard %}
+          {% for data in dataset %}
             {% if data.permission_view in request.user.groups.all %}
               <tr>
                 <th scope="row"><a href="{% url 'dashboard_detail' data.id %}">{{data.nama}}</a></th>
@@ -37,5 +42,8 @@
       </table>
     </div>
   </div>
+
+  {% include 'paginator.html' %}
+
 </div>
 {% endblock body %}
