@@ -30,7 +30,7 @@ def forms(request):
     data_page = p.get_page(page)
   
   else:
-    data = Forms.objects.all()
+    data = Forms.objects.all().order_by('nama')
     p = Paginator(data, num_page)
     page = request.GET.get('page')
     data_page = p.get_page(page)
@@ -58,7 +58,7 @@ def docs(request):
     data_page = p.get_page(page)
   
   else:
-    data = Docs.objects.all()
+    data = Docs.objects.all().order_by('judul')
     p = Paginator(data, num_page)
     page = request.GET.get('page')
     data_page = p.get_page(page)
@@ -91,7 +91,7 @@ def dictionary(request):
     data_page = p.get_page(page)
   
   else:
-    data = Dictionary.objects.all()
+    data = Dictionary.objects.all().order_by('nama')
     p = Paginator(data, num_page)
     page = request.GET.get('page')
     data_page = p.get_page(page)
@@ -119,7 +119,7 @@ def dashboard(request):
     data_page = p.get_page(page)
   
   else:
-    data = Dashboard.objects.all()
+    data = Dashboard.objects.all().order_by('nama')
     p = Paginator(data, num_page)
     page = request.GET.get('page')
     data_page = p.get_page(page)
@@ -152,7 +152,7 @@ def catalog(request):
     data_page = p.get_page(page)
   
   else:
-    data = Catalog.objects.all()
+    data = Catalog.objects.all().order_by('nama')
     p = Paginator(data, num_page)
     page = request.GET.get('page')
     data_page = p.get_page(page)
