@@ -62,19 +62,21 @@ def updateData(request, dataset, pk, forms, redirects, url, db_dataset):
   item = get_object_or_404(dataset, id=pk)
   form = forms(request.POST or None, request.FILES or None, instance=item)
   data = dataset.objects.filter(user=request.user)
-  if form.is_valid():
-    item.user = request.user
-    form.save()
-    DataLog.objects.create(
-        action='UPDATE',
-        dataset=db_dataset,
-        id_dataset=item.id,
-        user=request.user,
-        ip_user=request.META.get('REMOTE_ADDR'),
-        device_user=device_type,
-        os_user=request.user_agent.os.family,
-        browser_user=request.user_agent.browser.family)
-    return redirect(redirects)
+  
+  if request.method == 'POST':
+    if form.is_valid():
+      item.user = request.user
+      form.save()
+      DataLog.objects.create(
+          action='UPDATE',
+          dataset=db_dataset,
+          id_dataset=item.id,
+          user=request.user,
+          ip_user=request.META.get('REMOTE_ADDR'),
+          device_user=device_type,
+          os_user=request.user_agent.os.family,
+          browser_user=request.user_agent.browser.family)
+      return redirect(redirects)
 
   return render(request, url, {'form':form, 'data':data})
 
@@ -93,18 +95,19 @@ def commentData(request, dataset, pk, forms, redirects, url, db_dataset):
   
   form.fields["user"].queryset = User.objects.filter(id__in=Profile.objects.filter(user=request.user).values_list('user_observed', flat=True))
 
-  if form.is_valid():
-    form.save()
-    DataLog.objects.create(
-        action='UPDATE',
-        dataset=db_dataset,
-        id_dataset=item.id,
-        user=request.user,
-        ip_user=request.META.get('REMOTE_ADDR'),
-        device_user=device_type,
-        os_user=request.user_agent.os.family,
-        browser_user=request.user_agent.browser.family)
-    return redirect(redirects)
+  if request.method == 'POST':
+    if form.is_valid():
+      form.save()
+      DataLog.objects.create(
+          action='UPDATE',
+          dataset=db_dataset,
+          id_dataset=item.id,
+          user=request.user,
+          ip_user=request.META.get('REMOTE_ADDR'),
+          device_user=device_type,
+          os_user=request.user_agent.os.family,
+          browser_user=request.user_agent.browser.family)
+      return redirect(redirects)
 
   return render(request, url, {'form':form, 'data':data})
 
@@ -115,15 +118,16 @@ def deleteData(request, dataset, pk, redirects, db_dataset):
   else:
     device_type=request.user_agent.device.family
 
-  item = get_object_or_404(dataset, id=pk)
-  DataLog.objects.create(
-        action='DELETE',
-        dataset=db_dataset,
-        id_dataset=item.id,
-        user=request.user,
-        ip_user=request.META.get('REMOTE_ADDR'),
-        device_user=device_type,
-        os_user=request.user_agent.os.family,
-        browser_user=request.user_agent.browser.family)
-  item.delete()
+  if request.method == 'POST':
+    item = get_object_or_404(dataset, id=pk)
+    DataLog.objects.create(
+          action='DELETE',
+          dataset=db_dataset,
+          id_dataset=item.id,
+          user=request.user,
+          ip_user=request.META.get('REMOTE_ADDR'),
+          device_user=device_type,
+          os_user=request.user_agent.os.family,
+          browser_user=request.user_agent.browser.family)
+    item.delete()
   return redirect(redirects)
