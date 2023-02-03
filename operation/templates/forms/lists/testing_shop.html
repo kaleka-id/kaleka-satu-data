@@ -39,6 +39,9 @@
             `<p><a href="/forms/testing-toko/${feature.properties.pk}/" class="text-decoration-none">` + 
               feature.properties.name_shop + '</a></p>'
           )
+        },
+        filter: function(feature){
+          return feature.properties.name_shop.toLowerCase().includes('{{query}}'.toLowerCase())
         }
       });
       dataset.addTo(map)
@@ -72,11 +75,56 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nama Toko</th>
-          <th scope="col">Buka</th>
-          <th scope="col">Kapasitas</th>
-          <th scope="col">Update Terakhir</th>
+          <th scope="col">
+            <div class="btn-group">
+              <button class="btn btn-sm btn-white" type="button"><b>ID</b></button>
+              <button type="button" class="btn btn-sm btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle Dropdown</span></button>
+              <ul class="dropdown-menu">
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=id" class="text-decoration-none text-dark">Sort ascending</a></li>
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=-id" class="text-decoration-none text-dark">Sort descending</a></li>
+              </ul>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="btn-group">
+              <button class="btn btn-sm btn-white" type="button"><b>Nama Toko</b></button>
+              <button type="button" class="btn btn-sm btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle Dropdown</span></button>
+              <ul class="dropdown-menu">
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=name_shop" class="text-decoration-none text-dark">Sort ascending</a></li>
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=-name_shop" class="text-decoration-none text-dark">Sort descending</a></li>
+              </ul>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="btn-group">
+              <button class="btn btn-sm btn-white" type="button"><b>Buka</b></button>
+              <button type="button" class="btn btn-sm btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle Dropdown</span></button>
+              <ul class="dropdown-menu">
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=Open" class="text-decoration-none text-dark">Sort ascending</a></li>
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=-Open" class="text-decoration-none text-dark">Sort descending</a></li>
+              </ul>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="btn-group">
+              <button class="btn btn-sm btn-white" type="button"><b>Kapasitas</b></button>
+              <button type="button" class="btn btn-sm btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle Dropdown</span></button>
+              <ul class="dropdown-menu">
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=capacity" class="text-decoration-none text-dark">Sort ascending</a></li>
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=-capacity" class="text-decoration-none text-dark">Sort descending</a></li>
+              </ul>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="btn-group">
+              <button class="btn btn-sm btn-white" type="button"><b>Update Terakhir</b></button>
+              <button type="button" class="btn btn-sm btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle Dropdown</span></button>
+              <ul class="dropdown-menu">
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=updated_at" class="text-decoration-none text-dark">Sort ascending</a></li>
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=-updated_at" class="text-decoration-none text-dark">Sort descending</a></li>
+              </ul>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -102,7 +150,7 @@
     </table>
   </div>
 
-  {% include 'paginator.html' %}
+  {% include 'paginator_v2.html' %}
 
 </div>
 {% endblock body %}

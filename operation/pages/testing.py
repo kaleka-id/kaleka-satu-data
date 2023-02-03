@@ -19,24 +19,25 @@ def testingArtikel(request):
     log_activity(request)
 
   num_page = 20
-  
   query = ''
-  page = ''
+  order = '-updated_at'
 
   if 'q' in request.GET:
-    query = request.GET['q']
-    data = Testing.objects.filter(user=request.user, nama__icontains=query)
-    p = Paginator(data, num_page)
-    page = request.GET.get('page')
-    data_page = p.get_page(page)
-  
-  else:
-    data = Testing.objects.filter(user=request.user)
-    p = Paginator(data, num_page)
-    page = request.GET.get('page')
-    data_page = p.get_page(page)
+    query = request.GET.get('q')
 
-  return render(request, 'forms/lists/testing_artikel.html', {'dataset': data_page, 'page': page, 'query': query})
+  if 'o' in request.GET:
+    order = request.GET.get('o')
+  
+  data = Testing.objects.filter(user=request.user, nama__icontains=query).order_by(order)
+  p = Paginator(data, num_page)
+  page = request.GET.get('page')
+  data_page = p.get_page(page)
+
+  return render(request, 'forms/lists/testing_artikel.html', {
+    'dataset': data_page, 
+    'page': page, 
+    'query': query,
+    'order': order})
 
 # View dari daftar artikel
 @permission_required('data.view_testing')
@@ -45,25 +46,26 @@ def testingArtikel_observer(request):
     log_activity(request)
 
   num_page = 20
-  
   query = ''
-  page = ''
+  order = '-updated_at'
   profile = Profile.objects.filter(user=request.user).values_list('user_observed', flat=True)
 
   if 'q' in request.GET:
-    query = request.GET['q']
-    data = Testing.objects.filter(user__in=profile, nama__icontains=query)
-    p = Paginator(data, num_page)
-    page = request.GET.get('page')
-    data_page = p.get_page(page)
-  
-  else:
-    data = Testing.objects.filter(user__in=profile)
-    p = Paginator(data, num_page)
-    page = request.GET.get('page')
-    data_page = p.get_page(page)
+    query = request.GET.get('q')
 
-  return render(request, 'forms/lists/testing_artikel_observer.html', {'dataset': data_page, 'page': page, 'query': query})
+  if 'o' in request.GET:
+    order = request.GET.get('o')
+  
+  data = Testing.objects.filter(user__in=profile, nama__icontains=query).order_by(order)
+  p = Paginator(data, num_page)
+  page = request.GET.get('page')
+  data_page = p.get_page(page)
+
+  return render(request, 'forms/lists/testing_artikel_observer.html', {
+    'dataset': data_page, 
+    'page': page, 
+    'query': query,
+    'order': order})
 
 # View dari informasi detil artikel
 @permission_required('data.view_testing')
@@ -131,25 +133,26 @@ def testingShop(request):
   if request.method == 'GET':
     log_activity(request)
 
-  num_page = 20
-  
+  num_page = 2
   query = ''
-  page = ''
+  order = '-updated_at'
 
   if 'q' in request.GET:
-    query = request.GET['q']
-    data = Shop.objects.filter(user=request.user, name_shop__icontains=query)
-    p = Paginator(data, num_page)
-    page = request.GET.get('page')
-    data_page = p.get_page(page)
-  
-  else:
-    data = Shop.objects.filter(user=request.user)
-    p = Paginator(data, num_page)
-    page = request.GET.get('page')
-    data_page = p.get_page(page)
+    query = request.GET.get('q')
 
-  return render(request, 'forms/lists/testing_shop.html', {'dataset': data_page, 'page': page, 'query': query})
+  if 'o' in request.GET:
+    order = request.GET.get('o')
+  
+  data = Shop.objects.filter(user=request.user, name_shop__icontains=query).order_by(order)
+  p = Paginator(data, num_page)
+  page = request.GET.get('page')
+  data_page = p.get_page(page)
+
+  return render(request, 'forms/lists/testing_shop.html', {
+    'dataset': data_page, 
+    'page': page, 
+    'query': query,
+    'order': order})
 
 # View dari daftar toko pada mode observer
 @permission_required('data.view_shop')
@@ -158,25 +161,26 @@ def testingShop_observer(request):
     log_activity(request)
 
   num_page = 20
-  
   query = ''
-  page = ''
+  order = '-updated_at'
   profile = Profile.objects.filter(user=request.user).values_list('user_observed', flat=True)
 
   if 'q' in request.GET:
-    query = request.GET['q']
-    data = Shop.objects.filter(user__in=profile, name_shop__icontains=query)
-    p = Paginator(data, num_page)
-    page = request.GET.get('page')
-    data_page = p.get_page(page)
-  
-  else:
-    data = Shop.objects.filter(user__in=profile)
-    p = Paginator(data, num_page)
-    page = request.GET.get('page')
-    data_page = p.get_page(page)
+    query = request.GET.get('q')
 
-  return render(request, 'forms/lists/testing_shop_observer.html', {'dataset': data_page, 'page': page, 'query': query})
+  if 'o' in request.GET:
+    order = request.GET.get('o')
+  
+  data = Shop.objects.filter(user__in=profile, name_shop__icontains=query).order_by(order)
+  p = Paginator(data, num_page)
+  page = request.GET.get('page')
+  data_page = p.get_page(page)
+
+  return render(request, 'forms/lists/testing_shop_observer.html', {
+    'dataset': data_page, 
+    'page': page, 
+    'query': query,
+    'order': order})
 
 def testingShopJSON(request):
   if request.method == 'GET':
