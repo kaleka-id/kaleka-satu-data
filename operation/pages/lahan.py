@@ -13,7 +13,8 @@ from operation.ops_models.profiles import Profile
 # DICTIONARY
 @permission_required('data.search_lahan')
 def lahan_dict(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   q = ''
   page = ''
@@ -32,7 +33,8 @@ def lahan_dict(request):
 # View dari daftar lahan
 @permission_required('data.view_lahan')
 def lahanList(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -59,7 +61,8 @@ def lahanList(request):
 # View dari daftar lahan dengan observer mode
 @permission_required('data.view_lahan')
 def lahanListObserver(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -85,17 +88,20 @@ def lahanListObserver(request):
   return render(request, 'forms/lists/lahan_observer.html', {'dataset': data_page, 'page': page, 'query': query})
 
 def lahanJSON(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return geojsonData(request, Lahan)
 
 def lahanJSONObserver(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return geojsonDataObserver(request, Lahan)
 
 # View dari informasi detil orang
 @permission_required('data.view_orang')
 def lahanDetail(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return detailData(request, Lahan, pk, 'forms/details/lahan.html', 'lahan')
 
 class lahanForm(forms.ModelForm):
@@ -115,25 +121,29 @@ class lahanFormComment(forms.ModelForm):
 # View dari form penambahan lahan
 @permission_required('data.add_lahan')
 def lahan_form_add(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return addData(request, lahanForm, 'lahan_list', 'forms/form/lahan_add.html', 'data_lahan')
 
 # View dari form perubahan lahan
 @permission_required('data.change_lahan')
 def lahan_form_update(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return updateData(request, Lahan, pk, lahanForm, 'lahan_list', 'forms/form/lahan_update.html', 'data_lahan')
 
 # View dari form perubahan lahan
 @permission_required('data.change_lahan')
 def lahan_form_comment(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return commentData(request, Lahan, pk, lahanFormComment, 'lahan_list', 'forms/form/lahan_update.html', 'data_lahan')
 
 # View untuk menghapus lahan
 @permission_required('data.delete_testing')
 def lahan_form_delete(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return deleteData(request, Lahan, pk, 'lahan_list', 'data_lahan')
 
 urlpatterns = [

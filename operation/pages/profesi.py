@@ -7,10 +7,11 @@ from operation.signals import log_activity
 
 @permission_required('data.search_profesi')
 def profesi_dict(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   
-  q = None
-  page = None
+  q = ''
+  page = ''
 
   if 'q' in request.GET:
     q = request.GET['q']

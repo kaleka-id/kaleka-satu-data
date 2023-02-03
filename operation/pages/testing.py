@@ -15,7 +15,8 @@ from operation.ops_models.profiles import Profile
 # View dari daftar artikel
 @permission_required('data.view_testing')
 def testingArtikel(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -40,7 +41,8 @@ def testingArtikel(request):
 # View dari daftar artikel
 @permission_required('data.view_testing')
 def testingArtikel_observer(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -66,7 +68,8 @@ def testingArtikel_observer(request):
 # View dari informasi detil artikel
 @permission_required('data.view_testing')
 def testingArtikelDetail(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return detailData(request, Testing, pk, 'forms/details/testing_artikel.html', 'artikel')
 
 # Form untuk menambahkan dan mengubah artikel
@@ -84,30 +87,35 @@ class testingArtikelFormComment(forms.ModelForm):
 # View dari form penambahan artikel
 @permission_required('data.add_testing')
 def article_form_add(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return addData(request, testingArtikelForm, 'testing_artikel_list', 'forms/form/testing_artikel_add.html', 'data_testing')
 
 # View dari form perubahan artikel
 @permission_required('data.change_testing')
 def article_form_update(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return updateData(request, Testing, pk, testingArtikelForm, 'testing_artikel_list', 'forms/form/testing_artikel_update.html', 'data_testing')
 
 # View dari form komentar artikel
 @permission_required('data.change_testing')
 def article_form_comment(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return commentData(request, Testing, pk, testingArtikelFormComment, 'testing_artikel_list', 'forms/form/testing_artikel_update.html', 'data_testing')
 
 # View untuk menghapus artikel
 @permission_required('data.delete_testing')
 def article_form_delete(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return deleteData(request, Testing, pk, 'testing_artikel_list', 'data_testing')
 
 # Dictionary artikel
 def article_dict(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   if 'q' in request.GET:
     q = request.GET['q']
@@ -120,7 +128,8 @@ def article_dict(request):
 # View dari daftar toko
 @permission_required('data.view_shop')
 def testingShop(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -145,7 +154,8 @@ def testingShop(request):
 # View dari daftar toko pada mode observer
 @permission_required('data.view_shop')
 def testingShop_observer(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -169,17 +179,20 @@ def testingShop_observer(request):
   return render(request, 'forms/lists/testing_shop_observer.html', {'dataset': data_page, 'page': page, 'query': query})
 
 def testingShopJSON(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return geojsonData(request, Shop)
 
 def testingShopJSON_observer(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return geojsonDataObserver(request, Shop)
 
 # View dari informasi detil toko
 @permission_required('data.view_shop')
 def testingShopDetail(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return detailData(request, Shop, pk, 'forms/details/testing_shop.html', 'toko')
 
 # Form untuk menambahkan dan mengubah toko
@@ -200,30 +213,35 @@ class testingShopFormComment(forms.ModelForm):
 # View dari form penambahan toko
 @permission_required('data.add_shop')
 def shop_form_add(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return addData(request, testingShopForm, 'testing_toko_list', 'forms/form/testing_toko_add.html', 'data_shop')
 
 # View dari form perubahan toko
 @permission_required('data.change_shop')
 def shop_form_update(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return updateData(request, Shop, pk, testingShopForm, 'testing_toko_list', 'forms/form/testing_toko_update.html', 'data_shop')
 
 # View dari form komentar toko
 @permission_required('data.change_shop')
 def shop_form_comment(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return commentData(request, Shop, pk, testingShopFormComment, 'testing_toko_list', 'forms/form/testing_toko_update.html', 'data_shop')
 
 # View untuk menghapus toko
 @permission_required('data.delete_shop')
 def shop_form_delete(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return deleteData(request, Shop, pk, 'testing_toko_list', 'data_shop')
 
 # Dictionary toko
 def shop_dict(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   if 'q' in request.GET:
     q = request.GET['q']
@@ -237,7 +255,8 @@ def shop_dict(request):
 # View dari daftar produk
 @permission_required('data.view_product')
 def testingProduct(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -262,7 +281,8 @@ def testingProduct(request):
 # View dari daftar produk dengan mode observer
 @permission_required('data.view_product')
 def testingProduct_observer(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -288,7 +308,8 @@ def testingProduct_observer(request):
 # View dari informasi detil artikel
 @permission_required('data.view_product')
 def testingProductDetail(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return detailData(request, Product, pk, 'forms/details/testing_produk.html', 'produk')
 
 # Form untuk menambahkan dan mengubah artikel
@@ -311,30 +332,35 @@ class testingProductFormComment(forms.ModelForm):
 # View dari form penambahan produk
 @permission_required('data.add_product')
 def product_form_add(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return addData(request, testingProductForm, 'testing_produk_list', 'forms/form/testing_produk_add.html', 'data_product')
 
 # View dari form perubahan produk
 @permission_required('data.change_product')
 def product_form_update(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return updateData(request, Product, pk, testingProductForm, 'testing_produk_list', 'forms/form/testing_produk_update.html', 'data_product')
 
 # View dari form perubahan produk
 @permission_required('data.change_product')
 def product_form_comment(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return commentData(request, Product, pk, testingProductFormComment, 'testing_produk_list', 'forms/form/testing_produk_update.html', 'data_product')
 
 # View untuk menghapus produk
 @permission_required('data.delete_product')
 def product_form_delete(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return deleteData(request, Product, pk, 'testing_produk_list', 'data_product')
 
 # Dictionary produk
 def product_dict(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   if 'q' in request.GET:
     q = request.GET['q']
     data = Product.objects.filter(nama__icontains=q)

@@ -12,10 +12,11 @@ from operation.ops_models.profiles import Profile
 # DICTIONARY
 @permission_required('data.search_orang')
 def orang_dict(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
-  q = None
-  page = None
+  q = ''
+  page = ''
 
   if 'q' in request.GET:
     q = request.GET['q']
@@ -34,7 +35,8 @@ def orang_dict(request):
 # View dari daftar orang
 @permission_required('data.view_orang')
 def orangList(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -61,7 +63,8 @@ def orangList(request):
 # View dari daftar orang untuk observer
 @permission_required('data.view_orang')
 def orangListObserver(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -93,7 +96,8 @@ def orangListObserver(request):
 # View dari informasi detil orang
 @permission_required('data.view_orang')
 def orangDetail(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   return detailData(request, Orang, pk, 'forms/details/orang.html', 'orang')
 
@@ -116,25 +120,29 @@ class orangFormComment(forms.ModelForm):
 # View dari form penambahan orang
 @permission_required('data.add_orang')
 def orang_form_add(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return addData(request, orangForm, 'orang_list', 'forms/form/orang_add.html', 'data_orang')
 
 # View dari form perubahan orang
 @permission_required('data.change_orang')
 def orang_form_update(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return updateData(request, Orang, pk, orangForm, 'orang_list', 'forms/form/orang_update.html', 'data_orang')
 
 # View dari form komentar orang
 @permission_required('data.change_orang')
 def orang_form_comment(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return commentData(request, Orang, pk, orangFormComment, 'orang_list', 'forms/form/orang_update.html', 'data_orang')
 
 # View untuk menghapus orang
 @permission_required('data.delete_orang')
 def orang_form_delete(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return deleteData(request, Orang, pk, 'orang_list', 'data_orang')
 
 urlpatterns = [

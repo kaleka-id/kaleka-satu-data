@@ -10,12 +10,14 @@ from operation.signals import log_activity
 from operation.ops_models.data_logs import DataLog
 
 def home(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return render(request, 'menu/home.html')
 
 @permission_required('operation.view_forms')
 def forms(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -43,7 +45,8 @@ def forms(request):
 
 @permission_required('operation.view_docs')
 def docs(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   
   num_page = 20
   
@@ -71,12 +74,14 @@ def docs(request):
 
 @permission_required('operation.view_docs')
 def docs_detail(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return detailData(request, Docs, pk, 'menu/docs_detail.html', 'docs')
 
 @permission_required('operation.view_docs')
 def dictionary(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   
   num_page = 20
   
@@ -104,7 +109,8 @@ def dictionary(request):
 
 @login_required
 def dashboard(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   
   num_page = 20
   
@@ -132,12 +138,14 @@ def dashboard(request):
 
 @login_required
 def dashboard_detail(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return detailData(request, Dashboard, pk, 'menu/dashboard_detail.html', 'dashboard')
 
 @login_required
 def catalog(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
 
   num_page = 20
   
@@ -165,7 +173,8 @@ def catalog(request):
 
 @login_required
 def catalog_detail(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   desc = get_object_or_404(Catalog, id=pk)
   doc = CatalogDocument.objects.filter(catalog=desc.id)
   return render(request, 'menu/catalog_detail.html', {
@@ -174,7 +183,8 @@ def catalog_detail(request, pk):
 
 @login_required
 def profile(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return render(request, 'menu/profile.html')
 
 class ProfileForm(iforms.ModelForm):
@@ -184,26 +194,31 @@ class ProfileForm(iforms.ModelForm):
 
 @login_required
 def profile_form_add(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return addData(request, ProfileForm, 'profile', 'menu/profile_add.html', 'operation_profile')
 
 @login_required
 def profile_form_update(request, pk):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return updateData(request, Profile, pk, ProfileForm, 'profile', 'menu/profile_update.html', 'operation_profile')
 
 @login_required
 def about(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return render(request, 'menu/about.html')
 
 def tutorial(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return render(request, 'menu/tutorial.html')
 
 def request(request):
   dataset = Request.objects.filter(user=request.user)
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return render(request, 'menu/request.html', {'dataset': dataset})
 
 # Form untuk menambahkan request
@@ -262,7 +277,8 @@ def request_form_add(request):
 
 @login_required
 def tutorial_geoserver_qgis(request):
-  log_activity(request)
+  if request.method == 'GET':
+    log_activity(request)
   return render(request, 'menu/tutorial/geoserver_qgis.html')
 
 urlpatterns = [
