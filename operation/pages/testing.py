@@ -133,7 +133,7 @@ def testingShop(request):
   if request.method == 'GET':
     log_activity(request)
 
-  num_page = 2
+  num_page = 20
   query = ''
   order = '-updated_at'
 
@@ -203,7 +203,7 @@ def testingShopDetail(request, pk):
 class testingShopForm(forms.ModelForm):
   class Meta:
     model = Shop
-    fields = ('name_shop', 'geom', 'address', 'Open', 'capacity')
+    fields = ('name_shop', 'geom', 'zoom', 'address', 'Open', 'capacity')
     widgets = {
       'geom': LeafletWidget()
     }
