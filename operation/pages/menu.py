@@ -9,6 +9,7 @@ from operation.data_modification import detailData, addData, updateData
 from operation.signals import log_activity
 from operation.ops_models.data_logs import DataLog
 
+@login_required
 def home(request):
   if request.method == 'GET':
     log_activity(request)

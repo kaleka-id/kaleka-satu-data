@@ -1,27 +1,57 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load static %}
 
-{% block title %}Login{% endblock title %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block head %}
-<style>
-  @media screen and (min-width: 500px){
-    .page{
-      width: 500px;
-      margin: auto;
-    }
-  }
-</style>
-{% endblock head %}
+        <title>Login | Kaleka Satu Data</title>
 
-{% block body %}
-<div class="container page mt-4">
-  <h1>Login User</h1>
-  <p>Use the following form to login</p>
-  <form action="" method="post">
-    {{form | crispy}}
-    {% csrf_token %}
-    <input type="submit" value="Login" class="btn btn-success">
-  </form>
-</div>
-{% endblock body %}
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+        <!-- Javascripts -->
+        <script src="{% static 'jquery/jquery-3.6.3.min.js' %}"></script>
+        <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
+
+    </head>
+    <body>
+        <!-- Login Card -->
+        <div class="login-card">
+            <!-- Logo -->
+            <div class="logo">
+                <img src="{% static 'images/login/satudata_bee1.png' %}" alt="">
+            </div>
+            <!-- Title -->
+            <div class="text-center mt-3 name">KATA</div>
+            <div class="text-center mt-0 subname">Kaleka Satu Data</div>
+            <!-- Form -->
+            <form class="p-3 mt-3" method="post">
+                {% csrf_token %}
+                <!-- Input Form -->
+                <div class="form-field d-flex align-items-center">
+                    <span class="far fa-user"></span>
+                    {{form.username}}
+                </div>
+                <div class="form-field d-flex align-items-center">
+                    <span class="fas fa-key"></span>
+                    {{form.password}}
+                </div>
+                <!-- Button -->
+                <input type="submit" value="Masuk" class="btn btn-success mt-3">
+            </form>
+            <div class="text-center fs-6">
+                <a href="#">Lupa kata sandi?</a>
+            </div>
+            
+            <script type="text/javascript">
+                $("#id_username").attr("placeholder", "Nama Pengguna");
+                $("#id_password").attr("placeholder", "Kata Sandi");
+            </script>
+        </div>
+    </body>
+</html>
