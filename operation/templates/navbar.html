@@ -1,13 +1,21 @@
 {% load static %}
 
-<nav class="navbar bg-light sticky-top">
+<!-- CSS -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lexend">
+<link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<!-- Javascripts -->
+<script src="{% static 'jquery/jquery-3.6.3.min.js' %}"></script>
+
+<nav class="navbar bg-light">
   <div class="container">
     <div>
-      <a class="btn btn-primary-outline" data-bs-toggle="collapse" href="#sidebar" role="button" aria-expanded="false" aria-controls="collapseExample">
-        <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" alt="Kaleka Satu Data" width="30" height="24"> <i><b>Kaleka Satu Data</b></i>
+      <a class="btn btn-primary btn-customized open-menu" href="#" role="button">
+        <i class='bx bx-menu-alt-left'></i><span> Menu</span>
       </a>
     </div>
-
 
     {% if request.user.is_authenticated %}
     <div class="dropdown text-end">
