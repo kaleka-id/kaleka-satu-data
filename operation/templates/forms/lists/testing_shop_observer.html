@@ -31,27 +31,6 @@
   <link rel="stylesheet" href="{% static 'leaflet/geolocation/L.Control.Locate.min.css' %}" />
   <script src="{% static 'leaflet/geolocation/L.Control.Locate.min.js' %}" charset="utf-8"></script>
 
-  <script type="text/javascript">
-    function place_pos(map, options){
-      const dataset = new L.GeoJSON.AJAX("{% url 'testing_toko_json_observer' %}",{
-        onEachFeature: function(feature, layer){
-          layer.bindPopup(
-            `<p><a href="/forms/testing-toko/${feature.properties.pk}/" class="text-decoration-none">` + 
-              feature.properties.name_shop + '</a></p>'
-          )
-        },
-        filter: function(feature){
-          return feature.properties.name_shop.toLowerCase().includes('{{query}}'.toLowerCase())
-        }
-      });
-      dataset.addTo(map)
-
-      map.addControl(new L.Control.Fullscreen());
-
-      L.control.locate().addTo(map);
-    }
-  </script>
-
   <h1>Daftar Toko</h1>
   <div class="p-1">
     <form>
@@ -110,6 +89,7 @@
               </ul>
             </div>
           </th>
+          <th scope="col">Action</th>
           <th scope="col">
             <div class="btn-group">
               <button class="btn btn-sm btn-white" type="button"><b>Update Terakhir</b></button>
@@ -140,6 +120,9 @@
             <td>{{data.name_shop}}</td>
             <td>{{data.Open}}</td>
             <td>{{data.capacity}}</td>
+            <td class="map-navigation">
+              <a id="map-{{data.id}}" href="" data-zoom="{{data.zoom}}" data-position="{{data.geom.y}}, {{data.geom.x}}">zoom to layer</a>
+            </td>
             <td>{{data.updated_at}}</td>
             <td>{{data.user}}</td>
             <td class="text-end">
@@ -154,6 +137,45 @@
   </div>
 
   {% include 'paginator_v2.html' %}
+
+  <script type="text/javascript">
+    function place_pos(map, options){
+      // Menambahkan dataset
+      const dataset = new L.GeoJSON.AJAX("{% url 'testing_toko_json_observer' %}",{
+        onEachFeature: function(feature, layer){
+          layer.bindPopup(
+            `<p><a href="/forms/testing-toko/${feature.properties.pk}/" class="text-decoration-none">` + 
+              feature.properties.name_shop + '</a></p>'
+          )
+        },
+        filter: function(feature){
+          return feature.properties.name_shop.toLowerCase().includes('{{query}}'.toLowerCase())
+        }
+      });
+      dataset.addTo(map)
+
+      // Menambahkan layar penuh
+      map.addControl(new L.Control.Fullscreen());
+
+      // Menambahkan geolokasi
+      L.control.locate().addTo(map);
+
+      // Menambahkan fitur zoom to layer
+      const zoomTo = document.querySelectorAll('.map-navigation')
+      zoomTo.forEach((location) => {
+        location.onclick = function(attr){
+          const position = attr.target.getAttribute('data-position');
+          const zoom = attr.target.getAttribute('data-zoom');
+          if (position && zoom) {
+              const locat = position.split(',');
+              const koord = parseInt(zoom);
+              map.setView(locat, koord, {animation: true});
+              return false;
+          }
+        }
+      });      
+    }
+  </script>
 
 </div>
 {% endblock body %}
