@@ -97,6 +97,16 @@
           <th>Action</th>
           <th scope="col">
             <div class="btn-group">
+              <button class="btn btn-sm btn-white" type="button"><b>Status</b></button>
+              <button type="button" class="btn btn-sm btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle Dropdown</span></button>
+              <ul class="dropdown-menu">
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=status_data" class="text-decoration-none text-dark">Sort ascending</a></li>
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=-status_data" class="text-decoration-none text-dark">Sort descending</a></li>
+              </ul>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="btn-group">
               <button class="btn btn-sm btn-white" type="button"><b>Update Terakhir</b></button>
               <button type="button" class="btn btn-sm btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle Dropdown</span></button>
               <ul class="dropdown-menu">
@@ -116,7 +126,16 @@
             <td>{{data.Open}}</td>
             <td>{{data.capacity}}</td>
             <td class="map-navigation">
-              <a id="map-{{data.id}}" href="" data-zoom="{{data.zoom}}" data-position="{{data.geom.y}}, {{data.geom.x}}">zoom to layer</a>
+              <a id="map-{{data.id}}" href="" data-id="{{data.id}}" data-zoom="{{data.zoom}}" data-position="{{data.geom.y}}, {{data.geom.x}}">zoom to layer</a>
+            </td>
+            <td>
+              {% if data.status_data == 'Updated' %}
+              <span class="badge bg-success">{{data.status_data}}</span>
+              {% elif data.status_data == 'Need Confirmation' %}
+              <span class="badge bg-warning text-dark">{{data.status_data}}</span>
+              {% else %}
+              <span class="badge bg-danger">{{data.status_data}}</span>
+              {% endif %}
             </td>
             <td>{{data.updated_at}}</td>
             <td class="text-end">
@@ -161,13 +180,23 @@
       const zoomTo = document.querySelectorAll('.map-navigation')
       zoomTo.forEach((location) => {
         location.onclick = function(attr){
+          const id_pk = attr.target.getAttribute('data-id');
           const position = attr.target.getAttribute('data-position');
           const zoom = attr.target.getAttribute('data-zoom');
+
+          // Fungsi untuk menampilkan popup
+          dataset.eachLayer(function(layer) {
+            if (layer.feature.properties.pk === id_pk){
+              layer.openPopup()
+            }
+          });
+
+          // Fungsi untuk zoom menuju layer
           if (position && zoom) {
-              const locat = position.split(',');
-              const koord = parseInt(zoom);
-              map.setView(locat, koord, {animation: true});
-              return false;
+            const locat = position.split(',');
+            const zoo = parseInt(zoom);
+            map.setView(locat, zoo, {animation: true});
+            return false;
           }
         }
       });      

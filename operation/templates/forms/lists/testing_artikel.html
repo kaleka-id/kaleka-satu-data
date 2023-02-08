@@ -69,6 +69,16 @@
           </th>
           <th scope="col">
             <div class="btn-group">
+              <button class="btn btn-sm btn-white" type="button"><b>Status</b></button>
+              <button type="button" class="btn btn-sm btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle Dropdown</span></button>
+              <ul class="dropdown-menu">
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=status_data" class="text-decoration-none text-dark">Sort ascending</a></li>
+                <li><a href="?page={{page}}&amp;q={{query}}&amp;o=-status_data" class="text-decoration-none text-dark">Sort descending</a></li>
+              </ul>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="btn-group">
               <button class="btn btn-sm btn-white" type="button"><b>Update Terakhir</b></button>
               <button type="button" class="btn btn-sm btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle Dropdown</span></button>
               <ul class="dropdown-menu">
@@ -86,6 +96,15 @@
             <th scope="row"><a href="{% url 'testing_artikel_detail' data.id %}">{{data.id}}</a></th>
             <td>{{data.kode}}</td>
             <td>{{data.nama}}</td>
+            <td>
+              {% if data.status_data == 'Updated' %}
+              <span class="badge bg-success">{{data.status_data}}</span>
+              {% elif data.status_data == 'Need Confirmation' %}
+              <span class="badge bg-warning text-dark">{{data.status_data}}</span>
+              {% else %}
+              <span class="badge bg-danger">{{data.status_data}}</span>
+              {% endif %}
+            </td>
             <td>{{data.updated_at}}</td>
             <td class="text-end">
               {% if perms.data.change_testing %}

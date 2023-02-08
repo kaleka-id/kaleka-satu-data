@@ -84,7 +84,7 @@ class testingArtikelForm(forms.ModelForm):
 class testingArtikelFormComment(forms.ModelForm):
   class Meta:
     model = Testing
-    fields = ('user',)
+    fields = ('status_data', 'keterangan', 'user')
 
 # View dari form penambahan artikel
 @permission_required('data.add_testing')
@@ -212,7 +212,7 @@ class testingShopForm(forms.ModelForm):
 class testingShopFormComment(forms.ModelForm):
   class Meta:
     model = Shop
-    fields = ('user',)
+    fields = ('status_data', 'keterangan', 'user')
 
 # View dari form penambahan toko
 @permission_required('data.add_shop')
