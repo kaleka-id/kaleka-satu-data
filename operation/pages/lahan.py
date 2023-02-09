@@ -107,16 +107,18 @@ def lahanDetail(request, pk):
 class lahanForm(forms.ModelForm):
   class Meta:
     model = Lahan
-    fields = ('geom', 'petani', 'status_petani', 'jenis_legalitas', 'nomor_legalitas', 'tahun_legalitas')
+    fields = ('poligon_lahan', 'petani', 'legalitas', 'status_data')
     widgets = {
-      'geom': LeafletWidget(),
+      # 'geom': LeafletWidget(),
+      'poligon_lahan': forms.TextInput(),
       'petani': forms.TextInput(),
+      'legalitas': forms.TextInput(),
     }
 
 class lahanFormComment(forms.ModelForm):
   class Meta:
     model = Lahan
-    fields = ('user',)
+    fields = ('status_data', 'keterangan', 'user')
 
 # View dari form penambahan lahan
 @permission_required('data.add_lahan')
