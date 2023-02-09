@@ -3,14 +3,15 @@ from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import path
-from django.shortcuts import render
-from operation.data_modification import geojsonData, geojsonDataObserver, detailData, addData, commentData, updateData, deleteData
-from data.dataset.lahan import Lahan
+from django.shortcuts import render, get_object_or_404
+from operation.data_modification import geojsonData, geojsonDataObserver, addData, commentData, updateData, deleteData
+from data.dataset.lahan import Lahan, LahanLegalitasLingkungan, LahanLegalitasSTDB
 from leaflet.forms.widgets import LeafletWidget
 from operation.signals import log_activity
 from operation.ops_models.profiles import Profile
 
-# DICTIONARY
+# 🚨DATASET LAHAN🚨
+# Dictionary Lahan
 @permission_required('data.search_lahan')
 def lahan_dict(request):
   if request.method == 'GET':
@@ -102,7 +103,15 @@ def lahanJSONObserver(request):
 def lahanDetail(request, pk):
   if request.method == 'GET':
     log_activity(request)
-  return detailData(request, Lahan, pk, 'forms/details/lahan.html', 'lahan')
+  
+  lahan = get_object_or_404(Lahan, id=pk)
+  dokling = LahanLegalitasLingkungan.objects.filter(legalitas_lahan=lahan.legalitas)
+  stdb = LahanLegalitasSTDB.objects.filter(legalitas_lahan=lahan.legalitas)
+  return render(request, 'forms/details/lahan.html', {
+    'lahan': lahan,
+    'dokling': dokling,
+    'stdb': stdb,
+  })
 
 class lahanForm(forms.ModelForm):
   class Meta:
@@ -147,6 +156,8 @@ def lahan_form_delete(request, pk):
   if request.method == 'GET':
     log_activity(request)
   return deleteData(request, Lahan, pk, 'lahan_list', 'data_lahan')
+
+# 🚨DATASET LEGALITAS LAHAN🚨
 
 urlpatterns = [
   path('dict/lahan/', lahan_dict, name='lahan_dict'),

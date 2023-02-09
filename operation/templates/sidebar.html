@@ -43,6 +43,7 @@
       <a href="{% url 'docs' %}" class="sidebar-link">
         <i class='bx bxs-book-content'></i>Dokumentasi</a>
     </li>
+    {% if request.user.is_staff %}
     <li>
       <a href="#optAccount" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-link" role="button" aria-controls="optAccount">
         <i class='bx bxs-user-rectangle'></i>Akun Khusus</a>
@@ -55,6 +56,7 @@
           </li>
         </ul>
     </li>
+    {% endif %}
     <li>
       <a href="#optAbout" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-link" role="button" aria-controls="optAbout">
         <i class='bx bxs-info-square'></i>Lainnya
