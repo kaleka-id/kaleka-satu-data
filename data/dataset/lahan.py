@@ -18,7 +18,7 @@ class LahanPoligon(models.Model):
     ]
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-  geom = models.PolygonField(verbose_name='Lahan', null=True, blank=True, db_index=True)
+  geom = models.PolygonField(verbose_name='Lahan', null=True, blank=True)
   status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')], default='Need Confirmation')
   keterangan = models.TextField(null=True, blank=True)
   created_at = models.DateTimeField(auto_now_add=True)
@@ -170,7 +170,7 @@ class Lahan(models.Model):
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
   poligon_lahan = models.OneToOneField(LahanPoligon, on_delete=models.CASCADE, null=True, blank=True, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/lahan/poligon">Poligon Lahan</a> sebagai referensi untuk mengisi bagian ini'))
   petani = models.ForeignKey(Orang, on_delete=models.CASCADE, null=True, blank=True, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/orang/">Orang</a> sebagai referensi untuk mengisi bagian ini'))
-  status_petani = models.CharField(max_length=10, choices=[('pemilik', 'Pemilik Lahan'), ('penggarap', 'Penggarap Lahan')])
+  status_petani = models.CharField(max_length=10, choices=[('pemilik', 'Pemilik Lahan'), ('penggarap', 'Penggarap Lahan')], null=True, blank=True)
   legalitas = models.OneToOneField(LahanLegalitas, on_delete=models.CASCADE, null=True, blank=True, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/lahan/legalitas/">Legalitas Lahan</a> sebagai referensi untuk mengisi bagian ini'))
   status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')], default='Need Confirmation')
   keterangan = models.TextField(null=True, blank=True)

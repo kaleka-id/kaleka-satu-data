@@ -15,3 +15,4 @@ from .dataset.profesi import *
 from .dataset.sitc import *
 from .dataset.spesies import *
 from .dataset.testing import *
+from .dataset.wilayah_desa import *
