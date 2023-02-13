@@ -15,9 +15,20 @@
 {% endblock head %}
 
 {% block body %}
+<!-- LEAFLET FULL SCREEN -->
+<script src="{% static 'leaflet/fullscreen/leaflet.fullscreen.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'leaflet/fullscreen/leaflet.fullscreen.css' %}">
+<!-- LEAFLET GEOLOCATION -->
+<link rel="stylesheet" href="{% static 'leaflet/geolocation/L.Control.Locate.min.css' %}" />
+<script src="{% static 'leaflet/geolocation/L.Control.Locate.min.js' %}" charset="utf-8"></script>
+
 <div class="container page mt-4">
-  
+  {% if lahan.legalitas == None %}
   <h1>{{lahan.id}}</h1>
+  {% else %}
+  <h1>{{lahan.legalitas.nomor_legalitas}} ({{lahan.legalitas.jenis_legalitas}})</h1>
+  {% endif %}
+  
   <h6>Terakhir diupdate pada {{lahan.updated_at}}</h6>
   <div class="mb-3">
     {% if perms.data.change_lahan %}
@@ -49,7 +60,10 @@
     <li><b>Nomor Legalitas:</b> {{lahan.legalitas.nomor_legalitas}}</li>
     <li><b>Tahun Legalitas:</b> {{lahan.legalitas.tahun_legalitas}}</li>
     <li>
-      <b>Dokumen Lingkungan</b><br>
+      <b>Dokumen Lingkungan</b>
+      {% if perms.data.add_lahanlegalitaslingkungan %}
+      <a href="" target="_blank"><span class="badge bg-success">Add Dokumen Lingkungan</span></a>
+      {% endif %} <br>
       <div class="table-responsive table-scrollable">
         <table class="table table-striped">
           <thead>
@@ -171,6 +185,10 @@
     geojson.eachLayer(function (layer) {
       map.fitBounds(layer.getBounds());
     });
+
+    map.addControl(new L.Control.Fullscreen());
+
+    L.control.locate().addTo(map);
   }
 </script>
 {% endblock body %}

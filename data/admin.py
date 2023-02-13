@@ -1,6 +1,7 @@
 # REGISTER DATASET KE SINI -- agar bisa dibaca di Admin Page
 from .dataset.alamat import *
 from .dataset.anggota_keluarga import *
+from .dataset.demografi import *
 from .dataset.isced_attainment import *
 from .dataset.iucn import *
 from .dataset.kbji import *

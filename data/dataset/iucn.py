@@ -29,7 +29,7 @@ class IUCN(models.Model):
     tanggal_asesmen = models.DateField()
     referensi_asesmen = models.TextField()
     habitat_asal = models.ManyToManyField(Negara)
-    geom = models.MultiPolygonField(verbose_name='Sebaran Geografis', blank=True, null=True)
+    geom = models.MultiPolygonField(verbose_name='Sebaran Geografis', blank=True, null=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

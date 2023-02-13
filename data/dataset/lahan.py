@@ -18,7 +18,7 @@ class LahanPoligon(models.Model):
     ]
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-  geom = models.PolygonField(verbose_name='Lahan', null=True, blank=True)
+  geom = models.PolygonField(verbose_name='Lahan', null=True, blank=True, db_index=True)
   status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')], default='Need Confirmation')
   keterangan = models.TextField(null=True, blank=True)
   created_at = models.DateTimeField(auto_now_add=True)

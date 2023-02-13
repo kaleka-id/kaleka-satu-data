@@ -19,7 +19,7 @@ class Shop(models.Model):
         verbose_name_plural = 'Testing - Toko'
 
     name_shop = models.CharField(verbose_name='Shop Name', max_length=100)
-    geom = models.PointField(verbose_name='Location', null=True, blank=True)
+    geom = models.PointField(verbose_name='Location', null=True, blank=True, db_index=True)
     zoom = models.IntegerField(default=15)
     address = models.CharField(max_length=100)
     Open = models.BooleanField(verbose_name='Is the shop is open?')

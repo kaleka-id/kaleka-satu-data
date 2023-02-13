@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Update Legalitas Lahan{% endblock title %}
+
+{% block head %}
+<style>
+  @media screen and (min-width: 500px){
+    .page{
+      width: 500px;
+      margin: auto;
+    }
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container page mt-4">
+  <h1>Update Legalitas Lahan</h1>
+  <p>Update legalitas lahan here</p>
+  <form action="" method="post">
+    {{form | crispy}}
+    {% csrf_token %}
+    <input type="submit" value="Update Lahan" class="btn btn-info mb-3">
+  </form>
+</div>
+{% endblock body %}

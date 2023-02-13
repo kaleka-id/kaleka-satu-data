@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Lahan (Observer Mode){% endblock title %}
+{% block title %}Legalitas Lahan (Observer Mode){% endblock title %}
 
 {% block head %}
 <style>
@@ -19,11 +19,11 @@
 
 {% block body %}
 <div class="container page mt-4">
-  <h1>Daftar Lahan</h1>
+  <h1>Daftar Legalitas Lahan</h1>
   <div class="p-1">
     <form>
-      {% if perms.data.add_lahan %}
-        <a href="{% url 'lahan_form_add' %}" class="btn btn-sm btn-outline-success">Add Lahan</a>
+      {% if perms.data.add_lahanlegalitas %}
+        <a href="{% url 'lahan_legalitas_form_add' %}" class="btn btn-sm btn-outline-success">Add Legalitas Lahan</a>
       {% endif %}
       <input class="form-control-sm" type="search" placeholder="Search" aria-label="Search" name="q">
     </form>
@@ -34,10 +34,10 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Poligon Lahan</th>
-          <th scope="col">Nama Petani</th>
-          <th scope="col">Status Petani</th>
-          <th scope="col">Legalitas</th>
+          <th scope="col">Jenis Legalitas</th>
+          <th scope="col">Nomor Legalitas</th>
+          <th scope="col">Luas di Dokumen</th>
+          <th scope="col">Tahun Legalitas</th>
           <th scope="col">Status Data</th>
           <th scope="col">Update Terakhir</th>
           <th scope="col">User</th>
@@ -48,22 +48,10 @@
         {% for data in dataset %}
           <tr>
             <th scope="row"><a href="{% url 'lahan_detail' data.id %}">{{data.id}}</a></th>
-            <td>
-              {% if data.poligon_lahan == None %}
-                <span class="badge bg-warning text-dark">Belum ada</span>  
-              {% else %}
-                <span class="badge bg-success">Tersedia</span>    
-              {% endif %}
-            </td>
-            <td>{{data.petani.nama_lengkap}}</td>
-            <td>{{data.status_petani|title}}</td>
-            <td>
-              {% if data.legalitas == None %}
-                <span class="badge bg-warning text-dark">Belum ada</span>
-              {% else %}
-                <span class="badge bg-success">Tersedia</span>  
-              {% endif %}
-            </td>
+            <td>{{data.jenis_legalitas}}</td>
+            <td>{{data.nomor_legalitas}}</td>
+            <td>{{data.luas_pada_dokumen}}</td>
+            <td>{{data.tahun_legalitas}}</td>
             <td>
               {% if data.status_data == 'Updated' %}
               <span class="badge bg-success">{{data.status_data}}</span>
@@ -76,9 +64,11 @@
             <td>{{data.updated_at}}</td>
             <td>{{data.user}}</td>
             <td class="text-end">
-              {% if perms.data.change_lahan %}
-              <a href="{% url 'lahan_form_comment' data.id %}" class="text-decoration-none">👁️‍🗨️</a>
-              {% endif %}
+              <td class="text-end">
+                {% if perms.data.change_lahan %}
+                <a href="" class="text-decoration-none">👁️‍🗨️</a>
+                {% endif %}
+              </td> 
             </td>  
           </tr>
         {% endfor %}
