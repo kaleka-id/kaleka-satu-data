@@ -183,7 +183,7 @@ class LahanModel(admin.ModelAdmin):
   search_fields = ('petani',)
   list_filter = ('status_petani', 'status_data', 'created_at', 'updated_at', 'user')
   list_display = ('id', 'petani', 'status_data', 'updated_at', 'user')
-  raw_id_fields = ('poligon_lahan', 'petani')
+  raw_id_fields = ('poligon_lahan', 'petani', 'legalitas')
   readonly_fields = ('user',)
 
   # Decrease pagination for performance in Django Admin
