@@ -58,7 +58,7 @@ class LahanLegalitas(models.Model):
       ('Surat Keterangan Tanah', 'Surat Keterangan Tanah'), 
       ('Tanah Adat', 'Tanah Adat'), 
       ('Tanpa Status', 'Tidak ada Status (Komunal)')])
-  nomor_legalitas = models.CharField(max_length=20)
+  nomor_legalitas = models.CharField(max_length=40)
   luas_pada_dokumen = models.DecimalField(max_digits=10, decimal_places=2, help_text='Satuan dalam Ha, jika satuannya lain mohon dikonversi terlebih dahulu')
   tahun_legalitas = models.PositiveSmallIntegerField(validators=[MaxValueValidator(2100), MinValueValidator(1900)])
   status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')], default='Need Confirmation')

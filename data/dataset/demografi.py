@@ -4,6 +4,7 @@ import uuid
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .alamat import Alamat
 from django.contrib.auth.models import User
+from import_export.admin import ImportExportModelAdmin
 
 class Demografi(models.Model):
   class Meta:
@@ -25,7 +26,7 @@ class Demografi(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 @admin.register(Demografi)
-class DemografiModel(admin.ModelAdmin):
+class DemografiModel(ImportExportModelAdmin):
   search_fields = ('alamat',)
   list_filter = ('alamat', 'tahun', 'dasar_hukum', 'status_data', 'created_at', 'updated_at', 'user')
   list_display = ('id', 'alamat', 'tahun', 'dasar_hukum', 'updated_at', 'user')
