@@ -8,6 +8,7 @@ from .dataset.kbji import *
 from .dataset.kegiatan import *
 from .dataset.keluarga import *
 from .dataset.kodepos import *
+from .dataset.konsesi import *
 from .dataset.lahan import *
 from .dataset.negara import *
 from .dataset.orang import *

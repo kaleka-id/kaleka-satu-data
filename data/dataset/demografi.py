@@ -30,6 +30,8 @@ class DemografiModel(ImportExportModelAdmin):
   search_fields = ('alamat',)
   list_filter = ('alamat', 'tahun', 'dasar_hukum', 'status_data', 'created_at', 'updated_at', 'user')
   list_display = ('id', 'alamat', 'tahun', 'dasar_hukum', 'updated_at', 'user')
+  readonly_fields = ('user',)
+  raw_id_fields = ('alamat',)
 
   # Decrease pagination for performance in Django Admin
   list_per_page = 25
