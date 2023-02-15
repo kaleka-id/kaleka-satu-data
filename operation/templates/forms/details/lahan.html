@@ -157,7 +157,19 @@
       </div>
     </li>
   </ul>
-  <p>Data ini dikelola oleh <b><i>{{lahan.user}}</i></b></p>
+  <p>Data ini dikelola oleh <b><i>{{lahan.user}}</i></b><br>
+    <i>Status Data: </i>
+    {% if lahan.status_data == 'Updated' %}
+      <span class="badge bg-success">{{lahan.status_data}}</span><br>
+    {% elif lahan.status_data == 'Need Confirmation' %}
+      <span class="badge bg-warning text-dark">{{lahan.status_data}}</span><br>
+    {% else %}
+      <span class="badge bg-danger">{{lahan.status_data}}</span><br>
+    {% endif %}
+    <i>Keterangan:</i> <br>
+    <input type="text" value="{{lahan.keterangan}}" class="form-control input-sm" disabled>
+  </p>
+
 </div>
 
 <!-- NUMBERING SCRIPTS -->
