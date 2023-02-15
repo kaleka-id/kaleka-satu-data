@@ -19,7 +19,7 @@ class Konsesi(models.Model):
     ]
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-  geom = models.PolygonField(verbose_name='Lahan')
+  geom = models.MultiPolygonField(verbose_name='Lahan')
   jenis_konsesi = models.CharField(max_length=40)
   komoditas = models.ForeignKey(SITC, on_delete=models.CASCADE)
   catatan_komoditas = models.TextField(null=True, blank=True)
