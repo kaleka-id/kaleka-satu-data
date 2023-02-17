@@ -87,8 +87,6 @@ def commentData(request, dataset, pk, forms, redirects, url, db_dataset):
   else:
     device_type=request.user_agent.device.family
 
-  from django.db.models.expressions import F
-
   item = get_object_or_404(dataset, id=pk)
   form = forms(request.POST or None, request.FILES or None, instance=item)
   data = dataset.objects.filter(user=request.user)
@@ -118,8 +116,11 @@ def deleteData(request, dataset, pk, redirects, db_dataset):
   else:
     device_type=request.user_agent.device.family
 
-  if request.method == 'POST':
-    item = get_object_or_404(dataset, id=pk)
+  item = get_object_or_404(dataset, id=pk)
+
+  if request.method == 'GET':
+    print('deleted function')
+    print(item)
     DataLog.objects.create(
           action='DELETE',
           dataset=db_dataset,
