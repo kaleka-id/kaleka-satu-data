@@ -180,7 +180,7 @@ class Lahan(models.Model):
 
 @admin.register(Lahan)
 class LahanModel(ImportExportModelAdmin):
-  search_fields = ('petani',)
+  search_fields = ('petani__nama_lengkap',)
   list_filter = ('status_petani', 'status_data', 'created_at', 'updated_at', 'user')
   list_display = ('id', 'petani', 'status_data', 'updated_at', 'user')
   raw_id_fields = ('poligon_lahan', 'petani', 'legalitas')
