@@ -4,9 +4,16 @@ from django.http import HttpResponse
 from operation.ops_models.data_logs import DataLog
 from operation.ops_models.profiles import Profile
 from django.contrib.auth.models import User
-import requests
-import json
-from satudata_project.settings import DEBUG
+from satudata_project.settings import DEBUG, BASE_DIR
+import os
+import geoip2.database
+
+# IP Geolocation Database
+url_asn = os.path.join(BASE_DIR, 'site/geoip/GeoLite2-ASN.mmdb')
+reader_asn = geoip2.database.Reader(url_asn)
+
+url_city = os.path.join(BASE_DIR, 'site/geoip/GeoLite2-City.mmdb')
+reader_city = geoip2.database.Reader(url_city)
 
 # LIST OF DATA MODIFICATION FUNCTIONS 
 def geojsonData(request, dataset):
@@ -26,8 +33,8 @@ def addData(request, forms, redirects, url, db_dataset):
   if not DEBUG:
     # FETCH DATA GEOIP
     ip = request.META.get('REMOTE_ADDR')
-    res = requests.get(f'http://ip-api.com/json/{ip}').text
-    geoip = json.loads(res)
+    response_asn = reader_asn.asn(ip)
+    response_city = reader_city.city(ip)
 
     # LOGIKA UNTUK TIPE DEVICE
     if request.user_agent.device.family == None:
@@ -53,16 +60,16 @@ def addData(request, forms, redirects, url, db_dataset):
           device_user=device_type,
           os_user=request.user_agent.os.family,
           browser_user=request.user_agent.browser.family,
-          country_code=geoip['countryCode'],
-          country=geoip['country'],
-          region_code=geoip['region'],
-          region=geoip['regionName'],
-          city=geoip['city'],
-          lat=geoip['lat'],
-          lon=geoip['lon'],
-          timezone=geoip['timezone'],
-          isp=geoip['isp'],
-          isp_detail=geoip['as'])
+          country_code=response_city.country.iso_code,
+          country=response_city.country.names['en'],
+          region_code=response_city.subdivisions[0].iso_code,
+          region=response_city.subdivisions[0].names['en'],
+          city=response_city.city.names['en'],
+          lat=response_city.location.latitude,
+          lon=response_city.location.longitude,
+          timezone=response_city.location.time_zone,
+          isp=response_asn.autonomous_system_organization,
+          isp_detail=response_asn.autonomous_system_organization)
       return redirect(redirects)
   
   else:
@@ -76,8 +83,8 @@ def updateData(request, dataset, pk, forms, redirects, url, db_dataset):
   if not DEBUG:
     # FETCH DATA GEOIP
     ip = request.META.get('REMOTE_ADDR')
-    res = requests.get(f'http://ip-api.com/json/{ip}').text
-    geoip = json.loads(res)
+    response_asn = reader_asn.asn(ip)
+    response_city = reader_city.city(ip)
 
     # LOGIKA UNTUK TIPE DEVICE
     if request.user_agent.device.family == None:
@@ -103,16 +110,16 @@ def updateData(request, dataset, pk, forms, redirects, url, db_dataset):
           device_user=device_type,
           os_user=request.user_agent.os.family,
           browser_user=request.user_agent.browser.family,
-          country_code=geoip['countryCode'],
-          country=geoip['country'],
-          region_code=geoip['region'],
-          region=geoip['regionName'],
-          city=geoip['city'],
-          lat=geoip['lat'],
-          lon=geoip['lon'],
-          timezone=geoip['timezone'],
-          isp=geoip['isp'],
-          isp_detail=geoip['as'])
+          country_code=response_city.country.iso_code,
+          country=response_city.country.names['en'],
+          region_code=response_city.subdivisions[0].iso_code,
+          region=response_city.subdivisions[0].names['en'],
+          city=response_city.city.names['en'],
+          lat=response_city.location.latitude,
+          lon=response_city.location.longitude,
+          timezone=response_city.location.time_zone,
+          isp=response_asn.autonomous_system_organization,
+          isp_detail=response_asn.autonomous_system_organization)
       return redirect(redirects)
 
   return render(request, url, {'form':form, 'data':data})
@@ -121,8 +128,8 @@ def commentData(request, dataset, pk, forms, redirects, url, db_dataset):
   if not DEBUG:
     # FETCH DATA GEOIP
     ip = request.META.get('REMOTE_ADDR')
-    res = requests.get(f'http://ip-api.com/json/{ip}').text
-    geoip = json.loads(res)
+    response_asn = reader_asn.asn(ip)
+    response_city = reader_city.city(ip)
 
     # LOGIKA UNTUK TIPE DEVICE
     if request.user_agent.device.family == None:
@@ -149,16 +156,16 @@ def commentData(request, dataset, pk, forms, redirects, url, db_dataset):
           device_user=device_type,
           os_user=request.user_agent.os.family,
           browser_user=request.user_agent.browser.family,
-          country_code=geoip['countryCode'],
-          country=geoip['country'],
-          region_code=geoip['region'],
-          region=geoip['regionName'],
-          city=geoip['city'],
-          lat=geoip['lat'],
-          lon=geoip['lon'],
-          timezone=geoip['timezone'],
-          isp=geoip['isp'],
-          isp_detail=geoip['as'])
+          country_code=response_city.country.iso_code,
+          country=response_city.country.names['en'],
+          region_code=response_city.subdivisions[0].iso_code,
+          region=response_city.subdivisions[0].names['en'],
+          city=response_city.city.names['en'],
+          lat=response_city.location.latitude,
+          lon=response_city.location.longitude,
+          timezone=response_city.location.time_zone,
+          isp=response_asn.autonomous_system_organization,
+          isp_detail=response_asn.autonomous_system_organization)
       return redirect(redirects)
 
   return render(request, url, {'form':form, 'data':data})
@@ -167,8 +174,8 @@ def deleteData(request, dataset, pk, redirects, db_dataset):
   if not DEBUG:
     # FETCH DATA GEOIP
     ip = request.META.get('REMOTE_ADDR')
-    res = requests.get(f'http://ip-api.com/json/{ip}').text
-    geoip = json.loads(res)
+    response_asn = reader_asn.asn(ip)
+    response_city = reader_city.city(ip)
 
     # LOGIKA UNTUK TIPE DEVICE
     if request.user_agent.device.family == None:
@@ -191,15 +198,15 @@ def deleteData(request, dataset, pk, redirects, db_dataset):
         device_user=device_type,
         os_user=request.user_agent.os.family,
         browser_user=request.user_agent.browser.family,
-        country_code=geoip['countryCode'],
-        country=geoip['country'],
-        region_code=geoip['region'],
-        region=geoip['regionName'],
-        city=geoip['city'],
-        lat=geoip['lat'],
-        lon=geoip['lon'],
-        timezone=geoip['timezone'],
-        isp=geoip['isp'],
-        isp_detail=geoip['as'])
+        country_code=response_city.country.iso_code,
+        country=response_city.country.names['en'],
+        region_code=response_city.subdivisions[0].iso_code,
+        region=response_city.subdivisions[0].names['en'],
+        city=response_city.city.names['en'],
+        lat=response_city.location.latitude,
+        lon=response_city.location.longitude,
+        timezone=response_city.location.time_zone,
+        isp=response_asn.autonomous_system_organization,
+        isp_detail=response_asn.autonomous_system_organization)
     item.delete()
   return redirect(redirects)

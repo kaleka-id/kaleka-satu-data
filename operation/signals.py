@@ -2,9 +2,16 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out, user_lo
 from django.dispatch import receiver
 from operation.ops_models.web_entry import WebEntry
 from operation.ops_models.activity_log import ActivityLog
-import requests
-import json
-from satudata_project.settings import DEBUG
+from satudata_project.settings import DEBUG, BASE_DIR
+import os
+import geoip2.database
+
+# IP Geolocation Database
+url_asn = os.path.join(BASE_DIR, 'site/geoip/GeoLite2-ASN.mmdb')
+reader_asn = geoip2.database.Reader(url_asn)
+
+url_city = os.path.join(BASE_DIR, 'site/geoip/GeoLite2-City.mmdb')
+reader_city = geoip2.database.Reader(url_city)
 
 @receiver(user_logged_in)
 def log_user_login(sender, request, user, **kwargs):
@@ -148,11 +155,13 @@ def log_user_logout(sender, request, user, **kwargs):
 
 # LOGGING AKTIVITAS
 def log_activity(request):
+  
+
   if not DEBUG:
     # FETCH DATA GEOIP
     ip = request.META.get('REMOTE_ADDR')
-    res = requests.get(f'http://ip-api.com/json/{ip}').text
-    geoip = json.loads(res)
+    response_asn = reader_asn.asn(ip)
+    response_city = reader_city.city(ip)
     
     # LOGIKA UNTUK JENIS ELEKTRONIK
     if request.user_agent.is_mobile:
@@ -202,15 +211,15 @@ def log_activity(request):
       device_brand=device_brand,
       device_model=device_model,
       username=username,
-      country_code=geoip['countryCode'],
-      country=geoip['country'],
-      region_code=geoip['region'],
-      region=geoip['regionName'],
-      city=geoip['city'],
-      lat=geoip['lat'],
-      lon=geoip['lon'],
-      timezone=geoip['timezone'],
-      isp=geoip['isp'],
-      isp_detail=geoip['as'])
+      country_code=response_city.country.iso_code,
+      country=response_city.country.names['en'],
+      region_code=response_city.subdivisions[0].iso_code,
+      region=response_city.subdivisions[0].names['en'],
+      city=response_city.city.names['en'],
+      lat=response_city.location.latitude,
+      lon=response_city.location.longitude,
+      timezone=response_city.location.time_zone,
+      isp=response_asn.autonomous_system_organization,
+      isp_detail=response_asn.autonomous_system_organization)
 
     return activity
