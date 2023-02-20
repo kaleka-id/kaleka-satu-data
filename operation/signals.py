@@ -219,7 +219,6 @@ def log_activity(request):
       lat=response_city.location.latitude,
       lon=response_city.location.longitude,
       timezone=response_city.location.time_zone,
-      isp=response_asn.autonomous_system_organization,
-      isp_detail=response_asn.autonomous_system_organization)
+      isp=response_asn.autonomous_system_organization)
 
     return activity

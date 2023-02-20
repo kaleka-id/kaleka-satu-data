@@ -22,7 +22,6 @@ class DataLog(models.Model):
   lon = models.DecimalField(max_digits= 8, decimal_places=4, editable=False, default=0.0)
   timezone = models.CharField(max_length=20, editable=False, default='None')
   isp = models.CharField(max_length=80, editable=False, default='None')
-  isp_detail = models.CharField(max_length=100, editable=False, default='None')
 
 # DATA LOGS ADMIN
 @admin.register(DataLog)

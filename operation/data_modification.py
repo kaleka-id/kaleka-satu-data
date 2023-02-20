@@ -68,8 +68,7 @@ def addData(request, forms, redirects, url, db_dataset):
           lat=response_city.location.latitude,
           lon=response_city.location.longitude,
           timezone=response_city.location.time_zone,
-          isp=response_asn.autonomous_system_organization,
-          isp_detail=response_asn.autonomous_system_organization)
+          isp=response_asn.autonomous_system_organization)
       return redirect(redirects)
   
   else:
@@ -118,8 +117,7 @@ def updateData(request, dataset, pk, forms, redirects, url, db_dataset):
           lat=response_city.location.latitude,
           lon=response_city.location.longitude,
           timezone=response_city.location.time_zone,
-          isp=response_asn.autonomous_system_organization,
-          isp_detail=response_asn.autonomous_system_organization)
+          isp=response_asn.autonomous_system_organization)
       return redirect(redirects)
 
   return render(request, url, {'form':form, 'data':data})
@@ -164,8 +162,7 @@ def commentData(request, dataset, pk, forms, redirects, url, db_dataset):
           lat=response_city.location.latitude,
           lon=response_city.location.longitude,
           timezone=response_city.location.time_zone,
-          isp=response_asn.autonomous_system_organization,
-          isp_detail=response_asn.autonomous_system_organization)
+          isp=response_asn.autonomous_system_organization)
       return redirect(redirects)
 
   return render(request, url, {'form':form, 'data':data})
@@ -206,7 +203,6 @@ def deleteData(request, dataset, pk, redirects, db_dataset):
         lat=response_city.location.latitude,
         lon=response_city.location.longitude,
         timezone=response_city.location.time_zone,
-        isp=response_asn.autonomous_system_organization,
-        isp_detail=response_asn.autonomous_system_organization)
+        isp=response_asn.autonomous_system_organization)
     item.delete()
   return redirect(redirects)
