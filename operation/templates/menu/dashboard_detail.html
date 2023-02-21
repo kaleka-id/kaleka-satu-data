@@ -21,7 +21,14 @@
 <div class="container page mt-4">
   <h1>{{dashboard.nama}}</h1>
   <p>
-    Data source: <b>{{dashboard.category}}</b><br>
+    Sumber data: <b>{{dashboard.category}}</b><br>
+    Grup akses: <i>{{dashboard.permission_view}}</i> <br>
+    Refresh data: 
+      {% if dashboard.satuan_refresh_data == 'Realtime' %}
+      <i>{{dashboard.satuan_refresh_data}}</i> <br>
+      {% else %}
+      <i>{{dashboard.nilai_refresh_data}} {{dashboard.satuan_refresh_data}}</i> <br>
+      {% endif %}
     Maintainer: 
       {% for email in dashboard.email_maintainers %}
       <a href="mailto:{{email}}"><span class="badge bg-primary">{{email}}</span></a>
