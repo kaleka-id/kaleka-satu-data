@@ -24,7 +24,7 @@ class Konsesi(models.Model):
   jenis_konsesi = models.CharField(max_length=40)
   komoditas = models.ForeignKey(SITC, on_delete=models.CASCADE)
   catatan_komoditas = models.TextField(null=True, blank=True)
-  nomor_legal_konsesi = models.CharField(max_length=40)
+  nomor_legal_konsesi = models.CharField(max_length=80)
   pemegang_konsesi = models.CharField(max_length=100)
   group_perusahaan = models.CharField(max_length=100, null=True, blank=True)
   tahun_konsesi = models.PositiveSmallIntegerField(validators=[MaxValueValidator(2100), MinValueValidator(1900)], default=1900)
