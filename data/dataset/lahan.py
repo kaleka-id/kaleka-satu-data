@@ -97,7 +97,7 @@ class LahanLegalitasLingkungan(models.Model):
       ('SPPL', 'SPPL (Surat Pernyataan Pengelolaan Lingkungan)'),
       ('UKL-UPL', 'Upaya Pengelolaan Lingkungan dan Upaya Pemantauan Lingkungan Hidup (UKL-UPL)'),
       ('AMDAL', 'Analisis Mengenai Dampak Lingkungan (AMDAL)')])
-  nomor_dokumen = models.CharField(max_length=40)
+  nomor_dokumen = models.CharField(max_length=60)
   tahun_dokumen = models.PositiveSmallIntegerField(validators=[MaxValueValidator(2100), MinValueValidator(1900)])
   status_dokumen = models.CharField(max_length=20, choices=[('Berlaku', 'Berlaku'), ('Tidak Berlaku', 'Tidak Berlaku')])
   status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')], default='Need Confirmation')
@@ -132,7 +132,7 @@ class LahanLegalitasSTDB(models.Model):
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
   legalitas_lahan = models.ForeignKey(LahanLegalitas, on_delete=models.CASCADE)
-  nomor_dokumen = models.CharField(max_length=40)
+  nomor_dokumen = models.CharField(max_length=60)
   tahun_dokumen = models.PositiveSmallIntegerField(validators=[MaxValueValidator(2100), MinValueValidator(1900)])
   status_dokumen = models.CharField(max_length=20, choices=[('Berlaku', 'Berlaku'), ('Tidak Berlaku', 'Tidak Berlaku')])
   jumlah_pohon = models.IntegerField()
