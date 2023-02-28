@@ -23,7 +23,7 @@ class Docs(models.Model):
   deskripsi = models.TextField()
   dictionary_data = HStoreField(blank=True, null=True, verbose_name='Dictionary')
   nama_kolom = ArrayField(models.CharField(max_length=30), null=True, blank=True)
-  deskripsi_kolom = ArrayField(models.TextField(max_length=30), null=True, blank=True)
+  deskripsi_kolom = ArrayField(models.TextField(), null=True, blank=True)
   updated_at = models.DateTimeField(auto_now=True)
 
 # DOCS FORM
