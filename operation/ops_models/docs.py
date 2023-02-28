@@ -22,8 +22,7 @@ class Docs(models.Model):
   gambar = models.FileField(upload_to=get_filename)
   deskripsi = models.TextField()
   dictionary_data = HStoreField(blank=True, null=True, verbose_name='Dictionary')
-  nama_kolom = ArrayField(models.CharField(max_length=30), null=True, blank=True)
-  deskripsi_kolom = ArrayField(models.TextField(), null=True, blank=True)
+  nama_kolom = ArrayField(models.CharField(max_length=30), null=True, blank=True, verbose_name='Urutan kolom')
   updated_at = models.DateTimeField(auto_now=True)
 
 # DOCS FORM
@@ -39,10 +38,5 @@ class DocsModelForm(forms.ModelForm):
 class DocsModel(admin.ModelAdmin, DynamicArrayMixin):
   search_fields = ('judul',)
   list_display = ('id', 'judul', 'deskripsi')
-
-  fieldsets = [
-    ('Menu', {'fields': ['judul', 'gambar', 'deskripsi']}),
-    ('Tabel', {'fields': ['dictionary_data', 'nama_kolom', 'deskripsi_kolom']}),
-  ]
 
   form = DocsModelForm

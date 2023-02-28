@@ -77,7 +77,17 @@ def docs(request):
 def docs_detail(request, pk):
   if request.method == 'GET':
     log_activity(request)
-  return detailData(request, Docs, pk, 'menu/docs_detail.html', 'docs')
+
+  desc = get_object_or_404(Docs, id=pk)
+  order = desc.nama_kolom
+
+  from collections import OrderedDict
+  sorted_dict = dict(OrderedDict([(el, desc.dictionary_data[el]) for el in order]))
+  
+  return render(request, 'menu/docs_detail.html', {
+    'docs': desc, 
+    'docs_sorted': sorted_dict
+    })
 
 @permission_required('operation.view_docs')
 def dictionary(request):

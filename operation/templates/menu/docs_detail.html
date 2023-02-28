@@ -30,5 +30,23 @@
     <li><b>{{key}}</b>: {{value}}</li>
     {% endfor %}
   </ul>
+  <div class="table-responsive table-scrollable">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nama Kolom</th>
+          <th scope="col">Deskripsi Kolom</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, value in docs_sorted.items %}
+        <tr>
+          <td>{{key}}</td>
+          <td>{{value}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock body %}
