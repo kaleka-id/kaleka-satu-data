@@ -25,9 +25,9 @@
     {% for data in dataset %}
       {% if data.permission_view in request.user.groups.all %}
         <div class="card text-center mx-2 my-2" style="width: 18rem;">
-          <img src="{% static 'bootstrap/image/data.jpg' %}" class="card-img-top" alt="...">
+          <a class="text-decoration-none text-dark" href="{{data.id}}"><img src="{% static 'bootstrap/image/data.jpg' %}" class="card-img-top" alt="{{data.nama}}"></a>
           <div class="card-body">
-            <b class="card_text">{{data.nama}}</b><br>
+            <b class="card_text"><a class="text-decoration-none text-dark" href="{{data.id}}">{{data.nama}}</a></b><br>
             {% if data.satuan_refresh_data == 'Realtime' %}
               <i>🔄{{data.satuan_refresh_data}}</i> <br>
             {% else %}
