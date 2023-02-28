@@ -25,13 +25,8 @@
     <img src="{{docs.gambar.url}}" width="100%">
   </div>
   <p>{{docs.deskripsi}}</p>
-  <ul>
-    {% for key, value in docs.dictionary_data.items %}
-    <li><b>{{key}}</b>: {{value}}</li>
-    {% endfor %}
-  </ul>
   <div class="table-responsive table-scrollable">
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
           <th scope="col">Nama Kolom</th>

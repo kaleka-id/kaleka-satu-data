@@ -26,15 +26,15 @@
         <thead>
           <tr>
             <th scope="col">Dataset</th>
-            <th scope="col">Deskripsi</th>
-            <th scope="col">Last Update</th>
+            <th scope="col">Jumlah Kolom</th>
+            <th scope="col">Terakhir diubah</th>
           </tr>
         </thead>
         <tbody>
           {% for data in dataset %}
             <tr>
               <th scope="row"><a href="{% url 'docs_detail' data.id %}">{{data.judul}}</a></th>
-              <td>{{data.deskripsi}}</td>
+              <td>{{data.nama_kolom|length}}</td>
               <td>{{data.updated_at}}</td>
             </tr>
           {% endfor %}

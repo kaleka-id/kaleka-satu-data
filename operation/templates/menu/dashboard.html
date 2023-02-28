@@ -21,26 +21,24 @@
       <button class="btn btn-outline-secondary ms-2" type="submit">Search</button>
     </form>
 
-    <div class="table-responsive table-scrollable">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Dashboard</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for data in dataset %}
-            {% if data.permission_view in request.user.groups.all %}
-              <tr>
-                <th scope="row"><a href="{% url 'dashboard_detail' data.id %}">{{data.nama}}</a></th>
-                <th class="text-end">{{data.category}}</th>
-              </tr>
+    <div class="d-flex justify-content-center flex-wrap">
+    {% for data in dataset %}
+      {% if data.permission_view in request.user.groups.all %}
+        <div class="card text-center mx-2 my-2" style="width: 18rem;">
+          <img src="{% static 'bootstrap/image/data.jpg' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <b class="card_text">{{data.nama}}</b><br>
+            {% if data.satuan_refresh_data == 'Realtime' %}
+              <i>🔄{{data.satuan_refresh_data}}</i> <br>
+            {% else %}
+              <i>🔄{{data.nilai_refresh_data}} {{data.satuan_refresh_data}}</i> <br>
             {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
     </div>
+
   </div>
 
   {% include 'paginator.html' %}

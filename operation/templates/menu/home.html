@@ -17,10 +17,29 @@
 
 {% block body %}
 <div class="home container mt-5">
-    <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="200px">
-    <h1>Selamat Datang di Kaleka Satu Data</h1>
-    <p>Kaleka Satu Data merupakan portal pengelolaan dan manajemen data yang berkaitan dengan kegiatan-kegiatan di Kaleka, bertujuan untuk menciptakan data berkualitas, mudah diakses, dan dapat digunakan untuk berbagai analisis dan riset. Portal data ini dikelola oleh Tim Data guna mewujudkan sistem pertukaran data yang konsisten, efisien dan terintegrasi. Melalui Kaleka Satu Data, seluruh data bermuara di Portal ini sehingga memudahkan untuk melakukan analisis tingkat tinggi.</p>
+    <div class="text-center">
+        <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="100px">
+        <h1 class="display-4">Selamat Datang di Kaleka Satu Data</h1>
+    </div>
+    <div class="card text-center my-3">
+        <div class="card-header">DASHBOARD DATA</div>
+        <div class="card-body">
+          <h5 class="card-title"><b>RINGKASAN DATA PROGRESS</b></h5>
+          <p class="card-text">Tampilan ringkasan data bisa dilihat di sini</p>
+          <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">Dashboard Data</a>
+        </div>
+    </div>
+    <div class="card text-center my-3">
+        <div class="card-header">KATALOG DATA</div>
+        <div class="card-body">
+          <h5 class="card-title"><b>RINCIAN DATA PROGRESS</b></h5>
+          <p class="card-text">Tampilan rincian data bisa dilihat di sini</p>
+          <a href="{% url 'catalog' %}" class="btn btn-outline-primary">Katalog Data</a>
+        </div>
+    </div>
+    
+    <!-- <p>Kaleka Satu Data merupakan portal pengelolaan dan manajemen data yang berkaitan dengan kegiatan-kegiatan di Kaleka, bertujuan untuk menciptakan data berkualitas, mudah diakses, dan dapat digunakan untuk berbagai analisis dan riset. Portal data ini dikelola oleh Tim Data guna mewujudkan sistem pertukaran data yang konsisten, efisien dan terintegrasi. Melalui Kaleka Satu Data, seluruh data bermuara di Portal ini sehingga memudahkan untuk melakukan analisis tingkat tinggi.</p>
     <p><b>Developed by Data and System Development - Program Team</b></p>
-    <p>Informasi lebih lanjut silakan kontak ke Faiz. E-mail: <a href="mailto: afaiz@kaleka.id" class="text-white text-decoration-underline">afaiz@kaleka.id</a></p>
+    <p>Informasi lebih lanjut silakan kontak ke Faiz. E-mail: <a href="mailto: afaiz@kaleka.id" class="text-white text-decoration-underline">afaiz@kaleka.id</a></p> -->
 </div>
 {% endblock body %}
