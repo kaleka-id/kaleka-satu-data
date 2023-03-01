@@ -57,7 +57,7 @@ def log_user_login(sender, request, user, **kwargs):
       device_type=device_type,
       device_brand=device_brand,
       device_model=device_model,
-      username=user.username)
+      username=request.user.id)
 
 @receiver(user_login_failed)
 def log_user_login_failed(sender, credentials, request, **kwargs):
@@ -151,7 +151,7 @@ def log_user_logout(sender, request, user, **kwargs):
       device_type=device_type,
       device_brand=device_brand,
       device_model=device_model,
-      username=user.username)
+      username=request.user.id)
 
 # LOGGING AKTIVITAS
 def log_activity(request):
@@ -193,7 +193,7 @@ def log_activity(request):
 
     # LOGIKA UNTUK USERNAME
     if request.user.is_authenticated:
-      username = request.user.username
+      username = request.user.id
     else:
       username = 'User not login'
 
