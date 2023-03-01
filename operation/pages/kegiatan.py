@@ -143,7 +143,7 @@ def kegiatan_form_delete(request, pk):
 
 # 🚨PESERTA KEGIATAN🚨
 # View dari daftar foto kegiatan
-@permission_required('data.view_peserta_kegiatan')
+@permission_required('data.view_pesertakegiatan')
 def pesertaKegiatanList(request):
   if request.method == 'GET':
     log_activity(request)
@@ -169,7 +169,7 @@ def pesertaKegiatanList(request):
   return render(request, 'forms/lists/kegiatan_peserta.html', {'dataset': data_page, 'page': page, 'query': query})
 
 # View dari daftar foto kegiatan
-@permission_required('data.view_peserta_kegiatan')
+@permission_required('data.view_pesertakegiatan')
 def pesertaKegiatanListObserver(request):
   if request.method == 'GET':
     log_activity(request)
@@ -212,28 +212,28 @@ class pesertaKegiatanFormComment(forms.ModelForm):
     fields = ('user',)
 
 # View dari form penambahan peserta kegiatan
-@permission_required('data.add_peserta_kegiatan')
+@permission_required('data.add_pesertakegiatan')
 def peserta_kegiatan_form_add(request):
   if request.method == 'GET':
     log_activity(request)
   return addData(request, pesertaKegiatanForm, 'peserta_kegiatan_list', 'forms/form/kegiatan_peserta_add.html', 'data_pesertakegiatan')
 
 # View dari form perubahan peserta kegiatan
-@permission_required('data.change_peserta_kegiatan')
+@permission_required('data.change_pesertakegiatan')
 def peserta_kegiatan_form_update(request, pk):
   if request.method == 'GET':
     log_activity(request)
   return updateData(request, PesertaKegiatan, pk, pesertaKegiatanForm, 'peserta_kegiatan_list', 'forms/form/kegiatan_peserta_update.html', 'data_pesertakegiatan')
 
 # View dari form komentar peserta kegiatan
-@permission_required('data.change_peserta_kegiatan')
+@permission_required('data.change_pesertakegiatan')
 def peserta_kegiatan_form_comment(request, pk):
   if request.method == 'GET':
     log_activity(request)
   return commentData(request, PesertaKegiatan, pk, pesertaKegiatanFormComment, 'peserta_kegiatan_list', 'forms/form/kegiatan_peserta_update.html', 'data_pesertakegiatan')
 
 # View untuk menghapus peserta kegiatan
-@permission_required('data.delete_peserta_kegiatan')
+@permission_required('data.delete_pesertakegiatan')
 def peserta_kegiatan_form_delete(request, pk):
   if request.method == 'GET':
     log_activity(request)
@@ -241,7 +241,7 @@ def peserta_kegiatan_form_delete(request, pk):
 
 # 🚨FOTO KEGIATAN🚨
 # View dari daftar foto kegiatan
-@permission_required('data.view_foto_kegiatan')
+@permission_required('data.view_fotokegiatan')
 def fotoKegiatanList(request):
   if request.method == 'GET':
     log_activity(request)
@@ -267,7 +267,7 @@ def fotoKegiatanList(request):
   return render(request, 'forms/lists/kegiatan_foto.html', {'dataset': data_page, 'page': page, 'query': query})
 
 # View dari daftar foto kegiatan mode observer
-@permission_required('data.view_foto_kegiatan')
+@permission_required('data.view_fotokegiatan')
 def fotoKegiatanListObserver(request):
   if request.method == 'GET':
     log_activity(request)
@@ -310,7 +310,7 @@ class fotoKegiatanFormComment(forms.ModelForm):
     fields = ('user',)
 
 # View dari form penambahan foto kegiatan, tidak menggunakan template karena ada fitur upload banyak file
-@permission_required('data.add_foto_kegiatan')
+@permission_required('data.add_fotokegiatan')
 def foto_kegiatan_form_add(request):
   if request.method == 'GET':
     log_activity(request)
@@ -351,21 +351,21 @@ def foto_kegiatan_form_add(request):
   return render(request, 'forms/form/kegiatan_foto_add.html', {'form': form})
 
 # View dari form perubahan foto kegiatan
-@permission_required('data.change_foto_kegiatan')
+@permission_required('data.change_fotokegiatan')
 def foto_kegiatan_form_update(request, pk):
   if request.method == 'GET':
     log_activity(request)
   return updateData(request, FotoKegiatan, pk, fotoKegiatanForm, 'foto_kegiatan_list', 'forms/form/kegiatan_foto_update.html', 'data_fotokegiatan')
 
 # View dari form perubahan foto kegiatan
-@permission_required('data.change_foto_kegiatan')
+@permission_required('data.change_fotokegiatan')
 def foto_kegiatan_form_comment(request, pk):
   if request.method == 'GET':
     log_activity(request)
   return commentData(request, FotoKegiatan, pk, fotoKegiatanFormComment, 'foto_kegiatan_list', 'forms/form/kegiatan_foto_update.html', 'data_fotokegiatan')
 
 # View untuk menghapus foto kegiatan
-@permission_required('data.delete_foto_kegiatan')
+@permission_required('data.delete_fotokegiatan')
 def foto_kegiatan_form_delete(request, pk):
   if request.method == 'GET':
     log_activity(request)
