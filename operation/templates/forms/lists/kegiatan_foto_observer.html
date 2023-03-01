@@ -22,7 +22,7 @@
   <h1>Daftar Foto Kegiatan</h1>
   <div class="p-1">
     <form>
-      {% if perms.data.add_foto_kegiatan %}
+      {% if perms.data.add_fotokegiatan %}
         <a href="{% url 'foto_kegiatan_form_add' %}" class="btn btn-sm btn-outline-success">Add Foto Kegiatan</a>
       {% endif %}
       <input class="form-control-sm" type="search" placeholder="Search nama kegiatan" aria-label="Search" name="q">
@@ -50,7 +50,7 @@
             <td>{{data.updated_at}}</td>
             <td>{{data.user}}</td>
             <td class="text-end">
-              {% if perms.data.change_foto_kegiatan %}
+              {% if perms.data.change_fotokegiatan %}
               <a href="{% url 'foto_kegiatan_form_comment' data.id %}" class="text-decoration-none">👁️‍🗨️</a>
               {% endif %}
             </td>  

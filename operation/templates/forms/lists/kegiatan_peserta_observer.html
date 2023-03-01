@@ -22,7 +22,7 @@
   <h1>Daftar Peserta Kegiatan</h1>
   <div class="p-1">
     <form>
-      {% if perms.data.add_peserta_kegiatan %}
+      {% if perms.data.add_pesertakegiatan %}
         <a href="{% url 'peserta_kegiatan_form_add' %}" class="btn btn-sm btn-outline-success">Add Peserta Kegiatan</a>
       {% endif %}
       <input class="form-control-sm" type="search" placeholder="Search nama peserta" aria-label="Search" name="q">
@@ -52,7 +52,7 @@
             <td>{{data.updated_at}}</td>
             <td>{{data.user}}</td>
             <td class="text-end">
-              {% if perms.data.change_peserta_kegiatan %}
+              {% if perms.data.change_pesertakegiatan %}
               <a href="{% url 'peserta_kegiatan_form_comment' data.id %}" class="text-decoration-none">👁️‍🗨️</a>
               {% endif %}
             </td>  
