@@ -26,6 +26,7 @@ class WilayahDesaModel(admin.ModelAdmin):
   search_fields = ('alamat',)
   list_filter = ('alamat', 'status_data', 'created_at', 'updated_at', 'user')
   list_display = ('id', 'alamat', 'updated_at', 'user')
+  raw_id_fields = ('alamat',)
 
   # Decrease pagination for performance in Django Admin
   list_per_page = 25
