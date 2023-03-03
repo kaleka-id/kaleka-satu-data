@@ -15,6 +15,7 @@ class Catalog(models.Model):
   nama = models.CharField(max_length=40)
   email_maintainers = ArrayField(models.EmailField(), blank=True, null=True)
   bigquery_table = HStoreField(models.CharField(max_length=100), blank=True, null=True)
+  google_sheets = HStoreField(models.URLField(), null=True, blank=True)
   permission_view = models.ForeignKey(to=Group, on_delete=models.CASCADE, null=True)
 
   def __str__(self):
@@ -27,6 +28,7 @@ class CatalogForm(forms.ModelForm):
     exclude = ()
   
   bigquery_table = HStoreFormField()
+  google_sheets = HStoreFormField()
     
 
 # CATALOGS ADMIN
@@ -54,3 +56,9 @@ class CatalogDocument(models.Model):
 class CatalogDocumentModel(admin.ModelAdmin, DynamicArrayMixin):
   search_fields = ('nama',)
   list_display = ('id', 'catalog', 'user')
+  raw_id_fields = ('catalog',)
+  readonly_fields = ('user',)
+
+  def save_model(self, request, obj, form, change): 
+    obj.user = request.user
+    obj.save()
