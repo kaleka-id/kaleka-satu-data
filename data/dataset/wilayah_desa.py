@@ -13,7 +13,7 @@ class WilayahDesa(models.Model):
     ]
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-  alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE)
+  alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE, null=True, blank=True)
   geom = models.MultiPolygonField(verbose_name='Lokasi', db_index=True)
   dasar_hukum = models.CharField(max_length=120)
   status_data = models.CharField(max_length=11, verbose_name='Status Data', choices=[('Updated', 'Updated'), ('Depreciated', 'Depreciated')])
