@@ -19,6 +19,8 @@ class Kegiatan(models.Model):
   nama = models.CharField(max_length=200, verbose_name='Nama Kegiatan')
   tanggal_mulai = models.DateField(verbose_name='Tanggal Mulai Kegiatan')
   tanggal_selesai = models.DateField(verbose_name='Tanggal Selesai Kegiatan')
+  status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')], default='Need Confirmation')
+  keterangan = models.TextField(null=True, blank=True)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE)

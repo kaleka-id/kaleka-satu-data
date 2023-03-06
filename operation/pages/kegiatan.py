@@ -101,7 +101,7 @@ def kegiatanDetail(request, pk):
 class kegiatanForm(forms.ModelForm):
   class Meta:
     model = Kegiatan
-    fields = ('nama', 'tanggal_mulai', 'tanggal_selesai')
+    fields = ('nama', 'tanggal_mulai', 'tanggal_selesai', 'status_data', 'keterangan')
     widgets = {
       'tanggal_mulai': forms.DateInput(attrs={'type': 'date'}),
       'tanggal_selesai': forms.DateInput(attrs={'type': 'date'}),
@@ -111,7 +111,7 @@ class kegiatanForm(forms.ModelForm):
 class kegiatanFormComment(forms.ModelForm):
   class Meta:
     model = Kegiatan
-    fields = ('user',)
+    fields = ('status_data', 'keterangan', 'user')
 
 # View dari form penambahan kegiatan
 @permission_required('data.add_kegiatan')

@@ -19,6 +19,11 @@
     {% if perms.data.change_kegiatan %}
       <a class="btn btn-outline-info btn-sm" href="{% url 'kegiatan_form_update' kegiatan.id %}">Update Data</a>
     {% endif %}
+    {% for user in profil %}
+      {% if user.status == 'Observer' %}
+        <a class="btn btn-outline-warning btn-sm" href="{% url 'kegiatan_form_comment' kegiatan.id %}">Comment Data</a>
+      {% endif %}
+    {% endfor %}
     {% if perms.data.delete_kegiatan %}
       <a class="btn btn-outline-danger btn-sm" 
         href="{% url 'kegiatan_form_delete' kegiatan.id %}"
