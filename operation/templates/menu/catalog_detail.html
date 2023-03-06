@@ -27,9 +27,15 @@
   </p>
 
   <h3>Sheets</h3>
-  {% for key, value in catalog.google_sheets.items %}
-    <a href="{{value}}" target="_blank" class="btn btn-success">{{key}}</a>
-  {% endfor %}
+  <div class="d-flex align-content-start flex-wrap">
+    {% for key, value in catalog.google_sheets.items %}
+    <div class="m-1 text-center">
+      <img src="{% static 'img/google_sheets.png' %}" alt="{{key}}" width="50px"><br>
+      <i>{{key}}</i><br>
+      <a href="{{value}}" target="_blank" class="btn btn-sm btn-success">Go to Sheets</a>
+    </div>
+    {% endfor %}
+  </div>
 
   <h3 class="mt-3">BigQuery</h3>
   <div class="table-responsive table-scrollable">
