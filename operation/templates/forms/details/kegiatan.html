@@ -85,7 +85,19 @@
       </div>
     </li>
   </ul>
-  <p>Data ini dikelola oleh <b><i>{{kegiatan.user}}</i></b></p>
+  <p class="mb-4">
+    Data ini dikelola oleh <b><i>{{kegiatan.user}}</i></b><br>
+    <i>Status Data: </i>
+    {% if kegiatan.status_data == 'Updated' %}
+      <span class="badge bg-success">{{kegiatan.status_data}}</span><br>
+    {% elif kegiatan.status_data == 'Need Confirmation' %}
+      <span class="badge bg-warning text-dark">{{kegiatan.status_data}}</span><br>
+    {% else %}
+      <span class="badge bg-danger">{{kegiatan.status_data}}</span><br>
+    {% endif %}
+    <i>Keterangan:</i> <br>
+    <textarea class="form-control" cols="30" rows="10" disabled>{{kegiatan.keterangan}}</textarea>
+  </p>
 </div>
 
 <script>
