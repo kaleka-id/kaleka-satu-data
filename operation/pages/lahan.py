@@ -45,8 +45,8 @@ def lahanList(request):
   if 'q' in request.GET:
     query = request.GET['q']
     data = Lahan.objects.filter(
-      Q(user=request.user, nama_lengkap__icontains=query) |
-      Q(user=request.user, nik__icontains=query))
+      Q(user=request.user, petani__nama_lengkap__icontains=query) |
+      Q(user=request.user, petani__nik__icontains=query))
     p = Paginator(data, num_page)
     page = request.GET.get('page')
     data_page = p.get_page(page)
@@ -74,8 +74,8 @@ def lahanListObserver(request):
   if 'q' in request.GET:
     query = request.GET['q']
     data = Lahan.objects.filter(
-      Q(user__in=profile, nama_lengkap__icontains=query) |
-      Q(user__in=profile, nik__icontains=query))
+      Q(user__in=profile, petani__nama_lengkap__icontains=query) |
+      Q(user__in=profile, petani__nik__icontains=query))
     p = Paginator(data, num_page)
     page = request.GET.get('page')
     data_page = p.get_page(page)
