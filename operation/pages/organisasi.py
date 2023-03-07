@@ -7,9 +7,12 @@ def organisasiList(request):
   if request.method == 'GET':
     log_activity(request)
   
-  organisasi = Organisasi.objects.all()
-  # organisasi = Organisasi.objects.filter(user=request.user)
-  return render(request, 'forms/lists/organisasi.html', {'dataset': organisasi})
+  organisasi = Organisasi.objects.filter(user=request.user)
+  nama = NamaOrganisasi.objects.filter(user=request.user)
+  return render(request, 'forms/lists/organisasi.html', {
+    'dataset': organisasi,
+    'nama': nama,
+  })
 
 # View dari informasi detil organisasi
 # @permission_required('data.view_lahan')
