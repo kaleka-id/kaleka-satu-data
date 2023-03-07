@@ -9,6 +9,12 @@
     font-family: 'Courier New', Courier, monospace;
   }
 
+  .font-file{
+    font-size: smaller; 
+    line-height: 1; 
+    display: inline-block
+  }
+
   @media screen and (min-width: 992px){
     .image{
       width: 700px;
@@ -29,9 +35,9 @@
   <h3>Sheets</h3>
   <div class="d-flex align-content-start flex-wrap">
     {% for key, value in catalog.google_sheets.items %}
-    <div class="m-1 text-center">
+    <div class="m-1 text-center" style="width: 120px;">
       <img src="{% static 'img/google_sheets.png' %}" alt="{{key}}" width="50px"><br>
-      <i>{{key}}</i><br>
+      <b class="font-file mt-1">{{key}}</b><br>
       <a href="{{value}}" target="_blank" class="btn btn-sm btn-success">Go to Sheets</a>
     </div>
     {% endfor %}

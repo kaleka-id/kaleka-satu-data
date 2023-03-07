@@ -3,6 +3,7 @@ from leaflet.admin import LeafletGeoAdmin
 from django.contrib.gis.db import models
 import uuid
 from data.dataset.orang import Orang
+from data.dataset.organisasi import Organisasi
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
@@ -149,6 +150,42 @@ class LahanLegalitasSTDBModel(ImportExportModelAdmin):
   list_filter = ('tahun_dokumen', 'status_dokumen', 'jumlah_pohon', 'tahun_tanam', 'status_data', 'created_at', 'updated_at', 'user')
   list_display = ('id', 'nomor_dokumen', 'status_dokumen', 'jumlah_pohon', 'tahun_tanam', 'status_data', 'updated_at', 'user')
   raw_id_fields = ('legalitas_lahan',)
+  readonly_fields = ('user',)
+
+  # Decrease pagination for performance in Django Admin
+  list_per_page = 25
+
+  def save_model(self, request, obj, form, change): 
+    obj.user = request.user
+    obj.save()
+
+# 🚨DATASET LEGALITAS SERTIFIKASI🚨
+class LahanLegalitasSertifikasi(models.Model):
+  class Meta:
+    verbose_name = 'Legalitas Lahan - Dokumen Sertifikasi '
+    verbose_name_plural = 'Legalitas Lahan - Dokumen Sertifikasi'
+    permissions = [
+      ('search_lahanlegalitassertifikasi', 'Can search Legalitas Lahan - Dokumen Sertifikasi in Dictionary')
+    ]
+
+  id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+  legalitas_lahan = models.ForeignKey(LahanLegalitas, on_delete=models.CASCADE)
+  organisasi_pendaftar = models.ForeignKey(Organisasi, on_delete=models.CASCADE, null=True, blank=True)
+  nomor_dokumen = models.CharField(max_length=60)
+  tahun_dokumen = models.PositiveSmallIntegerField(validators=[MaxValueValidator(2100), MinValueValidator(1900)])
+  status_dokumen = models.CharField(max_length=20, choices=[('Berlaku', 'Berlaku'), ('Tidak Berlaku', 'Tidak Berlaku')])
+  status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')], default='Need Confirmation')
+  keterangan = models.TextField(null=True, blank=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+@admin.register(LahanLegalitasSertifikasi)
+class LahanLegalitasSertifikasiModel(ImportExportModelAdmin):
+  search_fields = ('nomor_dokumen',)
+  list_filter = ('organisasi_pendaftar', 'tahun_dokumen', 'status_dokumen', 'status_data', 'created_at', 'updated_at', 'user')
+  list_display = ('id', 'organisasi_pendaftar', 'nomor_dokumen', 'status_dokumen', 'status_data', 'updated_at', 'user')
+  raw_id_fields = ('legalitas_lahan', 'organisasi_pendaftar')
   readonly_fields = ('user',)
 
   # Decrease pagination for performance in Django Admin

@@ -12,6 +12,7 @@ from .dataset.konsesi import *
 from .dataset.lahan import *
 from .dataset.negara import *
 from .dataset.orang import *
+from .dataset.organisasi import *
 from .dataset.profesi import *
 from .dataset.sitc import *
 from .dataset.spesies import *
