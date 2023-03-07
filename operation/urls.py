@@ -10,6 +10,7 @@ urlpatterns = [
     path('', include('operation.pages.lahan')),
     path('', include('operation.pages.menu')),
     path('', include('operation.pages.orang')),
+    path('', include('operation.pages.organisasi')),
     path('', include('operation.pages.profesi')),
     path('', include('operation.pages.testing')),
 ]

@@ -53,7 +53,8 @@ class NamaOrganisasi(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def save(self, *args, **kwargs):
-    self.nama_notaris = self.nama_notaris.upper()
+    if self.nama_notaris != None: 
+      self.nama_notaris = self.nama_notaris.upper()
     return super(NamaOrganisasi, self).save(*args, **kwargs)
   
   def __str__(self):
@@ -82,10 +83,6 @@ class PosisiOrganisasi(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-  def save(self, *args, **kwargs):
-    self.nama_posisi = self.nama_posisi.upper()
-    return super(PosisiOrganisasi, self).save(*args, **kwargs)
 
   def __str__(self):
     return self.nama_organisasi

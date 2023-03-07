@@ -98,8 +98,8 @@ def lahanJSONObserver(request):
     log_activity(request)
   return geojsonDataObserver(request, Lahan)
 
-# View dari informasi detil orang
-@permission_required('data.view_orang')
+# View dari informasi detil lahan
+@permission_required('data.view_lahan')
 def lahanDetail(request, pk):
   if request.method == 'GET':
     log_activity(request)
