@@ -25,7 +25,7 @@ class Organisasi(models.Model):
 
 @admin.register(Organisasi)
 class OrganisasiModel(ImportExportModelAdmin):
-  list_display = ('id', 'status_data', 'updated_at', 'user')
+  list_display = ('id', 'alamat', 'get_alamat_kec', 'get_alamat_kabkot', 'status_data', 'updated_at', 'user')
   raw_id_fields = ('alamat',)
   readonly_fields = ('user',)
 
@@ -35,6 +35,16 @@ class OrganisasiModel(ImportExportModelAdmin):
   def save_model(self, request, obj, form, change): 
     obj.user = request.user
     obj.save()
+
+  def get_alamat_kec(self, obj):
+    return obj.alamat.nama_kec
+  get_alamat_kec.short_description = 'Kecamatan'
+  get_alamat_kec.admin_order_field = 'alamat__nama_kec'
+
+  def get_alamat_kabkot(self, obj):
+    return obj.alamat.nama_kec
+  get_alamat_kec.short_description = 'Kabupaten/Kota'
+  get_alamat_kec.admin_order_field = 'alamat__nama_kabkot'
 
 class NamaOrganisasi(models.Model):
   class Meta:

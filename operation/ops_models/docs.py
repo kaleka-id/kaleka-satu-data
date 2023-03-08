@@ -17,9 +17,15 @@ class Docs(models.Model):
     extension = filename.split('.')[-1]
     unique = uuid.uuid1().hex
     return f'docs/{unique}.{extension}'
+  
+  def get_filename_erd(instance, filename):
+    extension = filename.split('.')[-1]
+    unique = uuid.uuid1().hex
+    return f'docs/erd/{unique}.{extension}'
 
   judul = models.CharField(max_length=40)
   gambar = models.FileField(upload_to=get_filename)
+  er_diagram = models.FileField(upload_to=get_filename_erd, verbose_name='Entity-Relation Diagram')
   deskripsi = models.TextField()
   dictionary_data = HStoreField(blank=True, null=True, verbose_name='Dictionary')
   nama_kolom = ArrayField(models.CharField(max_length=30), null=True, blank=True, verbose_name='Urutan kolom')
