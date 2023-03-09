@@ -5,7 +5,8 @@ from django.db.models import Q
 from django.urls import path
 from django.shortcuts import render, get_object_or_404
 from operation.data_modification import geojsonData, geojsonDataObserver, addData, commentData, updateData, deleteData
-from data.dataset.lahan import Lahan, LahanLegalitas, LahanLegalitasLingkungan, LahanLegalitasSTDB
+from data.dataset.lahan import Lahan, LahanLegalitas, LahanLegalitasLingkungan, LahanLegalitasSTDB, LahanLegalitasSertifikasi
+from data.dataset.organisasi import Organisasi, NamaOrganisasi
 from leaflet.forms.widgets import LeafletWidget
 from operation.signals import log_activity
 from operation.ops_models.profiles import Profile
@@ -107,10 +108,16 @@ def lahanDetail(request, pk):
   lahan = get_object_or_404(Lahan, id=pk)
   dokling = LahanLegalitasLingkungan.objects.filter(legalitas_lahan=lahan.legalitas)
   stdb = LahanLegalitasSTDB.objects.filter(legalitas_lahan=lahan.legalitas)
+  sertifikasi = LahanLegalitasSertifikasi.objects.filter(legalitas_lahan=lahan.legalitas)
+
+  # organisasi = Organisasi.objects.filter(id__in=sertifikasi.values_list('organisasi_pendaftar'))
+  organisasi = NamaOrganisasi.objects.all()
   return render(request, 'forms/details/lahan.html', {
     'lahan': lahan,
     'dokling': dokling,
     'stdb': stdb,
+    'sertifikasi': sertifikasi,
+    'organisasi': organisasi,
   })
 
 class lahanForm(forms.ModelForm):

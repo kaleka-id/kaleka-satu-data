@@ -109,7 +109,10 @@
       </div>
     </li>
     <li>
-      <b>Dokumen STDB</b><br>
+      <b>Dokumen STDB</b>
+      {% if perms.data.add_lahanlegalitasstdb %}
+      <a href="" target="_blank"><span class="badge bg-success">Add Dokumen STDB</span></a>
+      {% endif %} <br>
       <div class="table-responsive table-scrollable">
         <table class="table table-striped">
           <thead>
@@ -156,6 +159,59 @@
         </table>
       </div>
     </li>
+    <li>
+      <b>Dokumen Sertifikasi</b>
+      {% if perms.data.add_lahanlegalitassertifikasi %}
+      <a href="" target="_blank"><span class="badge bg-success">Add Dokumen Sertifikasi</span></a>
+      {% endif %} <br>
+      <div class="table-responsive table-scrollable">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <td>No.</td>
+              <td>Organisasi Pendaftar</td>
+              <td>Nomor Dokumen</td>
+              <td>Tahun Dokumen</td>
+              <td>Status Dokumen</td>
+              <td>Status Data</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in sertifikasi %}
+            <tr>
+              <th></th>
+              {% for name in organisasi %}
+                {% if item.organisasi_pendaftar == name.organisasi%}
+                  <td>{{name}}</td>
+                {% endif %}
+              {% endfor %}
+              <td>{{item.nomor_dokumen}}</td>
+              <td>{{item.tahun_dokumen}}</td>
+              <td>{{item.status_dokumen}}</td>
+              <td>
+                {% if item.status_data == 'Updated' %}
+                <span class="badge bg-success">{{item.status_data}}</span>
+                {% elif item.status_data == 'Need Confirmation' %}
+                <span class="badge bg-warning text-dark">{{item.status_data}}</span>
+                {% else %}
+                <span class="badge bg-danger">{{item.status_data}}</span>
+                {% endif %}
+              </td>
+              <td class="text-end">
+                {% if perms.data.change_testing %}
+                <a href="" class="text-decoration-none" target="_blank">✏️</a>
+                {% endif %}
+                {% if perms.data.delete_testing %}
+                <a href="" class="text-decoration-none" target="_blank" onclick="return confirm('Are you sure you want to delete this item?');">❌</a>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </li>
   </ul>
   <p>Data ini dikelola oleh <b><i>{{lahan.user}}</i></b><br>
     <i>Status Data: </i>
@@ -186,6 +242,7 @@
 
   nomor_otomatis(0)
   nomor_otomatis(1)
+  nomor_otomatis(2)
 </script>
 
 <!-- LEAFLET SCRIPTS -->
