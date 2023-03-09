@@ -85,7 +85,7 @@ class NamaOrganisasi(models.Model):
 
 @admin.register(NamaOrganisasi)
 class NamaOrganisasiModel(ImportExportModelAdmin):
-  list_display = ('id', 'status', 'nama_organisasi', 'status_organisasi', 'nomor_notaris', 'updated_at', 'user')
+  list_display = ('nama_organisasi', 'status', 'organisasi', 'status_organisasi', 'nomor_notaris', 'updated_at', 'user')
   raw_id_fields = ('organisasi',)
   readonly_fields = ('user',)
 
