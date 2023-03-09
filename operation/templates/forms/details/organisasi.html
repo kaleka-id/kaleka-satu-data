@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Organisasi - {{nama.0}}{% endblock title %}
+{% block title %}Organisasi - {{organisasi}}{% endblock title %}
 
 {% block head %}
 <style>
@@ -13,7 +13,7 @@
 
 {% block body %}
 <div class="container page mt-4">
-  <h1>{{nama.0}}</h1>
+  <h1>{{organisasi}}</h1>
   <h6>Terakhir diupdate pada {{organisasi.updated_at}}</h6>
   <div class="mb-3">
     {% if perms.data.change_kegiatan %}

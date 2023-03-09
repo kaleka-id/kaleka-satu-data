@@ -16,6 +16,7 @@ class Organisasi(models.Model):
     ]
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+  kode = models.CharField(max_length=20, unique=True)
   alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE)
   status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')])
   keterangan = models.TextField(null=True, blank=True)
@@ -23,18 +24,29 @@ class Organisasi(models.Model):
   updated_at = models.DateTimeField(auto_now=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+  def __str__(self):
+    return self.kode
+
 @admin.register(Organisasi)
 class OrganisasiModel(ImportExportModelAdmin):
-  list_display = ('id', 'alamat', 'get_alamat_kec', 'get_alamat_kabkot', 'status_data', 'updated_at', 'user')
+  list_display = ('kode', 'alamat', 'get_alamat_kec', 'get_alamat_kabkot', 'status_data', 'updated_at', 'user')
+  ordering = ('kode',)
   raw_id_fields = ('alamat',)
-  readonly_fields = ('user',)
+  readonly_fields = ('kode', 'user')
 
   # Decrease pagination for performance in Django Admin
   list_per_page = 25
 
-  def save_model(self, request, obj, form, change): 
+  def save_model(self, request, obj, form, change):
+    kodedes = obj.alamat.kode_desa
+    count = Organisasi.objects.filter(alamat__kode_desa=kodedes).count() + 1
+    
+    print('Add:', obj._state.adding)
+    if obj._state.adding:
+      obj.kode = f'ORG-{kodedes}-{count}'
+
     obj.user = request.user
-    obj.save()
+    super().save_model(request, obj, form, change)
 
   def get_alamat_kec(self, obj):
     return obj.alamat.nama_kec
@@ -42,7 +54,7 @@ class OrganisasiModel(ImportExportModelAdmin):
   get_alamat_kec.admin_order_field = 'alamat__nama_kec'
 
   def get_alamat_kabkot(self, obj):
-    return obj.alamat.nama_kec
+    return obj.alamat.nama_kabkot
   get_alamat_kec.short_description = 'Kabupaten/Kota'
   get_alamat_kec.admin_order_field = 'alamat__nama_kabkot'
 
@@ -52,6 +64,7 @@ class NamaOrganisasi(models.Model):
     verbose_name_plural = 'Nama Organisasi'
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+  status = models.BooleanField(default=False)
   organisasi = models.ForeignKey(Organisasi, on_delete=models.CASCADE)
   nama_organisasi = models.CharField(max_length=80)
   status_organisasi = models.CharField(max_length=20, choices=[('Badan Hukum', 'Badan Hukum'), ('Non Badan Hukum', 'Non Badan Hukum'), ('Tidak diketahui', 'Tidak diketahui')])
@@ -72,7 +85,7 @@ class NamaOrganisasi(models.Model):
 
 @admin.register(NamaOrganisasi)
 class NamaOrganisasiModel(ImportExportModelAdmin):
-  list_display = ('id', 'nama_organisasi', 'status_organisasi', 'nomor_notaris', 'updated_at', 'user')
+  list_display = ('id', 'status', 'nama_organisasi', 'status_organisasi', 'nomor_notaris', 'updated_at', 'user')
   raw_id_fields = ('organisasi',)
   readonly_fields = ('user',)
 
