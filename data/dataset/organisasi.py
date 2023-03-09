@@ -55,8 +55,8 @@ class OrganisasiModel(ImportExportModelAdmin):
 
   def get_alamat_kabkot(self, obj):
     return obj.alamat.nama_kabkot
-  get_alamat_kec.short_description = 'Kabupaten/Kota'
-  get_alamat_kec.admin_order_field = 'alamat__nama_kabkot'
+  get_alamat_kabkot.short_description = 'Kabupaten/Kota'
+  get_alamat_kabkot.admin_order_field = 'alamat__nama_kabkot'
 
 class NamaOrganisasi(models.Model):
   class Meta:
