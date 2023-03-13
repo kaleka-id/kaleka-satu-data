@@ -9,11 +9,18 @@ from django_better_admin_arrayfield.models.fields import ArrayField
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 from django_admin_hstore_widget.forms import HStoreFormField
 from data.validators import file_doc
+import uuid
 
 # CATALOG MODEL
 class Catalog(models.Model):
+  def get_filename(instance, filename):
+    extension = filename.split('.')[-1]
+    unique = uuid.uuid1().hex
+    return f'catalog/img/{unique}.{extension}'
+  
   nama = models.CharField(max_length=40)
   email_maintainers = ArrayField(models.EmailField(), blank=True, null=True)
+  thumbnail = models.ImageField(upload_to=get_filename)
   bigquery_table = HStoreField(models.CharField(max_length=100), blank=True, null=True)
   google_sheets = HStoreField(models.URLField(), null=True, blank=True)
   permission_view = models.ForeignKey(to=Group, on_delete=models.CASCADE, null=True)
@@ -41,7 +48,7 @@ class CatalogModel(admin.ModelAdmin, DynamicArrayMixin):
 # CATALOG DOCUMENT MODEL
 class CatalogDocument(models.Model):
   catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE)
-  documents = models.FileField(upload_to='catalog', validators=[file_doc])
+  documents = models.FileField(upload_to='catalog/docs', validators=[file_doc])
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def filename(self):

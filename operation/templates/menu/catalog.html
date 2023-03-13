@@ -21,26 +21,23 @@
       <button class="btn btn-outline-secondary ms-2" type="submit">Search</button>
     </form>
 
-    <div class="table-responsive table-scrollable">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Catalog</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for data in dataset %}
-            {% if data.permission_view in request.user.groups.all %}
-              <tr>
-                <th scope="row"><a href="{% url 'catalog_detail' data.id %}">{{data.nama}}</a></th>
-                <th class="text-end">{{data.email_maintainer}}</th>
-              </tr>
-            {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="d-flex justify-content-center flex-wrap">
+      {% for data in dataset %}
+        {% if data.permission_view in request.user.groups.all %}
+          <div class="card text-center mx-2 my-2" style="width: 18rem;">
+            <a class="text-decoration-none text-dark" href="{{data.id}}"><img src="{{data.thumbnail.url}}" class="card-img-top" alt="{{data.nama}}"></a>
+            <div class="card-body">
+              <b class="card_text"><a class="text-decoration-none text-dark" href="{{data.id}}">{{data.nama}}</a></b><br>
+              <div class="mt-1">
+                <img src="{% static 'img/google_sheets.png' %}" alt="Sheets" height="20px"> {{data.google_sheets|length}}
+                <img src="{% static 'img/google_bigquery.png' %}" alt="BigQuery" height="20px"> {{data.bigquery_table|length}}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
+
   </div>
 
   {% include 'paginator.html' %}

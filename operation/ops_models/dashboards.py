@@ -3,12 +3,19 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django_better_admin_arrayfield.models.fields import ArrayField
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
+import uuid
 
 # DASHBOARD MODEL
 class Dashboard(models.Model):
+  def get_filename(instance, filename):
+    extension = filename.split('.')[-1]
+    unique = uuid.uuid1().hex
+    return f'dashboard/img/{unique}.{extension}'
+  
   nama = models.CharField(max_length=40)
   category = models.CharField(max_length=20, choices=[('Static CSV', 'Static CSV'), ('Google Sheets', 'Google Sheets'), ('Google BigQuery', 'Google BigQuery'), ('Amazon Redshift', 'Amazon Redshift'), ('PostgreSQL Database', 'PostgreSQL Database'), ('MySQL Database', 'MySQL Database')])
   email_maintainers = ArrayField(models.EmailField(), blank=True, null=True)
+  thumbnail = models.ImageField(upload_to=get_filename)
   nilai_refresh_data = models.PositiveSmallIntegerField()
   satuan_refresh_data = models.CharField(max_length=20, choices=[('Realtime', 'Realtime'), ('Menit', 'Menit'), ('Jam', 'Jam'), ('Hari', 'Hari'), ('Minggu', 'Minggu'), ('Bulan', 'Bulan')])
   page_url = models.CharField(max_length=80, verbose_name='Page URL Path')
