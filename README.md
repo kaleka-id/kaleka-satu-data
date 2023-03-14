@@ -11,10 +11,34 @@ Kaleka Satu Data merupakan portal pengelolaan dan manajemen data yang berkaitan 
   <li><b><a href="https://leafletjs.com/">Leaflet</a>:</b> Leaflet merupakan library JavaScripy yang berguna untuk menampilkan data spasial secara interaktif di sebuah web. Library ini digunakan untuk input dan menampilkan data spasial.</li>
   <li><b><a href="https://getbootstrap.com/">Bootstrap</a>:</b> Bootstrap adalah library javaScript untuk menghasilkan UI yang menarik dalam sebuah kerangka website.</li>
   <li><b><a href="https://datastudio.google.com/">Google Looker Data Studio</a>:</b> Google Looker Data Studio adalah perangkat untuk membuat dashboard dan visualisasi data. Kerangka ini digunakan untuk menghasilkan tampilan visualisasi data yang interaktif dan mudah dipahami oleh pengguna.</li>
-  <li><b><a href="https://cloud.google.com/">Google Cloud</a>:</b> Layanan pengelolaan data pada aplikasi ini menggunakan teknologi Google Cloud dengan menggunakan berbagai layanan penunjang pengolahan data seperti Google Dataflow, Apache Beam, Google Composer, Apache Airflow dan Google BigQuery.</li>
+  <li><b><a href="https://cloud.google.com/">Google Cloud</a>:</b> Layanan pengelolaan data pada aplikasi ini menggunakan teknologi Google Cloud dengan menggunakan berbagai layanan penunjang pengolahan data seperti Google Dataflow, Apache Beam dan Google BigQuery.</li>
 </ul>
 
 ### Contributors and maintainers
 <ol>
-  <li><b>Ahmad Zaenun Faiz</b>: <i>Data Engineer</i> | Yayasan Penelitian Kaleka Indonesia</li>
+  <li>
+    <b>Cokorda Gde Wisnu Wiratama</b>: 
+    <i>Data & System Coordinator</i> | Yayasan Penelitian Kaleka Indonesia. <br>
+    <a href="mailto:cwiratama@kaleka.id"><img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" height="20px"></a>
+    <a href="https://github.com/wiratamaru"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" height="20px"></a>
+  </li>
+  <li>
+    <b>Ahmad Zaenun Faiz</b>: 
+    <i>Data Engineer</i> | Yayasan Penelitian Kaleka Indonesia. <br>
+    <a href="mailto:afaiz@kaleka.id"><img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" height="20px"></a>
+    <a href="https://github.com/ahmadzfaiz"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" height="20px"></a>
+    <a href="https://www.linkedin.com/in/ahmad-zaenun-faiz/"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" height="20px"></a>
+  </li>
+  <li>
+    <b>Rizka Iwanda</b>: 
+    <i>GIS Assistant</i> | Yayasan Penelitian Kaleka Indonesia. <br>
+    <a href="mailto:riwanda@kaleka.id"><img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" height="20px"></a>
+  </li>
+  <li>
+    <b>Ika Riyani Permanasari</b>: 
+    <i>Data Administration Assistant</i> | Yayasan Penelitian Kaleka Indonesia. <br>
+    <a href="mailto:ipermanasari@kaleka.id"><img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" height="20px"></a>
+    <a href="https://github.com/ikariyani"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" height="20px"></a>
+    <a href="https://www.linkedin.com/in/ikariyanip/"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" height="20px"></a>
+  </li>
 </ol>

@@ -4,6 +4,7 @@ import uuid
 from django.contrib.auth.models import User 
 from django.utils.safestring import mark_safe
 from data.dataset.orang import Orang
+from data.dataset.alamat import Alamat
 from import_export.admin import ImportExportModelAdmin
 
 # 🚨KEGIATAN🚨
@@ -17,6 +18,7 @@ class Kegiatan(models.Model):
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
   nama = models.CharField(max_length=200, verbose_name='Nama Kegiatan')
+  alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE, null=True, blank=True)
   tanggal_mulai = models.DateField(verbose_name='Tanggal Mulai Kegiatan')
   tanggal_selesai = models.DateField(verbose_name='Tanggal Selesai Kegiatan')
   status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')], default='Need Confirmation')
