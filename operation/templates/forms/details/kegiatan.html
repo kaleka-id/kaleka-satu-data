@@ -35,6 +35,7 @@
   <ul>
     <li><b>Nama Kegiatan:</b> {{kegiatan.nama}}</li>
     <li><b>Tanggal Pelaksanaan:</b> {{kegiatan.tanggal_mulai}} - {{kegiatan.tanggal_selesai}}</li>
+    <li><b>Alamat:</b> {{kegiatan.alamat.nama_desa|title}}, {{kegiatan.alamat.nama_kec|title}}, {{kegiatan.alamat.nama_kabkot|title}}, {{kegiatan.alamat.nama_prov|title}}</li>
     <li><b>Daftar Peserta</b> 
       {% if perms.data.add_pesertakegiatan %}
       <a href="{% url 'peserta_kegiatan_form_add' %}" target="_blank"><span class="badge bg-success">Add Peserta</span></a>
