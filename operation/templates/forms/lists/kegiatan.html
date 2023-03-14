@@ -41,7 +41,7 @@
           <th scope="col">ID</th>
           <th scope="col">Nama Kegiatan</th>
           <th scope="col">Tanggal Pelaksanaan</th>
-          <th scope="col">Alamat</th>
+          <th scope="col">Lokasi Pelaksanaan</th>
           <th scope="col">Update Terakhir</th>
           <th scope="col"></th>
         </tr>
@@ -52,7 +52,7 @@
             <th scope="row"></th>
             <td><a href="{% url 'kegiatan_detail' data.id %}">{{data.nama}}</a></td>
             <td>{{data.tanggal_mulai}} - {{data.tanggal_selesai}}</td>
-            <td>{{kegiatan.alamat.nama_desa|title}}, {{kegiatan.alamat.nama_kec|title}}, {{kegiatan.alamat.nama_kabkot|title}}, {{kegiatan.alamat.nama_prov|title}}</td>
+            <td>{{data.alamat.nama_desa|title}}, {{data.alamat.nama_kec|title}}, {{data.alamat.nama_kabkot|title}}, {{data.alamat.nama_prov|title}}</td>
             <td>{{data.updated_at}}</td>
             <td class="text-end">
               {% if perms.data.change_kegiatan %}
