@@ -101,8 +101,9 @@ def kegiatanDetail(request, pk):
 class kegiatanForm(forms.ModelForm):
   class Meta:
     model = Kegiatan
-    fields = ('nama', 'tanggal_mulai', 'tanggal_selesai', 'status_data', 'keterangan')
+    fields = ('nama', 'alamat', 'tanggal_mulai', 'tanggal_selesai', 'status_data', 'keterangan')
     widgets = {
+      'alamat': forms.TextInput(),
       'tanggal_mulai': forms.DateInput(attrs={'type': 'date'}),
       'tanggal_selesai': forms.DateInput(attrs={'type': 'date'}),
     }

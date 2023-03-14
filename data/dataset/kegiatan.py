@@ -18,7 +18,7 @@ class Kegiatan(models.Model):
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
   nama = models.CharField(max_length=200, verbose_name='Nama Kegiatan')
-  alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE, null=True, blank=True)
+  alamat = models.ForeignKey(Alamat, on_delete=models.CASCADE, null=True, blank=True, help_text=mark_safe('Gunakan tabel <a target="blank" href="/dict/alamat/">Alamat</a> sebagai referensi untuk mengisi bagian ini'))
   tanggal_mulai = models.DateField(verbose_name='Tanggal Mulai Kegiatan')
   tanggal_selesai = models.DateField(verbose_name='Tanggal Selesai Kegiatan')
   status_data = models.CharField(max_length=20, choices=[('Updated', 'Updated'), ('Need Confirmation', 'Need Confirmation'), ('Not Valid', 'Not Valid')], default='Need Confirmation')
@@ -34,6 +34,7 @@ class Kegiatan(models.Model):
 class KegiatanModel(ImportExportModelAdmin):
   search_fields = ('nama',)
   ordering = ('nama',)
+  raw_id_fields = ('alamat',)
   list_filter = ('tanggal_mulai', 'tanggal_selesai', 'created_at', 'updated_at', 'user')
   list_display = ('id', 'nama', 'tanggal_mulai', 'tanggal_selesai', 'updated_at', 'user')
   list_per_page = 25
