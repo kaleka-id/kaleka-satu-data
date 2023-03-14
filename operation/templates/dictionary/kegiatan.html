@@ -31,6 +31,7 @@
     <div class="card-body">
       <ul>
         <li>Tanggal Pelaksanaan: <b>{{data.tanggal_mulai}}</b> - <b>{{data.tanggal_selesai}}</b></li>
+        <li>Lokasi Pelaksanaan: {{data.alamat.nama_desa|title}}, {{data.alamat.nama_kec|title}}, {{data.alamat.nama_kabkot|title}}, {{data.alamat.nama_prov|title}}</li>
       </ul>
       <button class="btn btn-secondary copy-button" data-url="{{data.id}}">Salin Referensi</button>
     </div>
