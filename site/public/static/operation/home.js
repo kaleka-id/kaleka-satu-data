@@ -11,7 +11,7 @@ function getUrlParameter(params){
   };
 };
 
-fetch('/media/testing.json').then((response)=> response.json()).then(
+fetch('/static/operation/testing.json').then((response)=> response.json()).then(
   function(json){
     const listTags = [];
     

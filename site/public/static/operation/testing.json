@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "judul": "Petani Sertifikasi",
+    "nilai": 200,
+    "satuan": "ha",
+    "tags": ["Total", "RSPO"]
+  },
+  {
+    "id": 2,
+    "judul": "Petani Sertifikasi",
+    "nilai": 50,
+    "satuan": "ha",
+    "tags": ["Kotawaringin Barat", "RSPO"]
+  },
+  {
+    "id": 3,
+    "judul": "Petani Sertifikasi",
+    "nilai": 150,
+    "satuan": "ha",
+    "tags": ["Seruyan", "RSPO"]
+  },
+  {
+    "id": 4,
+    "judul": "Peserta Kegiatan",
+    "nilai": 100,
+    "satuan": "petani",
+    "tags": ["Total", "Konservasi", "Pelatihan"]
+  },
+  {
+    "id": 5,
+    "judul": "Peserta Kegiatan",
+    "nilai": 30,
+    "satuan": "petani",
+    "tags": ["Kotawaringin Barat", "Konservasi", "Pelatihan"]
+  },
+  {
+    "id": 6,
+    "judul": "Peserta Kegiatan",
+    "nilai": 70,
+    "satuan": "petani",
+    "tags": ["Seruyan", "Konservasi", "Pelatihan"]
+  }
+]
