@@ -9,9 +9,9 @@
         font-size: 28;
     }
 
-    .home {
+    /* .home {
         font-family: 'Courier New', Courier, monospace;
-    }
+    } */
 </style>
 {% endblock head %}
 
@@ -37,33 +37,9 @@
                 </div>
             </ul>
         </div>
-
-        <script>
-            function filterTag() {
-  // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
-  input = document.getElementById('tag-input');
-  filter = input.value.toUpperCase();
-  ul = document.getElementById('tags');
-  li = ul.getElementsByTagName('li');
-
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < li.length; i++) {
-    a = li[i].getElementsByTagName("text")[0];
-    txtValue = a.textContent || a.innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      li[i].style.display = "";
-    } else {
-      li[i].style.display = "none";
-    }
-  }
-}
-        </script>
     </div>
     
     <div id="data" class="d-flex justify-content-center flex-wrap text-center"></div>
-
-    <script src="/media/testing.js"></script>
 
     <!-- <div class="text-center">
         <img src="{% static 'bootstrap/image/kaleka_data.svg' %}" height="100px">
@@ -91,4 +67,7 @@
     <p><b>Developed by Data and System Development - Program Team</b></p>
     <p>Informasi lebih lanjut silakan kontak ke Faiz. E-mail: <a href="mailto: afaiz@kaleka.id" class="text-white text-decoration-underline">afaiz@kaleka.id</a></p> -->
 </div>
+
+<script src="{% static 'operation/home.js' %}"></script>
+
 {% endblock body %}
