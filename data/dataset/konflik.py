@@ -53,6 +53,7 @@ class KonflikDetail(models.Model):
     verbose_name_plural = 'Konflik - Detail'
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+  konflik = models.OneToOneField(Konflik, on_delete=models.CASCADE)
   status_lahan = models.CharField(max_length=20)
   alasan_hak = models.CharField(max_length=20)
   alasan_konflik = models.TextField()
@@ -85,6 +86,7 @@ class KonflikPelapor(models.Model):
     verbose_name_plural = 'Konflik - Pelapor'
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+  konflik = models.OneToOneField(Konflik, on_delete=models.CASCADE)
   status = models.CharField(max_length=20, choices=[('Individu', 'Individu'), ('Kelompok', 'Kelompok')])
   pelapor_individu = models.ForeignKey(Orang, on_delete=models.CASCADE, null=True, blank=True, help_text=mark_safe('Diisi jika statusnya <b>Individu</b>'))
   pelapor_kelompok = models.ForeignKey(Organisasi, on_delete=models.CASCADE, null=True, blank=True, help_text=mark_safe('Diisi jika statusnya <b>Kelompok</b>'))
@@ -111,6 +113,7 @@ class KonflikTerlapor(models.Model):
     verbose_name_plural = 'Konflik - Terlapor'
 
   id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+  konflik = models.OneToOneField(Konflik, on_delete=models.CASCADE)
   status = models.CharField(max_length=20, choices=[('Individu', 'Individu'), ('Kelompok', 'Kelompok')])
   terlapor_individu = models.ForeignKey(Orang, on_delete=models.CASCADE, null=True, blank=True, help_text=mark_safe('Diisi jika statusnya <b>Individu</b>'))
   terlapor_kelompok = models.ForeignKey(Organisasi, on_delete=models.CASCADE, null=True, blank=True, help_text=mark_safe('Diisi jika statusnya <b>Kelompok</b>'))
