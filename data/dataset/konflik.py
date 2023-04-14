@@ -100,6 +100,7 @@ class KonflikPelapor(models.Model):
 
 @admin.register(KonflikPelapor)
 class KonflikPelaporModel(ImportExportModelAdmin):
+  raw_id_fields = ('pelapor_individu', 'pelapor_kelompok')
   list_per_page = 25
 
   def save_model(self, request, obj, form, change): 
@@ -126,6 +127,7 @@ class KonflikTerlapor(models.Model):
 
 @admin.register(KonflikTerlapor)
 class KonflikTerlaporModel(ImportExportModelAdmin):
+  raw_id_fields = ('terlapor_individu', 'terlapor_kelompok')
   list_per_page = 25
 
   def save_model(self, request, obj, form, change): 
