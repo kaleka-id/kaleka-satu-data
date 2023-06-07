@@ -125,8 +125,6 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -142,6 +140,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Login authentication
+AUTHENTICATION_BACKENDS = ['satudata_project.authentications.EmailBackend']
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -178,8 +178,6 @@ EMAIL_HOST_USER = email_user
 EMAIL_HOST_PASSWORD = email_password
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Django Admin Interface
