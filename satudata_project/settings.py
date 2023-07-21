@@ -192,7 +192,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 if os.name == 'nt':
     OSGEO4W = r"C:\OSGeo4W"
     assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
-    GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal306.dll'
+    GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal307.dll'
     os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
 
 # LEAFLET

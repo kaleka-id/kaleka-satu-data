@@ -1,3 +1,4 @@
 satudata_project/secret.py
 *.pyc
 site/public/media/
+site/public/static/
