@@ -162,9 +162,10 @@ LOGOUT_URL = 'logout'
 STATIC_URL = 'static/'
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'site/public/static')
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'site/public/static/'),
-)
+else:
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'site/public/static/'),
+    )
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'site/public/media')
